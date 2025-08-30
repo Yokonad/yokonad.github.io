@@ -140,15 +140,35 @@ main {
     align-items: center;
     justify-content: center;
     width: 320px;
+    position: relative;
+    isolation: isolate; /* asegura que los brillos queden detrás del avatar */
+    overflow: visible;
 }
+
+.github-profile::before,
+.github-profile::after {
+    content: '';
+    position: absolute;
+    top: 6%;
+    bottom: 6%;
+    width: 36px;
+    z-index: 0;
+    filter: blur(12px);
+    opacity: 0.55;
+    background: radial-gradient(ellipse at center, rgba(126,214,122,0.35) 0%, rgba(126,214,122,0) 70%);
+    pointer-events: none;
+}
+
+.github-profile::before { left: -18px; }
+.github-profile::after { right: -18px; }
 
 .github-avatar {
     width: 320px;
     height: 320px;
     border: none;
-    border-radius: 0;
+    border-radius: 14px;  /* bordes redondeados */
     object-fit: cover;
-    box-shadow: none;
+    box-shadow: 0 0 26px rgba(126,214,122,0.10); /* halo muy sutil */
 }
 
 .github-link {
@@ -193,6 +213,14 @@ section:hover {
 
 .projects-section {
     grid-column: 1 / -1;
+    background: rgba(33, 38, 45, 0.8);
+    border-radius: 12px;
+    border: 1px solid #30363d;
+    transition: background 0.3s ease;
+}
+
+.projects-section:hover {
+    background: transparent;
 }
 
 h2 {
@@ -274,19 +302,52 @@ button:hover {
 }
 
 .project-card {
-    background: #0c0c0c;
+    /* Fondo gris tipo botones */
+    background: linear-gradient(145deg, #161b22, #21262d);
     border-radius: 12px;
     overflow: hidden;
-    border: 1px solid #30363d;
+    border: 2px solid #30363d;
     transition: all 0.3s ease;
     box-shadow: 0 6px 20px rgba(0,0,0,0.35);
     position: relative;
 }
 
+/* Brillo neutro (gris) deslizante como en botones, sin verde */
+.project-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    transition: left 0.5s ease;
+}
+
+.project-card:hover::before {
+    left: 100%;
+}
+
 .project-card:hover {
-    border-color: rgba(255, 255, 255, 0.3);
+    /* Tonos grises más claros al hover, sin cambiar a verde */
+    background: linear-gradient(145deg, #1a1f26, #252b33);
+    border-color: #3a3f46;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(255, 255, 255, 0.005);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+}
+
+.project-card::before {
+    background: linear-gradient(90deg, transparent, rgba(126, 214, 122, 0.18), transparent);
+}
+.project-card:hover {
+    background: linear-gradient(145deg, #0e1014, #161b22);
+    border-color: #7ed67a;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(126, 214, 122, 0.25);
+}
+.project-card:hover h4 {
+    color: #7ed67a;
+    text-shadow: 0 0 8px rgba(126, 214, 122, 0.6);
 }
 
 .project-image-link {
@@ -301,14 +362,12 @@ button:hover {
     object-fit: cover;
     background: #0d1117;
     opacity: 0.9;
+    transition: all 0.3s ease;
 }
 
 .project-card:hover img {
     opacity: 1;
-}
-
-.project-image-link::after {
-    display: none;
+    filter: brightness(1.1);
 }
 
 .project-card h4 {
@@ -318,6 +377,8 @@ button:hover {
     font-size: 1.3em;
     font-weight: 600;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 .project-card p {
@@ -329,6 +390,8 @@ button:hover {
     padding: 0;
     background: none;
     border: none;
+    transition: all 0.3s ease;
+    position: relative;
 }
 
 /* Eliminar estilos de terminal y botones */
@@ -358,6 +421,76 @@ header > *:not(h1) {
     display: none !important;
 }
 
+.navigation-section {
+    margin: 3em 0;
+    padding: 2em;
+    background: rgba(33, 38, 45, 0.8);
+    border-radius: 12px;
+    border: 1px solid #30363d;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1.5em;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1em 2em;
+    background: linear-gradient(145deg, #161b22, #21262d);
+    border: 2px solid #30363d;
+    border-radius: 8px;
+    color: #ffffff;
+    text-decoration: none;
+    font-family: 'Ubuntu Mono', monospace;
+    font-size: 1em;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    min-width: 200px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.nav-btn::before {
+    /* Brillo verde deslizante */
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(126, 214, 122, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.nav-btn:hover::before {
+    left: 100%;
+}
+
+.nav-btn:hover {
+    background: linear-gradient(145deg, #1a1f26, #252b33);
+    border-color: #7ed67a;
+    color: #7ed67a;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(126, 214, 122, 0.25);
+}
+
+.nav-btn span {
+    position: relative;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover span {
+    text-shadow: 0 0 8px rgba(126, 214, 122, 0.6);
+}
+
 @media (max-width: 768px) {
     header {
         padding: 0.8em 1em;
@@ -381,6 +514,16 @@ header > *:not(h1) {
         height: auto;
         max-height: 320px;
     }
+    .nav-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .nav-btn {
+        min-width: 280px;
+        width: 100%;
+        max-width: 350px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -395,101 +538,9 @@ header > *:not(h1) {
         width: 220px;
         height: 220px;
     }
-
-
-@media (max-width: 480px) {
-    .terminal-intro {
+    .nav-btn {
+        padding: 0.8em 1.5em;
         font-size: 0.9em;
+        min-width: unset;
     }
-    .terminal-content {
-        font-size: 12px;
-        padding: 0.75rem 1rem;
-    }
-    .github-avatar {
-        width: 220px;
-        height: 220px;
-    }
-}
-
-@media (max-width: 480px) {
-    .terminal-intro {
-        font-size: 0.9em;
-    }
-    
-    .terminal-content {
-        font-size: 12px;
-        padding: 0.75rem 1rem;
-    }
-    
-    .github-avatar {
-        width: 220px;
-        height: 220px;
-    }
-}
-    
-    .tech-list {
-        grid-template-columns: 1fr;
-    }
-    
-    header h1 {
-        font-size: 1.8em;
-    }
-
-
-@media (max-width: 480px) {
-    .terminal-intro {
-        padding: 1em;
-        font-size: 0.9em;
-    }
-    
-    .github-avatar {
-        width: 220px;
-        height: 220px;
-    }
-    
-    .github-avatar {
-        width: 220px;
-        height: 220px;
-    }
-}
-    .terminal-intro {
-        font-size: 0.9em;
-    }
-    
-    .terminal-content {
-        font-size: 12px;
-        padding: 0.75rem 1rem;
-    }
-    
-    .github-avatar {
-        width: 220px;
-        height: 220px;
-    }
-
-    
-    .tech-list {
-        grid-template-columns: 1fr;
-    }
-    
-    header h1 {
-        font-size: 1.8em;
-    }
-
-
-@media (max-width: 480px) {
-    .terminal-intro {
-        padding: 1em;
-        font-size: 0.9em;
-    }
-    
-    .github-avatar {
-        width: 220px;
-        height: 220px;
-    }
-}
-    .github-avatar {
-        width: 220px;
-        height: 220px;
-    }
-
 }
