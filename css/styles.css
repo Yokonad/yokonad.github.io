@@ -491,6 +491,75 @@ header > *:not(h1) {
     text-shadow: 0 0 8px rgba(126, 214, 122, 0.6);
 }
 
+.section-icon {
+    display: inline-flex;
+    vertical-align: middle;
+    margin-right: 8px;
+    line-height: 0;
+}
+.section-icon svg {
+    display: block;
+    width: 24px;
+    height: 24px;
+}
+/* Asegura que el >_ del SVG use el color verde característico */
+.section-icon svg text {
+    fill: #00ff41;
+}
+
+.experimental-title {
+	/* Forzar alineación a la izquierda y ocupar todo el ancho del contenedor */
+	display: flex !important;
+	align-items: center !important;
+	text-align: left !important;
+	justify-content: flex-start !important;
+	margin: 0 0 12px 0 !important;
+	width: 100% !important;
+	gap: 10px !important;
+	padding-left: 0 !important; /* Eliminar padding izquierdo */
+}
+
+/* Ocultar el ícono de GitHub por defecto para ByteWave */
+.experimental-title::before {
+	display: none !important;
+}
+
+.bytewave-icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 32px;
+	height: 32px;
+}
+
+.bytewave-icon img {
+	width: 100%;
+	height: 100%;
+	object-fit: contain;
+	filter: brightness(0.9);
+	transition: all 0.3s ease;
+}
+
+.experimental-title:hover .bytewave-icon img {
+	filter: brightness(1.1);
+	transform: scale(1.05);
+}
+
+.bytewave-description {
+    color: #6e7681 !important;
+    font-size: 1.1em !important; /* Cambiado de 1.1em a 0.95em */
+    font-weight: 500 !important;
+    line-height: 1.6 !important;
+    margin-bottom: 2rem !important;
+    font-family: 'Ubuntu Mono', monospace !important; /* Agregada la misma tipografía */
+}
+
+@media (max-width: 600px) {
+	.experimental-title {
+		font-size: 1rem;
+	}
+}
+
 @media (max-width: 768px) {
     header {
         padding: 0.8em 1em;
@@ -543,4 +612,209 @@ header > *:not(h1) {
         font-size: 0.9em;
         min-width: unset;
     }
+}
+
+/* Oculta cualquier icono de GitHub añadido junto al título de la sección experimental */
+#experimental h2 .github-icon,
+#experimental h2::before,
+#experimental h2::after,
+#experimental h2 a.github-link {
+    display: none !important;
+    background: none !important;
+    content: none !important;
+}
+
+/* Estilos específicos para las tarjetas de equipo - diseño diferente */
+.team-member-redesign {
+    background: linear-gradient(135deg, #1a1f26, #252b33) !important;
+    border: 1px solid #3a3f46 !important;
+    border-radius: 16px !important;
+    padding: 2rem !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    text-align: center !important;
+    position: relative !important;
+    transition: all 0.4s ease !important;
+    min-height: 400px !important;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+    overflow: hidden !important;
+}
+
+/* Agregar efectos de estela específicos para cada miembro */
+.team-member-redesign::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+    z-index: 1;
+}
+
+.team-member-redesign:hover::before {
+    left: 100%;
+}
+
+/* Yokonad - Estela lila */
+.team-member-redesign:nth-child(1)::before {
+    background: linear-gradient(90deg, transparent, rgba(157, 78, 221, 0.15), transparent);
+}
+
+/* LoonBac21 - Estela roja */
+.team-member-redesign:nth-child(2)::before {
+    background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.15), transparent);
+}
+
+/* Insent1208 - Estela azul */
+.team-member-redesign:nth-child(3)::before {
+    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.15), transparent);
+}
+
+/* Asegurar que el contenido esté por encima de la estela */
+.profile-square,
+.member-info-center {
+    position: relative;
+    z-index: 2;
+}
+
+.member-info-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.75rem;
+    width: 100%;
+}
+
+.member-info-center h4 {
+    color: #ffffff !important;
+    font-family: 'Ubuntu', sans-serif !important;
+    font-size: 1.4rem !important;
+    font-weight: 600 !important;
+    margin: 0 !important;
+    text-shadow: none !important;
+    transition: all 0.3s ease !important;
+}
+
+.team-member-redesign:hover .member-info-center h4 {
+    color: #ffffff !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.25) !important;
+}
+
+.member-role-center {
+    color: #ffffff !important; /* Cambiado de #58a6ff a #ffffff */
+    font-family: 'Ubuntu Mono', monospace !important;
+    font-size: 0.85rem !important;
+    font-weight: 500 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    padding: 0.25rem 0.75rem !important;
+    background: rgba(255, 255, 255, 0.1) !important; /* Cambiado de rgba(88, 166, 255, 0.1) */
+    border-radius: 20px !important;
+    border: 1px solid rgba(255, 255, 255, 0.3) !important; /* Cambiado de rgba(88, 166, 255, 0.3) */
+    transition: all 0.3s ease !important;
+}
+
+.team-member-redesign:hover .member-role-center {
+    background: rgba(255, 255, 255, 0.2) !important; /* Cambiado de rgba(88, 166, 255, 0.2) */
+    border-color: #ffffff !important; /* Cambiado de #58a6ff */
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.3) !important; /* Cambiado de rgba(88, 166, 255, 0.3) */
+}
+
+.member-description {
+    color: #8b949e !important;
+    font-family: 'Ubuntu', sans-serif !important;
+    font-size: 0.9rem !important;
+    line-height: 1.5 !important;
+    text-align: center !important;
+    margin: 0.5rem 0 !important;
+    max-width: 250px !important;
+}
+
+.tech-badges-center {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 0.5rem !important;
+    justify-content: center !important;
+    margin-top: 1rem !important;
+}
+
+.tech-badges-center .tech-badge {
+    background: linear-gradient(45deg, #21262d, #30363d) !important;
+    color: #ffffff !important;
+    padding: 0.3rem 0.75rem !important;
+    border-radius: 6px !important;
+    font-family: 'Ubuntu Mono', monospace !important;
+    font-size: 0.75rem !important;
+    font-weight: 500 !important;
+    border: 1px solid #3a3f46 !important;
+    transition: all 0.3s ease !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+}
+
+.team-member-redesign:hover .tech-badge {
+    background: linear-gradient(45deg, #0f1419, #1a1f26) !important;
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.12) !important;
+}
+
+/* Asegurar que el grid de ByteWave Code tenga espaciado adecuado */
+#experimental .projects-grid {
+    gap: 2.5rem !important;
+    margin-top: 2rem !important;
+}
+
+/* Eliminar hovers de colores específicos y aplicar solo al borde principal */
+.team-member-redesign:nth-child(1):hover {
+    border-color: #9d4edd !important; /* Solo borde lila para Yokonad */
+    box-shadow: 0 12px 40px rgba(255, 255, 255, 0.08) !important;
+}
+
+.team-member-redesign:nth-child(2):hover {
+    border-color: #e74c3c !important; /* Solo borde rojo para LoonBac21 */
+    box-shadow: 0 12px 40px rgba(255, 255, 255, 0.08) !important;
+}
+
+.team-member-redesign:nth-child(3):hover {
+    border-color: #3498db !important; /* Solo borde azul para Insent1208 */
+    box-shadow: 0 12px 40px rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Eliminar todos los estilos de borde para las fotos */
+.team-member-redesign:hover .profile-square {
+    border: none !important; /* Sin borde en hover */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15) !important;
+}
+
+.profile-square {
+    width: 190px;
+    height: 188px;
+    border-radius: 30px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border: none !important; /* Eliminado el borde */
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+/* Mantener sin borde las fotos en el hover */
+.team-member-redesign:hover .profile-square {
+    border: none !important; /* Sin borde en hover */
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Mantener texto y badges en blanco para todos */
+.team-member-redesign:hover .member-info-center h4 {
+    color: #ffffff !important;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.25) !important;
+}
+
+.team-member-redesign:hover .tech-badge {
+    border-color: #ffffff !important;
+    color: #ffffff !important;
+    box-shadow: 0 0 6px rgba(255, 255, 255, 0.12) !important;
 }
