@@ -320,7 +320,7 @@ button:hover {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.027), transparent); /* Reducido de 0.05 a 0.027 */
     transition: left 0.5s ease;
 }
 
@@ -337,17 +337,17 @@ button:hover {
 }
 
 .project-card::before {
-    background: linear-gradient(90deg, transparent, rgba(126, 214, 122, 0.18), transparent);
+    background: linear-gradient(90deg, transparent, rgba(126, 214, 122, 0.065), transparent); /* Reducido de 0.12 a 0.065 */
 }
 .project-card:hover {
     background: linear-gradient(145deg, #0e1014, #161b22);
     border-color: #7ed67a;
     transform: translateY(-2px);
-    box-shadow: 0 8px 25px rgba(126, 214, 122, 0.25);
+    box-shadow: 0 8px 25px rgba(126, 214, 122, 0.14); /* Reducido de 0.25 a 0.14 */
 }
 .project-card:hover h4 {
     color: #7ed67a;
-    text-shadow: 0 0 8px rgba(126, 214, 122, 0.6);
+    text-shadow: 0 0 8px rgba(126, 214, 122, 0.33); /* Reducido de 0.6 a 0.33 */
 }
 
 .project-image-link {
@@ -465,7 +465,7 @@ header > *:not(h1) {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(126, 214, 122, 0.2), transparent);
+    background: linear-gradient(90deg, transparent, rgba(126, 214, 122, 0.11), transparent); /* Reducido de 0.2 a 0.11 */
     transition: left 0.5s ease;
 }
 
@@ -478,7 +478,7 @@ header > *:not(h1) {
     border-color: #7ed67a;
     color: #7ed67a;
     transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(126, 214, 122, 0.25);
+    box-shadow: 0 6px 20px rgba(126, 214, 122, 0.14); /* Reducido de 0.25 a 0.14 */
 }
 
 .nav-btn span {
@@ -488,7 +488,7 @@ header > *:not(h1) {
 }
 
 .nav-btn:hover span {
-    text-shadow: 0 0 8px rgba(126, 214, 122, 0.6);
+    text-shadow: 0 0 8px rgba(126, 214, 122, 0.33); /* Reducido de 0.6 a 0.33 */
 }
 
 .section-icon {
@@ -502,7 +502,7 @@ header > *:not(h1) {
     width: 24px;
     height: 24px;
 }
-/* Asegura que el >_ del SVG use el color verde característico */
+ /* Asegura que el >_ del SVG use el color verde característico */
 .section-icon svg text {
     fill: #00ff41;
 }
@@ -649,7 +649,7 @@ header > *:not(h1) {
     left: -100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.035), transparent); /* Reducido de 0.065 a 0.035 */
     transition: left 0.6s ease;
     z-index: 1;
 }
@@ -660,17 +660,17 @@ header > *:not(h1) {
 
 /* Yokonad - Estela lila */
 .team-member-redesign:nth-child(1)::before {
-    background: linear-gradient(90deg, transparent, rgba(157, 78, 221, 0.15), transparent);
+    background: linear-gradient(90deg, transparent, rgba(157, 78, 221, 0.054), transparent); /* Reducido de 0.10 a 0.054 */
 }
 
 /* LoonBac21 - Estela roja */
 .team-member-redesign:nth-child(2)::before {
-    background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.15), transparent);
+    background: linear-gradient(90deg, transparent, rgba(231, 76, 60, 0.054), transparent); /* Reducido de 0.10 a 0.054 */
 }
 
 /* Insent1208 - Estela azul */
 .team-member-redesign:nth-child(3)::before {
-    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.15), transparent);
+    background: linear-gradient(90deg, transparent, rgba(52, 152, 219, 0.054), transparent); /* Reducido de 0.10 a 0.054 */
 }
 
 /* Asegurar que el contenido esté por encima de la estela */
