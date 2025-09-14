@@ -6,7 +6,7 @@ class MatrixRain {
         
         this.container.appendChild(this.canvas);
         
-        this.chars = 'アイウエオカキクケコサシスセソタチツテトナニヌネノハヒフヘホマミムメモヤユヨラリルレロワヲン';
+        this.chars = 'ls cd pwd mkdir rm -r cp mv cat nano vim chmod camila ps aux top htop dir cd cls mkdir rmdir /s copy move tasklist taskkill /PID ipconfig ping netstat -ano ping tracert traceroute nslookup dig arp -a ifconfig ip addr iwconfig netsh wlan show profiles curl wget ssh ftp';
         this.matrix = [];
         
         // Control de caída:
