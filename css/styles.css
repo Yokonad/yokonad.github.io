@@ -818,3 +818,12 @@ header > *:not(h1) {
     color: #ffffff !important;
     box-shadow: 0 0 6px rgba(255, 255, 255, 0.12) !important;
 }
+
+/* Cambiar el borde hover de la tarjeta Notion de verde a negro */
+.notion-cover:hover {
+    border-color: #000 !important;
+}
+
+.notion-link:hover {
+    border-color: #000 !important;
+}
