@@ -3,18 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Personal - Yokonad</title>
+    <title>YOKONAD.EXE :: CYBER SPACE 1999</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
+    <!-- Starfield Background -->
+    <div class="starfield"></div>
+    <div class="scanlines"></div>
+    
+    <!-- ASCII Art Header -->
+    <div class="ascii-banner">
+        <pre>
+╔═══════════════════════════════════════════════════════════════╗
+║  ██╗   ██╗ ██████╗ ██╗  ██╗ ██████╗ ███╗   ██╗ █████╗ ██████╗ ║
+║  ╚██╗ ██╔╝██╔═══██╗██║ ██╔╝██╔═══██╗████╗  ██║██╔══██╗██╔══██╗║
+║   ╚████╔╝ ██║   ██║█████╔╝ ██║   ██║██╔██╗ ██║███████║██║  ██║║
+║    ╚██╔╝  ██║   ██║██╔═██╗ ██║   ██║██║╚██╗██║██╔══██║██║  ██║║
+║     ██║   ╚██████╔╝██║  ██╗╚██████╔╝██║ ╚████║██║  ██║██████╔╝║
+║     ╚═╝    ╚═════╝ ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚═╝  ╚═╝╚═════╝ ║
+╚═══════════════════════════════════════════════════════════════╝
+        </pre>
+    </div>
+
     <header>
+        <div class="terminal-header">
+            <span class="blink">█</span> SISTEMA_YOKONAD.SYS :: CONECTADO <span class="blink">█</span>
+        </div>
         <nav>
             <ul>
-                <li><a href="#inicio">Inicio</a></li>
-                <li><a href="#sobre-mi">Sobre Mí</a></li>
-                <li><a href="#habilidades">Habilidades</a></li>
-                <li><a href="#proyectos">Proyectos</a></li>
-                <li><a href="#contacto">Contacto</a></li>
+                <li><a href="#inicio">[INICIO.EXE]</a></li>
+                <li><a href="#sobre-mi">[BIO.DAT]</a></li>
+                <li><a href="#habilidades">[SKILLS.SYS]</a></li>
+                <li><a href="#proyectos">[PROJECTS.DIR]</a></li>
+                <li><a href="#contacto">[CONNECT.COM]</a></li>
             </ul>
         </nav>
     </header>
@@ -22,22 +43,95 @@
     <main>
         <section id="inicio" class="hero">
             <div class="hero-content">
-                <h1>¡Hola! Soy <span class="highlight">Tu Nombre</span></h1>
-                <p class="subtitle">Desarrollador Web | Programador | Creativo</p>
-                <a href="#contacto" class="cta-button">Contáctame</a>
+                <div class="glitch-wrapper">
+                    <h1 class="glitch" data-text="> BIENVENIDO AL CYBERSPACE_">&gt; BIENVENIDO AL CYBERSPACE_</h1>
+                </div>
+                <div class="terminal-box">
+                    <div class="terminal-line">
+                        <span class="prompt">root@yokonad:~$</span> <span class="typing">whoami</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="output">&gt;&gt; CYBER_DEVELOPER | CODE_NINJA | DIGITAL_ARCHITECT</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="prompt">root@yokonad:~$</span> <span class="typing">cat status.txt</span>
+                    </div>
+                    <div class="terminal-line">
+                        <span class="output">&gt;&gt; STATUS: [ ONLINE ] // HACKING_REALITY.EXE</span>
+                    </div>
+                </div>
+                <a href="#contacto" class="cta-button neon-button">
+                    <span class="button-glitch">【 INICIAR_CONEXIÓN.EXE 】</span>
+                </a>
+                <div class="marquee-container">
+                    <marquee behavior="scroll" direction="left">★ WELCOME TO THE DIGITAL UNDERGROUND ★ CODE IS POETRY ★ HACK THE PLANET ★ 1337 DEVELOPER ★</marquee>
+                </div>
             </div>
         </section>
 
         <section id="sobre-mi" class="about">
             <div class="container">
-                <h2>Sobre Mí</h2>
-                <div class="about-content">
-                    <div class="about-text">
-                        <p>Soy un apasionado desarrollador web con experiencia en crear soluciones digitales innovadoras. Me encanta aprender nuevas tecnologías y enfrentar desafíos que me permitan crecer profesionalmente.</p>
-                        <p>Actualmente me enfoco en desarrollo full-stack, trabajando con tecnologías modernas para crear experiencias web excepcionales.</p>
+                <h2 class="section-title">
+                    <span class="title-bracket">[</span>
+                    <span class="blink">▶</span> BIO.DAT :: CARGANDO...
+                    <span class="title-bracket">]</span>
+                </h2>
+                <div class="retro-box">
+                    <div class="box-header">
+                        <span>█ FILE: YOKONAD_PROFILE.TXT</span>
+                        <span class="close-btn">[X]</span>
                     </div>
-                    <div class="about-image">
-                        <div class="image-placeholder">Tu Foto</div>
+                    <div class="about-content">
+                        <div class="about-text">
+                            <p class="cyber-text">
+                                <span class="prompt-symbol">&gt;&gt;</span> INICIALIZANDO PROTOCOLO DE PRESENTACIÓN...
+                            </p>
+                            <p class="cyber-text">
+                                Soy un <span class="neon-text">CYBER_DEVELOPER</span> apasionado por hackear la realidad 
+                                a través del código. Mi misión: crear soluciones digitales que rompan los límites de lo convencional.
+                            </p>
+                            <p class="cyber-text">
+                                Navegando las redes del <span class="neon-text">FULL-STACK</span>, transformo café en código 
+                                y bugs en features. Mi arsenal incluye tecnologías de vanguardia para construir el futuro digital.
+                            </p>
+                            <div class="stats-box">
+                                <div class="stat-line">
+                                    <span class="stat-label">[ EXPERIENCIA ]</span>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 85%"></div></div>
+                                    <span class="stat-value">85%</span>
+                                </div>
+                                <div class="stat-line">
+                                    <span class="stat-label">[ CREATIVIDAD ]</span>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 95%"></div></div>
+                                    <span class="stat-value">95%</span>
+                                </div>
+                                <div class="stat-line">
+                                    <span class="stat-label">[ CAFÉ_LEVEL ]</span>
+                                    <div class="progress-bar"><div class="progress-fill" style="width: 100%"></div></div>
+                                    <span class="stat-value">MAX</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="about-image">
+                            <div class="image-placeholder anime-frame">
+                                <div class="pixel-art">
+                                    <pre class="ascii-art">
+    ⠀⠀⠀⢀⣀⣀⡀⠀⠀⠀⠀
+    ⠀⣠⣾⣿⣿⣿⣿⣷⣄⠀⠀
+    ⢸⣿⣿⣿⣿⣿⣿⣿⣿⡇⠀
+    ⠘⣿⣿⣿⣿⣿⣿⣿⣿⠃⠀
+    ⠀⠙⢿⣿⣿⣿⣿⡿⠋⠀⠀
+    ⠀⠀⠀⠉⠛⠛⠉⠀⠀⠀⠀
+    
+    【CYBER_NINJA】
+                                    </pre>
+                                </div>
+                                <div class="corner tl"></div>
+                                <div class="corner tr"></div>
+                                <div class="corner bl"></div>
+                                <div class="corner br"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -45,42 +139,58 @@
 
         <section id="habilidades" class="skills">
             <div class="container">
-                <h2>Habilidades</h2>
+                <h2 class="section-title">
+                    <span class="title-bracket">[</span>
+                    <span class="blink">▶</span> SKILLS.SYS :: ARSENAL_DIGITAL
+                    <span class="title-bracket">]</span>
+                </h2>
                 <div class="skills-grid">
-                    <div class="skill-card">
-                        <h3>Frontend</h3>
-                        <ul>
-                            <li>HTML5 & CSS3</li>
-                            <li>JavaScript</li>
-                            <li>React</li>
-                            <li>Vue.js</li>
+                    <div class="skill-card retro-box">
+                        <div class="box-header">
+                            <span>█ FRONTEND.EXE</span>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="bullet">▸</span> HTML5 & CSS3 <span class="skill-level">[████████░░] 80%</span></li>
+                            <li><span class="bullet">▸</span> JavaScript <span class="skill-level">[█████████░] 90%</span></li>
+                            <li><span class="bullet">▸</span> React.js <span class="skill-level">[████████░░] 85%</span></li>
+                            <li><span class="bullet">▸</span> Vue.js <span class="skill-level">[███████░░░] 75%</span></li>
+                            <li><span class="bullet">▸</span> Anime.js <span class="skill-level">[██████░░░░] 60%</span></li>
                         </ul>
                     </div>
-                    <div class="skill-card">
-                        <h3>Backend</h3>
-                        <ul>
-                            <li>Node.js</li>
-                            <li>Python</li>
-                            <li>Express</li>
-                            <li>APIs RESTful</li>
+                    <div class="skill-card retro-box">
+                        <div class="box-header">
+                            <span>█ BACKEND.SYS</span>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="bullet">▸</span> Node.js <span class="skill-level">[████████░░] 85%</span></li>
+                            <li><span class="bullet">▸</span> Python <span class="skill-level">[█████████░] 90%</span></li>
+                            <li><span class="bullet">▸</span> Express <span class="skill-level">[████████░░] 80%</span></li>
+                            <li><span class="bullet">▸</span> APIs REST <span class="skill-level">[█████████░] 88%</span></li>
+                            <li><span class="bullet">▸</span> SQL/NoSQL <span class="skill-level">[███████░░░] 75%</span></li>
                         </ul>
                     </div>
-                    <div class="skill-card">
-                        <h3>Herramientas</h3>
-                        <ul>
-                            <li>Git & GitHub</li>
-                            <li>VS Code</li>
-                            <li>Docker</li>
-                            <li>Linux</li>
+                    <div class="skill-card retro-box">
+                        <div class="box-header">
+                            <span>█ TOOLS.DAT</span>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="bullet">▸</span> Git & GitHub <span class="skill-level">[██████████] 95%</span></li>
+                            <li><span class="bullet">▸</span> VS Code <span class="skill-level">[██████████] 99%</span></li>
+                            <li><span class="bullet">▸</span> Docker <span class="skill-level">[███████░░░] 70%</span></li>
+                            <li><span class="bullet">▸</span> Linux <span class="skill-level">[████████░░] 82%</span></li>
+                            <li><span class="bullet">▸</span> Vim <span class="skill-level">[█████████░] 87%</span></li>
                         </ul>
                     </div>
-                    <div class="skill-card">
-                        <h3>Otros</h3>
-                        <ul>
-                            <li>Diseño Responsivo</li>
-                            <li>UI/UX</li>
-                            <li>Testing</li>
-                            <li>Agile/Scrum</li>
+                    <div class="skill-card retro-box">
+                        <div class="box-header">
+                            <span>█ EXTRA.COM</span>
+                        </div>
+                        <ul class="skill-list">
+                            <li><span class="bullet">▸</span> Responsive <span class="skill-level">[█████████░] 92%</span></li>
+                            <li><span class="bullet">▸</span> UI/UX <span class="skill-level">[████████░░] 83%</span></li>
+                            <li><span class="bullet">▸</span> Testing <span class="skill-level">[███████░░░] 78%</span></li>
+                            <li><span class="bullet">▸</span> Agile <span class="skill-level">[████████░░] 80%</span></li>
+                            <li><span class="bullet">▸</span> Cyberpunk <span class="skill-level">[██████████] ∞%</span></li>
                         </ul>
                     </div>
                 </div>
@@ -89,37 +199,74 @@
 
         <section id="proyectos" class="projects">
             <div class="container">
-                <h2>Proyectos Destacados</h2>
+                <h2 class="section-title">
+                    <span class="title-bracket">[</span>
+                    <span class="blink">▶</span> PROJECTS.DIR :: OBRAS_MAESTRAS
+                    <span class="title-bracket">]</span>
+                </h2>
                 <div class="projects-grid">
-                    <div class="project-card">
-                        <h3>Proyecto 1</h3>
-                        <p>Descripción breve del proyecto y las tecnologías utilizadas.</p>
-                        <div class="project-tags">
-                            <span class="tag">HTML</span>
-                            <span class="tag">CSS</span>
-                            <span class="tag">JavaScript</span>
+                    <div class="project-card retro-box">
+                        <div class="box-header">
+                            <span>█ PROJECT_001.EXE</span>
+                            <span class="status-indicator">[ACTIVE]</span>
                         </div>
-                        <a href="#" class="project-link">Ver Proyecto →</a>
+                        <div class="project-content">
+                            <h3 class="project-title">『 CYBER_PORTFOLIO 』</h3>
+                            <p class="project-desc">
+                                <span class="prompt-symbol">&gt;&gt;</span> Sistema de portfolio interactivo con estética 
+                                retro-futurista. Implementa efectos glitch, animaciones ASCII y diseño responsive.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag neon-tag">HTML5</span>
+                                <span class="tag neon-tag">CSS3</span>
+                                <span class="tag neon-tag">JavaScript</span>
+                            </div>
+                            <a href="#" class="project-link cyber-link">
+                                <span class="blink">▶</span> EJECUTAR_DEMO.BAT
+                            </a>
+                        </div>
                     </div>
-                    <div class="project-card">
-                        <h3>Proyecto 2</h3>
-                        <p>Descripción breve del proyecto y las tecnologías utilizadas.</p>
-                        <div class="project-tags">
-                            <span class="tag">React</span>
-                            <span class="tag">Node.js</span>
-                            <span class="tag">MongoDB</span>
+                    <div class="project-card retro-box">
+                        <div class="box-header">
+                            <span>█ PROJECT_002.EXE</span>
+                            <span class="status-indicator">[BETA]</span>
                         </div>
-                        <a href="#" class="project-link">Ver Proyecto →</a>
+                        <div class="project-content">
+                            <h3 class="project-title">『 NEURAL_CHAT 』</h3>
+                            <p class="project-desc">
+                                <span class="prompt-symbol">&gt;&gt;</span> Aplicación de chat en tiempo real con IA integrada.
+                                Arquitectura MERN stack con WebSockets para comunicación bidireccional.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag neon-tag">React</span>
+                                <span class="tag neon-tag">Node.js</span>
+                                <span class="tag neon-tag">MongoDB</span>
+                            </div>
+                            <a href="#" class="project-link cyber-link">
+                                <span class="blink">▶</span> EJECUTAR_DEMO.BAT
+                            </a>
+                        </div>
                     </div>
-                    <div class="project-card">
-                        <h3>Proyecto 3</h3>
-                        <p>Descripción breve del proyecto y las tecnologías utilizadas.</p>
-                        <div class="project-tags">
-                            <span class="tag">Python</span>
-                            <span class="tag">Flask</span>
-                            <span class="tag">API</span>
+                    <div class="project-card retro-box">
+                        <div class="box-header">
+                            <span>█ PROJECT_003.EXE</span>
+                            <span class="status-indicator">[STABLE]</span>
                         </div>
-                        <a href="#" class="project-link">Ver Proyecto →</a>
+                        <div class="project-content">
+                            <h3 class="project-title">『 API_NEXUS 』</h3>
+                            <p class="project-desc">
+                                <span class="prompt-symbol">&gt;&gt;</span> Framework de API RESTful con autenticación JWT
+                                y rate limiting. Backend robusto para aplicaciones escalables.
+                            </p>
+                            <div class="project-tags">
+                                <span class="tag neon-tag">Python</span>
+                                <span class="tag neon-tag">Flask</span>
+                                <span class="tag neon-tag">PostgreSQL</span>
+                            </div>
+                            <a href="#" class="project-link cyber-link">
+                                <span class="blink">▶</span> EJECUTAR_DEMO.BAT
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -127,20 +274,63 @@
 
         <section id="contacto" class="contact">
             <div class="container">
-                <h2>Contacto</h2>
-                <p class="contact-intro">¿Tienes algún proyecto en mente? ¡Hablemos!</p>
-                <div class="contact-methods">
-                    <div class="contact-item">
-                        <h3>Email</h3>
-                        <p>tu.email@ejemplo.com</p>
+                <h2 class="section-title">
+                    <span class="title-bracket">[</span>
+                    <span class="blink">▶</span> CONNECT.COM :: ESTABLECER_ENLACE
+                    <span class="title-bracket">]</span>
+                </h2>
+                <div class="retro-box contact-box">
+                    <div class="box-header">
+                        <span>█ PROTOCOLO_DE_COMUNICACIÓN.SYS</span>
                     </div>
-                    <div class="contact-item">
-                        <h3>GitHub</h3>
-                        <p><a href="https://github.com/Yokonad" target="_blank">@Yokonad</a></p>
+                    <p class="contact-intro cyber-text">
+                        <span class="prompt-symbol">&gt;&gt;</span> ¿Tienes un proyecto en mente? 
+                        <span class="neon-text blink">CONECTEMOS_</span>
+                    </p>
+                    <div class="contact-methods">
+                        <div class="contact-item retro-box">
+                            <div class="contact-icon">📧</div>
+                            <h3>[ EMAIL.DAT ]</h3>
+                            <p class="contact-value">tu.email@cyber.net</p>
+                            <div class="connection-status">
+                                <span class="blink">●</span> STATUS: ONLINE
+                            </div>
+                        </div>
+                        <div class="contact-item retro-box">
+                            <div class="contact-icon">⚡</div>
+                            <h3>[ GITHUB.EXE ]</h3>
+                            <p class="contact-value">
+                                <a href="https://github.com/Yokonad" target="_blank" class="cyber-link">
+                                    github.com/Yokonad
+                                </a>
+                            </p>
+                            <div class="connection-status">
+                                <span class="blink">●</span> STATUS: ACTIVE
+                            </div>
+                        </div>
+                        <div class="contact-item retro-box">
+                            <div class="contact-icon">🔗</div>
+                            <h3>[ LINKEDIN.COM ]</h3>
+                            <p class="contact-value">
+                                <a href="#" target="_blank" class="cyber-link">
+                                    linkedin.com/in/yokonad
+                                </a>
+                            </p>
+                            <div class="connection-status">
+                                <span class="blink">●</span> STATUS: CONNECTED
+                            </div>
+                        </div>
                     </div>
-                    <div class="contact-item">
-                        <h3>LinkedIn</h3>
-                        <p><a href="#" target="_blank">Tu Perfil</a></p>
+                    <div class="terminal-footer">
+                        <div class="terminal-line">
+                            <span class="prompt">root@yokonad:~$</span> <span class="typing">sudo make contact</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="output">&gt;&gt; Iniciando protocolo de comunicación...</span>
+                        </div>
+                        <div class="terminal-line">
+                            <span class="output success">&gt;&gt; ¡CONEXIÓN ESTABLECIDA! Esperando tu mensaje...</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -148,9 +338,38 @@
     </main>
 
     <footer>
-        <div class="container">
-            <p>&copy; 2025 Yokonad. Todos los derechos reservados.</p>
+        <div class="footer-content">
+            <div class="footer-ascii">
+                <pre>
+    ╔═══════════════════════════════════════════════════════╗
+    ║  © 1999-2025 YOKONAD.SYS :: ALL RIGHTS RESERVED      ║
+    ║  CODED WITH ❤️ AND ☕ IN THE DIGITAL UNDERGROUND     ║
+    ║  「 ハッカー・ニンジャ 」:: KEEP HACKING THE PLANET   ║
+    ╚═══════════════════════════════════════════════════════╝
+                </pre>
+            </div>
+            <div class="footer-marquee">
+                <marquee behavior="scroll" direction="right">
+                    ★ THANK YOU FOR VISITING ★ STAY CYBER ★ CODE NEVER SLEEPS ★ 
+                </marquee>
+            </div>
         </div>
     </footer>
+    
+    <script>
+        // Starfield Animation
+        function createStars() {
+            const starfield = document.querySelector('.starfield');
+            for(let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                starfield.appendChild(star);
+            }
+        }
+        createStars();
+    </script>
 </body>
 </html>
