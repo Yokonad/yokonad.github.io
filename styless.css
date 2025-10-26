@@ -275,12 +275,10 @@ h2 {
     background-color: #ffffff;
     color: #000000;
     border-radius: 5px;
-    transition: all 0.3s;
 }
 
 .tech-item:hover {
     background-color: #f0f0f0;
-    transform: translateX(5px);
 }
 
 .tech-logo {
