@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Base reset ── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'IBM Plex Mono', 'Courier New', Courier, monospace;
+  background-color: #0a0a0a;
+  color: #e0e0e0;
+  line-height: 1.40;
+  -webkit-font-smoothing: antialiased;
+}
+
+p {
+  margin: 0;
+  line-height: 1.40;
+}
+
+::selection {
+  background: #e0e0e0;
+  color: #0a0a0a;
+}
+
+/* ── Scanline overlay ── */
+.scanlines::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(255, 255, 255, 0.015) 2px,
+    rgba(255, 255, 255, 0.015) 4px
+  );
+}
+
+/* ── CRT vignette ── */
+.crt-vignette::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 49;
+  background: radial-gradient(ellipse at center, transparent 60%, rgba(0, 0, 0, 0.45) 100%);
+}
+
+/* ── Geometric border card ── */
+.geo-card {
+  border: 1px solid #333333;
+  position: relative;
+}
+
+.geo-card::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -3px;
+  right: -3px;
+  bottom: -3px;
+  border: 1px solid #222222;
+  pointer-events: none;
+}
+
+/* ── Cursor blink ── */
+.cursor-blink::after {
+  content: '█';
+  animation: blink 1.2s step-end infinite;
+  margin-left: 2px;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Horizontal rule retro ── */
+.retro-hr {
+  border: none;
+  height: 1px;
+  background: repeating-linear-gradient(
+    90deg,
+    #333333,
+    #333333 4px,
+    transparent 4px,
+    transparent 8px
+  );
+}
+
+/* ── Link styling ── */
+a {
+  color: #e0e0e0;
+  text-decoration: none;
+  border-bottom: 1px dashed #666666;
+  transition: border-color 0.2s;
+}
+
+a:hover {
+  border-bottom-color: #ffffff;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333333;
+}
+
+/* ── Section dividers ── */
+section + section {
+  border-top: 1px solid #1a1a1a;
+}
+
+/* ── Avatar circle variant ── */
+.avatar-circle {
+  border-radius: 0;
+  clip-path: none;
+}
+
+/* ── Fade stagger for grids ── */
+.stagger-fade > * {
+  opacity: 0;
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+.stagger-fade > *:nth-child(1) { animation-delay: 0.05s; }
+.stagger-fade > *:nth-child(2) { animation-delay: 0.1s; }
+.stagger-fade > *:nth-child(3) { animation-delay: 0.15s; }
+.stagger-fade > *:nth-child(4) { animation-delay: 0.2s; }
+
+/* ── Music placeholder ── */
+.music-visualizer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  height: 48px;
+}
+
+.music-bar {
+  width: 4px;
+  background: #333333;
+  animation: musicPulse 1.4s ease-in-out infinite;
+}
+
+.music-bar:nth-child(1) { height: 30%; animation-delay: 0s; }
+.music-bar:nth-child(2) { height: 60%; animation-delay: 0.15s; }
+.music-bar:nth-child(3) { height: 45%; animation-delay: 0.3s; }
+.music-bar:nth-child(4) { height: 80%; animation-delay: 0.45s; }
+.music-bar:nth-child(5) { height: 55%; animation-delay: 0.6s; }
+.music-bar:nth-child(6) { height: 35%; animation-delay: 0.75s; }
+.music-bar:nth-child(7) { height: 65%; animation-delay: 0.9s; }
+
+@keyframes musicPulse {
+  0%, 100% { transform: scaleY(0.4); opacity: 0.4; }
+  50% { transform: scaleY(1); opacity: 0.8; }
+}
