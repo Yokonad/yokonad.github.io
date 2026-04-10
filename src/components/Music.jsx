@@ -1,5 +1,5 @@
 import Section from './Section';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState } from 'react';
 
 const TRACKS = [
   { id: 'eJLwj6FohJo', title: 'Indiana', artist: 'Hombres G', thumb: 'https://i.ytimg.com/vi/eJLwj6FohJo/hqdefault.jpg' },
@@ -17,89 +17,15 @@ const PLAY_DURATION = 64;
 
 export default function Music() {
   const [current, setCurrent] = useState(0);
-  const [progress, setProgress] = useState(0);
-  const playerRef = useRef(null);
-  const timerRef = useRef(null);
-  const progressRef = useRef(null);
 
   const track = TRACKS[current];
 
-  const stopTimers = useCallback(() => {
-    if (timerRef.current) { clearTimeout(timerRef.current); timerRef.current = null; }
-    if (progressRef.current) { clearInterval(progressRef.current); progressRef.current = null; }
-  }, []);
-
-  const startTimers = useCallback(() => {
-    stopTimers();
-    setProgress(0);
-    const start = Date.now();
-    progressRef.current = setInterval(() => {
-      const elapsed = (Date.now() - start) / 1000;
-      setProgress(Math.min(elapsed / PLAY_DURATION, 1));
-    }, 100);
-    timerRef.current = setTimeout(() => {
-      setCurrent((c) => (c + 1) % TRACKS.length);
-    }, PLAY_DURATION * 1000);
-  }, [stopTimers]);
-
-  // Load YouTube IFrame API
-  useEffect(() => {
-    if (window.YT && window.YT.Player) return;
-    const tag = document.createElement('script');
-    tag.src = 'https://www.youtube.com/iframe_api';
-    document.head.appendChild(tag);
-  }, []);
-
-  // Create / update player when track changes
-  useEffect(() => {
-    const buildPlayer = () => {
-      if (playerRef.current) {
-        playerRef.current.destroy();
-        playerRef.current = null;
-      }
-      playerRef.current = new window.YT.Player('yt-player', {
-        height: '0',
-        width: '0',
-        videoId: TRACKS[current].id,
-        playerVars: { autoplay: 1, controls: 0, disablekb: 1, fs: 0, modestbranding: 1 },
-        events: {
-          onReady: () => {
-            playerRef.current.playVideo();
-            startTimers();
-          },
-          onStateChange: (e) => {
-            if (e.data === window.YT.PlayerState.ENDED) {
-              setCurrent((c) => (c + 1) % TRACKS.length);
-            }
-          },
-        },
-      });
-    };
-
-    if (window.YT && window.YT.Player) {
-      buildPlayer();
-    } else {
-      window.onYouTubeIframeAPIReady = buildPlayer;
-    }
-
-    return () => {
-      stopTimers();
-      if (playerRef.current) { playerRef.current.destroy(); playerRef.current = null; }
-    };
-  }, [current]); // eslint-disable-line react-hooks/exhaustive-deps
-
   const selectTrack = (i) => {
-    stopTimers();
-    setProgress(0);
     setCurrent(i);
   };
 
   return (
     <Section id="música" title="Música">
-      {/* Hidden YouTube player */}
-      <div style={{ position: 'absolute', width: 0, height: 0, overflow: 'hidden' }}>
-        <div id="yt-player" />
-      </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
         {/* Now Playing */}
@@ -125,15 +51,15 @@ export default function Music() {
             <p>{track.artist}</p>
           </div>
 
-          {/* Progress bar */}
+          {/* Progress bar - deshabilitado */}
           <div className="mt-2.5 h-px bg-terminal-border relative">
             <div
               className="absolute left-0 top-0 h-full bg-terminal-fg transition-all duration-100"
-              style={{ width: `${progress * 100}%` }}
+              style={{ width: '0%' }}
             />
           </div>
           <div className="flex justify-between text-[10px] text-terminal-dim mt-1">
-            <span>{Math.floor(progress * PLAY_DURATION)}s</span>
+            <span>0s</span>
             <span>{PLAY_DURATION}s</span>
           </div>
         </div>
@@ -161,7 +87,7 @@ export default function Music() {
             ))}
           </ul>
           <p className="text-[10px] text-terminal-dim mt-2.5 opacity-50">
-            Cada pista se reproduce 15 segundos antes de avanzar.
+            Reproducción de audio deshabilitada.
           </p>
         </div>
       </div>

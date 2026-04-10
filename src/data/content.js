@@ -4,7 +4,7 @@
 export const profile = {
   name: 'Dan Ramos Reynaldo',
   role: 'Estudiante de Ciberseguridad — SENATI | 6to Ciclo',
-  avatar: '/picture/perfil.jpg',
+  avatar: '/picture/perfil.webp',
   bio: [
     '> Apodo: yokonad',
     '> Estudiante de Ciberseguridad en SENATI, cursando el sexto ciclo.',
@@ -41,21 +41,21 @@ export const projects = [
     title: 'Subneteo VLSM',
     description: 'Calculadora de subredes VLSM y enlaces punto a punto /30 entre routers. Valida direcciones IP, calcula máscaras, wildcards y asigna direcciones de forma óptima desde una interfaz interactiva en consola.',
     tags: ['Python', 'Networking', 'CLI'],
-    image: '/picture/proyecto1.jpg',
+    image: '/picture/proyecto1.webp',
     url: 'https://github.com/Yokonad/Subneteo-VLSM',
   },
   {
-    title: 'PS2 Launcher',
-    description: 'Interfaz gráfica para gestionar y ejecutar juegos de PlayStation 2 mediante PCSX2. Detecta controladores automáticamente y los configura como DualShock2. Incluye instalador con extracción de BIOS y selector de ROMs.',
-    tags: ['Python', 'PCSX2', 'GUI'],
-    image: '/picture/proyecto2.jpg',
-    url: 'https://github.com/Yokonad/PS2-Launcher',
+    title: 'MCP Gemini Packet',
+    description: 'Proyecto MCP orientado a flujos con Gemini y Packet Tracer para automatizar tareas y mejorar procesos de trabajo técnico.',
+    tags: ['TypeScript', 'Node.js', 'MCP', 'Packet Tracer'],
+    image: '/picture/proyecto2.webp',
+    url: 'https://github.com/Yokonad/mcp-gemini-packet.git',
   },
   {
     title: 'Calculadora Resistencias',
     description: 'Calculadora profesional de resistencias electrónicas por código de colores. Soporta resistencias de 4, 5 y 6 bandas con tolerancia, coeficiente térmico, historial de cálculos y valores comerciales cercanos.',
     tags: ['Python', 'Electrónica', 'CLI'],
-    image: '/picture/proyecto3.jpg',
+    image: '/picture/proyecto3.webp',
     url: 'https://github.com/Yokonad/Calculadora-Resistencias',
   },
 ];
@@ -76,14 +76,14 @@ export const team = [
     name: 'Insent1208',
     role: 'Frontend Engineer',
     bio: 'Especialista en UI/UX FrontEnd y Diseño Gráfico enfocado en mejorar la experiencia de usuario. Creativo y detallista.',
-    avatar: '/picture/insent.jpg',
+    avatar: '/picture/insent.webp',
     tags: ['Frontend', 'Python', 'UI/UX'],
   },
   {
     name: 'Yokonad',
     role: 'Owner de KoroSoft Code',
     bio: 'Experto en desarrollo web completo y arquitecturas escalables. Especialista en React y Node.js.',
-    avatar: '/picture/yokonad.jpg',
+    avatar: '/picture/yokonad.webp',
     tags: ['Cisco', 'HTML', 'JavaScript'],
   },
 ];
@@ -102,6 +102,58 @@ export const infoBlocks = [
   {
     title: 'Actualmente',
     text: 'Estudiando Ciberseguridad, practicando redes en Packet Tracer y escuchando música.',
+  },
+];
+
+export const certificates = [
+  {
+    title: 'CCNA: Introduction to Networks',
+    issuer: 'SENATI / Cisco',
+    date: 'PDF',
+    url: '/certificate/CCNA-_Introduction_to_Networks_certificate_1574779-senati-pe_23435678-874d-4731-b436-835140233b8e.pdf',
+    tags: ['CCNA', 'Networking', 'Introduction'],
+  },
+  {
+    title: 'CCNA: Switching, Routing, and Wireless Essentials',
+    issuer: 'SENATI / Cisco',
+    date: 'PDF',
+    url: '/certificate/CCNA-_Switching-_Routing-_and_Wireless_Essentials_certificate_1574779-senati-pe_33b96eaf-5cf1-4c57-bb1a-3cfe6afd760a.pdf',
+    tags: ['CCNA', 'Switching', 'Wireless'],
+  },
+  {
+    title: 'Getting Started with Cisco Packet Tracer',
+    issuer: 'SENATI / Cisco',
+    date: 'PDF',
+    url: '/certificate/Getting_Started_with_Cisco_Packet_Tracer_certificate_1574779-senati-pe_d949d4c4-678e-417d-9f83-5615918ac9ec.pdf',
+    tags: ['Packet Tracer', 'Cisco', 'Labs'],
+  },
+  {
+    title: 'IT Essentials',
+    issuer: 'SENATI / Cisco',
+    date: 'PDF',
+    url: '/certificate/IT_Essentials_certificate_1574779-senati-pe_379a2f91-3da9-4485-b9a0-a9f0a9cf0613.pdf',
+    tags: ['Hardware', 'OS', 'Troubleshooting'],
+  },
+  {
+    title: 'PCAP: Programming Essentials in Python',
+    issuer: 'SENATI / Python Institute',
+    date: 'PDF',
+    url: '/certificate/Partner-_PCAP_-_Programming_Essentials_in_Python_certificate_1574779-senati-pe_608419be-0842-4219-aa4b-80ce2df31ad6.pdf',
+    tags: ['Python', 'PCAP', 'Programming'],
+  },
+  {
+    title: 'Certificado Adicional 01',
+    issuer: 'SENATI',
+    date: 'PDF',
+    url: '/certificate/_certificate_1574779-senati-pe_066ad1e0-1c9d-47e2-9b7d-83941bc60063.pdf',
+    tags: ['Certificado', 'Adicional'],
+  },
+  {
+    title: 'Certificado Adicional 02',
+    issuer: 'SENATI',
+    date: 'PDF',
+    url: '/certificate/_certificate_1574779-senati-pe_172a93ad-762b-4517-b17a-744efbad0210.pdf',
+    tags: ['Certificado', 'Adicional'],
   },
 ];
 

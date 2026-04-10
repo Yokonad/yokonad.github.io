@@ -145,7 +145,7 @@ export default function TextBlocks() {
         {/* Imagen derecha — más pequeña */}
         <div className="md:col-span-1 border border-terminal-border overflow-hidden flex items-center justify-center">
           <img
-            src="/picture/none.webp"
+            src="https://i.pinimg.com/originals/62/12/48/6212485181ca055f760855d98d3ee4bc.gif"
             alt="Pixel art"
             className="w-full h-full object-cover"
           />

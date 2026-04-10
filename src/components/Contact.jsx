@@ -38,10 +38,7 @@ const linkConfig = {
 
 const borderStyles = {
   GitHub: { border: '1.5px solid #e0e0e0' },
-  Instagram: {
-    border: '1.5px solid transparent',
-    background: 'linear-gradient(#0a0a0a, #0a0a0a) padding-box, linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888, #833ab4, #5851db, #405de6) border-box',
-  },
+  Instagram: { border: '1.5px solid #E1306C' },
   Discord: { border: '1.5px solid #5865F2' },
   Email: { border: '1.5px solid #60a5fa' },
 };
