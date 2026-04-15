@@ -10,7 +10,7 @@ export const profile = {
     '> Estudiante de Ciberseguridad en SENATI, cursando el sexto ciclo.',
     '> Uso principalmente Windows 11, aunque también trabajo con Arch Linux, Fedora, Debian, Ubuntu y FreeBSD.',
     '> Me apasiona la programación y las redes — practico con Cisco Packet Tracer para aprender más sobre infraestructura de red.',
-    '> Gran fan del anime. Y la música… la música es mi dios. Me encanta mucho, mucho. Es parte esencial de mi día a día.',
+    '> Gran fan del anime y su arte. Y la músic me encanta mucho, mucho. Es parte esencial de mi día a día.',
   ],
   location: 'Perú',
   experience: '6to Ciclo — SENATI',
@@ -92,16 +92,16 @@ export const team = [
 export const infoBlocks = [
   {
     title: 'Hecha con',
-    text: 'Esta página está hecha con mucho Monster y música hermosa.',
+    text: 'Esta página está hecha con mucho Monster y horas de musica.',
   },
   {
     title: 'Artistas Favoritos',
-    text: 'Fito Páez, Wos y Oasis. Su música me acompaña siempre.',
+    text: 'Fito Páez, Wos, Oasis, Jaze.',
     special: true,
   },
   {
     title: 'Actualmente',
-    text: 'Estudiando Ciberseguridad, practicando redes en Packet Tracer y escuchando música.',
+    text: 'Estudiando Ciberseguridad, practicando redes en Packet Tracer.',
   },
 ];
 

@@ -23,9 +23,9 @@ export default function Certificates() {
   return (
     <Section id="certificados" title="Certificados">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-        {visibleCertificates.map((cert) => (
+        {visibleCertificates.map((cert, certIndex) => (
           <a
-            key={cert.url}
+            key={`cert-${cert.url}-${certIndex}`}
             href={cert.url}
             target="_blank"
             rel="noopener noreferrer"
@@ -38,9 +38,9 @@ export default function Certificates() {
               {cert.title}
             </h3>
             <div className="flex gap-1.5 mb-2 overflow-hidden whitespace-nowrap">
-              {cert.tags.map((tag) => (
+              {cert.tags.map((tag, tagIndex) => (
                 <span
-                  key={tag}
+                  key={`cert-tag-${tag}-${tagIndex}`}
                   className="text-[9px] uppercase tracking-widest border border-terminal-border text-terminal-dim px-2 py-1 shrink-0"
                 >
                   {tag}

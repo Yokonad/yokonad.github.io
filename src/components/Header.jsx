@@ -20,9 +20,9 @@ export default function Header() {
 
         {/* Nav */}
         <nav className="pt-3 border-t border-terminal-border flex flex-wrap gap-3 sm:gap-4 text-[10px] sm:text-xs uppercase tracking-widest">
-          {['perfil', 'proyectos', 'equipo', 'música'].map((s) => (
+          {['perfil', 'proyectos', 'equipo', 'música'].map((s, i) => (
             <a
-              key={s}
+              key={`nav-${s}-${i}`}
               href={`#${s === 'perfil' ? 'usuario' : s}`}
               className="hover:text-terminal-accent transition-colors duration-200"
             >

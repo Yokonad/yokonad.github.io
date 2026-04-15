@@ -36,11 +36,11 @@ function MemberCard({ name, role, bio, avatar, tags }) {
       <p className="text-xs sm:text-sm text-terminal-dim mb-3 flex-1">{bio}</p>
       {tags && tags.length > 0 && (
         <div className="flex flex-wrap justify-center gap-1.5 mt-auto">
-          {tags.map((tag) => {
+          {tags.map((tag, i) => {
             const c = tagColors[tag];
             return (
               <span
-                key={tag}
+                key={`team-tag-${tag}-${i}`}
                 className="px-2 py-0.5 text-[9px] tracking-wide"
                 style={c ? {
                   borderWidth: '1px',
@@ -80,8 +80,8 @@ export default function Team() {
       </p>
       
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        {team.map((member) => (
-          <MemberCard key={member.name} {...member} />
+        {team.map((member, i) => (
+          <MemberCard key={`member-${member.name}-${i}`} {...member} />
         ))}
       </div>
     </Section>

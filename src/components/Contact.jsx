@@ -47,11 +47,11 @@ export default function Contact() {
   return (
     <Section id="contacto" title="Contacto">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3">
-        {profile.links.map((link) => {
+        {profile.links.map((link, i) => {
           const cfg = linkConfig[link.label] || { color: '#e0e0e0', svg: null };
           return (
             <a
-              key={link.label}
+              key={`contact-link-${link.label}-${i}`}
               href={link.url}
               target="_blank"
               rel="noopener noreferrer"

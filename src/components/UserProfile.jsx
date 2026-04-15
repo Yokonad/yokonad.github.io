@@ -104,11 +104,11 @@ export default function UserProfile() {
                 Sistemas Operativos
               </h4>
               <div className="flex flex-wrap gap-1.5">
-                {profile.skills.map((skill) => {
+                {profile.skills.map((skill, i) => {
                   const c = skillColors[skill];
                   return (
                     <span
-                      key={skill}
+                      key={`skill-${skill}-${i}`}
                       className="px-2 py-0.5 text-[10px] tracking-wide transition-colors duration-200"
                       style={c ? {
                         borderWidth: '1px',
@@ -134,11 +134,11 @@ export default function UserProfile() {
                 Lenguajes / Herramientas
               </h4>
               <div className="flex flex-wrap gap-1.5">
-                {profile.languages.map((lang) => {
+                {profile.languages.map((lang, i) => {
                   const c = langColors[lang];
                   return (
                     <span
-                      key={lang}
+                      key={`lang-${lang}-${i}`}
                       className="px-2 py-0.5 text-[10px] tracking-wide transition-colors duration-200"
                       style={c ? {
                         borderWidth: '1px',
@@ -160,8 +160,8 @@ export default function UserProfile() {
 
       {/* ── Stats debajo de la card ── */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-4">
-        {stats.map((s) => (
-          <StatCard key={s.label} {...s} />
+        {stats.map((s, i) => (
+          <StatCard key={`stat-${s.label}-${i}`} {...s} />
         ))}
       </div>
     </Section>

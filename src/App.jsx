@@ -4,7 +4,7 @@ import Contact from './components/Contact';
 import Certificates from './components/Certificates';
 import TextBlocks from './components/TextBlocks';
 import InfoBlocks from './components/InfoBlocks';
-import Gadgets from './components/Gadgets';
+import Informacion from './components/Informacion';
 import Projects from './components/Projects';
 import Team from './components/Team';
 import Music from './components/Music';
@@ -25,7 +25,7 @@ export default function App() {
           <Certificates />
           <TextBlocks />
           <InfoBlocks />
-          <Gadgets />
+          <Informacion />
           <Projects />
           <Team />
           <Music />

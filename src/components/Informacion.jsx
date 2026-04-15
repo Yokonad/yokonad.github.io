@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react';
 import Section from './Section';
 
-// ── Gadget 1: Contador de ciberataques en tiempo real ──
+// ── Bloque 1: Contador de ciberataques en tiempo real ──
 // ~2,200 ataques/segundo globalmente (fuente: Cybersecurity Ventures)
 function CyberAttackCounter() {
   const ATTACKS_PER_SEC = 2200;
@@ -37,7 +37,7 @@ function CyberAttackCounter() {
   );
 }
 
-// ── Gadget 2: Tiempo sin nuevo capítulo de Go-Tōbun no Hanayome ──
+// ── Bloque 2: Tiempo sin nuevo capítulo de Go-Tōbun no Hanayome ──
 function QuintupletTimer() {
   // Último capítulo (#122) publicado el 19 de febrero de 2020
   const LAST_CHAPTER = new Date('2020-02-19T00:00:00Z');
@@ -115,7 +115,7 @@ function QuintupletTimer() {
   );
 }
 
-// ── Gadget 3: Último resultado del FC Barcelona ──
+// ── Bloque 3: Último resultado del FC Barcelona ──
 const BARCA_API = 'https://www.thesportsdb.com/api/v1/json/3/eventslast.php?id=133739';
 
 function BarcaLastMatch() {
@@ -185,9 +185,9 @@ function BarcaLastMatch() {
   );
 }
 
-export default function Gadgets() {
+export default function Informacion() {
   return (
-    <Section id="gadgets" title="[GADGETS]">
+    <Section id="informacion" title="[Información]">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
         <CyberAttackCounter />
         <QuintupletTimer />

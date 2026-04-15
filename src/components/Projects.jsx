@@ -22,9 +22,9 @@ function ProjectCard({ title, description, tags, url }) {
         </p>
 
         <div className="flex flex-wrap gap-2 mb-2.5">
-          {tags.map((tag) => (
+          {tags.map((tag, i) => (
             <span
-              key={tag}
+              key={`project-tag-${tag}-${i}`}
               className="text-[10px] uppercase tracking-widest px-2 py-1 bg-terminal-border/20 text-terminal-fg border border-terminal-border hover:border-terminal-accent transition-colors"
             >
               {tag}
@@ -44,8 +44,8 @@ export default function Projects() {
   return (
     <Section id="proyectos" title="Proyectos">
       <div className="space-y-5">
-        {projects.map((project) => (
-          <ProjectCard key={project.title} {...project} />
+        {projects.map((project, i) => (
+          <ProjectCard key={`project-${project.title}-${i}`} {...project} />
         ))}
       </div>
     </Section>

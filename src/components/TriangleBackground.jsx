@@ -21,10 +21,14 @@ export default function TriangleBackground() {
     };
 
     const points = [];
-    const spacing = 78;
-    const jitter = 24;
-    const influenceRadius = 220;
-    const pullStrength = 32;
+    const desktopPointDensity = 1 / 16000;
+    const mobilePointDensity = 1 / 22000;
+    const desktopMaxDistance = 185;
+    const mobileMaxDistance = 145;
+    const influenceRadius = 180;
+    const attraction = 0.035;
+    let currentPointDensity = desktopPointDensity;
+    let currentMaxDistance = desktopMaxDistance;
 
     const setCanvasSize = () => {
       const dpr = window.devicePixelRatio || 1;
@@ -39,24 +43,17 @@ export default function TriangleBackground() {
 
     const rebuildPoints = () => {
       points.length = 0;
-      const cols = Math.ceil(width / spacing) + 2;
-      const rows = Math.ceil(height / spacing) + 2;
+      const minPoints = width < 768 ? 36 : 55;
+      const total = Math.max(minPoints, Math.floor(width * height * currentPointDensity));
 
-      for (let row = 0; row < rows; row += 1) {
-        for (let col = 0; col < cols; col += 1) {
-          const offsetX = row % 2 === 0 ? 0 : spacing * 0.5;
-          const baseX = col * spacing + offsetX + (Math.random() - 0.5) * jitter;
-          const baseY = row * spacing + (Math.random() - 0.5) * jitter;
-
-          points.push({
-            baseX,
-            baseY,
-            x: baseX,
-            y: baseY,
-            vx: 0,
-            vy: 0,
-          });
-        }
+      for (let i = 0; i < total; i += 1) {
+        points.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.28,
+          vy: (Math.random() - 0.5) * 0.28,
+          size: Math.random() * 0.9 + 1,
+        });
       }
     };
 
@@ -70,51 +67,49 @@ export default function TriangleBackground() {
       for (let i = 0; i < points.length; i += 1) {
         const p = points[i];
 
-        let targetX = p.baseX;
-        let targetY = p.baseY;
-
         if (pointer.active) {
-          const dx = pointer.x - p.baseX;
-          const dy = pointer.y - p.baseY;
-          const dist = Math.hypot(dx, dy);
-          if (dist < influenceRadius && dist > 0.001) {
-            const influence = ((influenceRadius - dist) / influenceRadius) ** 2;
-            const pull = influence * pullStrength;
-            targetX += (dx / dist) * pull;
-            targetY += (dy / dist) * pull;
+          const dx = pointer.x - p.x;
+          const dy = pointer.y - p.y;
+          const d = Math.hypot(dx, dy);
+
+          if (d > 0.001 && d < influenceRadius) {
+            const influence = (1 - d / influenceRadius) ** 2;
+            p.vx += (dx / d) * influence * attraction;
+            p.vy += (dy / d) * influence * attraction;
           }
         }
 
-        p.vx += (targetX - p.x) * 0.09;
-        p.vy += (targetY - p.y) * 0.09;
-        p.vx *= 0.82;
-        p.vy *= 0.82;
         p.x += p.vx;
         p.y += p.vy;
+
+        if (p.x <= 0 || p.x >= width) p.vx *= -1;
+        if (p.y <= 0 || p.y >= height) p.vy *= -1;
+
+        p.x = Math.max(0, Math.min(width, p.x));
+        p.y = Math.max(0, Math.min(height, p.y));
+
+        p.vx *= 0.995;
+        p.vy *= 0.995;
       }
     };
 
     const draw = () => {
-      ctx.clearRect(0, 0, width, height);
-
-      const linkDistance = spacing * 1.35;
+      const bg = ctx.createLinearGradient(0, 0, width, height);
+      bg.addColorStop(0, '#030303');
+      bg.addColorStop(1, '#0a0a0a');
+      ctx.fillStyle = bg;
+      ctx.fillRect(0, 0, width, height);
 
       for (let i = 0; i < points.length; i += 1) {
         const a = points[i];
+
         for (let j = i + 1; j < points.length; j += 1) {
           const b = points[j];
           const d = distance(a.x, a.y, b.x, b.y);
-          if (d < linkDistance) {
-            const centerX = (a.x + b.x) * 0.5;
-            const centerY = (a.y + b.y) * 0.5;
-            const pointerDist = pointer.active
-              ? distance(centerX, centerY, pointer.x, pointer.y)
-              : Infinity;
-            const proximity = pointerDist < influenceRadius
-              ? (1 - pointerDist / influenceRadius)
-              : 0;
-            const alpha = 0.2 * (1 - d / linkDistance) + proximity * 0.16;
-            ctx.strokeStyle = `rgba(168, 168, 168, ${Math.min(alpha, 0.4).toFixed(3)})`;
+
+          if (d < currentMaxDistance) {
+            const alpha = (1 - d / currentMaxDistance) * 0.26;
+            ctx.strokeStyle = `rgba(166, 213, 255, ${alpha.toFixed(3)})`;
             ctx.lineWidth = 1;
             ctx.beginPath();
             ctx.moveTo(a.x, a.y);
@@ -127,14 +122,13 @@ export default function TriangleBackground() {
       for (let i = 0; i < points.length; i += 1) {
         const p = points[i];
         const d = pointer.active ? distance(p.x, p.y, pointer.x, pointer.y) : Infinity;
-        const proximity = d < influenceRadius ? (1 - d / influenceRadius) : 0;
+        const glow = d < influenceRadius ? (1 - d / influenceRadius) * 0.42 : 0;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, 1.4, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(196, 196, 196, ${(0.16 + proximity * 0.24).toFixed(3)})`;
+        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(208, 233, 255, ${(0.28 + glow).toFixed(3)})`;
         ctx.fill();
       }
-
     };
 
     const animate = () => {
@@ -155,6 +149,9 @@ export default function TriangleBackground() {
 
     const onResize = () => {
       setCanvasSize();
+      const isMobile = width < 768;
+      currentPointDensity = isMobile ? mobilePointDensity : desktopPointDensity;
+      currentMaxDistance = isMobile ? mobileMaxDistance : desktopMaxDistance;
       rebuildPoints();
     };
 
