@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { profile } from '../data/content';
 
 function GlitchTitle() {
-  const [displayText, setDisplayText] = useState('YOKONAD');
-  const originalText = 'YOKONAD';
+  const [displayText, setDisplayText] = useState('YOKONADPAGE');
+  const originalText = 'YOKONADPAGE';
 
   useEffect(() => {
     let timeout;
