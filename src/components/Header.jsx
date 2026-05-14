@@ -2,8 +2,8 @@ import { useState, useEffect } from 'react';
 import { profile } from '../data/content';
 
 function GlitchTitle() {
-  const [displayText, setDisplayText] = useState('00000000000');
-  const originalText = 'YOKONADPAGE';
+  const [displayText, setDisplayText] = useState('YOKONAD');
+  const originalText = 'YOKONAD';
 
   useEffect(() => {
     let timeout;
@@ -36,8 +36,8 @@ function GlitchTitle() {
 
   return (
     <>
-      {displayText.slice(0, 7)}
-      <span className="text-terminal-accent">{displayText.slice(7)}</span>
+      {displayText.slice(0, 4)}
+      <span className="text-terminal-accent">{displayText.slice(4)}</span>
     </>
   );
 }
@@ -51,7 +51,10 @@ export default function Header() {
           <p className="text-terminal-dim text-[10px] tracking-widest uppercase mb-2">
             {'>'}
           </p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9] uppercase relative inline-block">
+          <h1
+            aria-label="Yokonad"
+            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9] uppercase relative inline-block"
+          >
             <GlitchTitle />
             <span className="animate-blink ml-1 text-terminal-dim text-3xl sm:text-4xl md:text-5xl absolute -bottom-[2px]">_</span>
           </h1>
