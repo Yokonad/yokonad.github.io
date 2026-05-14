@@ -1,5 +1,5 @@
 import Section from './Section';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const TRACKS = [
   { id: 'eJLwj6FohJo', title: 'Indiana', artist: 'Hombres G', thumb: 'https://i.ytimg.com/vi/eJLwj6FohJo/hqdefault.jpg' },
@@ -14,9 +14,28 @@ const TRACKS = [
 ];
 
 const PLAY_DURATION = 64;
+const ROTATE_MS = 8000;
+const FADE_MS = 280;
 
 export default function Music() {
   const [current, setCurrent] = useState(0);
+  const [isFading, setIsFading] = useState(false);
+
+  useEffect(() => {
+    let timeoutId;
+    const timer = setInterval(() => {
+      setIsFading(true);
+      timeoutId = window.setTimeout(() => {
+        setCurrent((value) => (value + 1) % TRACKS.length);
+        setIsFading(false);
+      }, FADE_MS);
+    }, ROTATE_MS);
+
+    return () => {
+      clearInterval(timer);
+      clearTimeout(timeoutId);
+    };
+  }, []);
 
   const track = TRACKS[current];
 
@@ -37,16 +56,32 @@ export default function Music() {
           </div>
 
           {/* Thumbnail */}
-          <div className="w-full aspect-video mb-3 overflow-hidden border border-terminal-border">
+          <div
+            className="w-full aspect-video mb-3 overflow-hidden border border-terminal-border"
+            style={{
+              opacity: isFading ? 0.3 : 1,
+              transitionProperty: 'opacity',
+              transitionDuration: `${FADE_MS}ms`,
+              transitionTimingFunction: 'ease-in-out',
+            }}
+          >
             <img
               src={track.thumb}
               alt={track.title}
-              className="w-full h-full object-cover opacity-80"
+              className="w-full h-full object-cover opacity-80 transition-opacity duration-300"
             />
           </div>
 
           {/* Track info */}
-          <div className="space-y-1 text-xs text-terminal-dim">
+          <div
+            className="space-y-1 text-xs text-terminal-dim"
+            style={{
+              opacity: isFading ? 0.3 : 1,
+              transitionProperty: 'opacity',
+              transitionDuration: `${FADE_MS}ms`,
+              transitionTimingFunction: 'ease-in-out',
+            }}
+          >
             <p className="text-terminal-fg font-bold text-sm">{track.title}</p>
             <p>{track.artist}</p>
           </div>

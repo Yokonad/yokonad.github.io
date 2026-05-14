@@ -1,4 +1,46 @@
+import { useState, useEffect } from 'react';
 import { profile } from '../data/content';
+
+function GlitchTitle() {
+  const [displayText, setDisplayText] = useState('00000000000');
+  const originalText = 'YOKONADPAGE';
+
+  useEffect(() => {
+    let timeout;
+    let iterations = 0;
+    const maxIterations = 15;
+
+    const glitch = () => {
+      if (iterations < maxIterations) {
+        setDisplayText(
+          originalText
+            .split('')
+            .map(() => (Math.random() > 0.5 ? '1' : '0'))
+            .join('')
+        );
+        iterations++;
+        timeout = setTimeout(glitch, 50);
+      } else {
+        setDisplayText(originalText);
+        timeout = setTimeout(() => {
+          iterations = 0;
+          glitch();
+        }, 5000 + Math.random() * 5000);
+      }
+    };
+
+    glitch();
+
+    return () => clearTimeout(timeout);
+  }, []);
+
+  return (
+    <>
+      {displayText.slice(0, 7)}
+      <span className="text-terminal-accent">{displayText.slice(7)}</span>
+    </>
+  );
+}
 
 export default function Header() {
   return (
@@ -7,11 +49,11 @@ export default function Header() {
         {/* Título hero gigante */}
         <div className="mb-4">
           <p className="text-terminal-dim text-[10px] tracking-widest uppercase mb-2">
-            {'>'} sistema iniciado
+            {'>'}
           </p>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9] uppercase">
-            YOKONAD<span className="text-terminal-accent">PAGE</span>
-            <span className="animate-blink ml-1 text-terminal-dim text-3xl sm:text-4xl md:text-5xl">_</span>
+          <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tighter leading-[0.9] uppercase relative inline-block">
+            <GlitchTitle />
+            <span className="animate-blink ml-1 text-terminal-dim text-3xl sm:text-4xl md:text-5xl absolute -bottom-[2px]">_</span>
           </h1>
           <p className="text-xs sm:text-sm text-terminal-dim mt-3 tracking-wide">
             {profile.role}

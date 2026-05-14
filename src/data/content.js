@@ -96,7 +96,7 @@ export const infoBlocks = [
   },
   {
     title: 'Artistas Favoritos',
-    text: 'Fito Páez, Wos, Oasis, Jaze.',
+    text: 'Fito Páez, Wos, Oasis, Jaze, Gustavo Cerati, Enanitos Verdes, Queen.',
     special: true,
   },
   {
@@ -105,57 +105,28 @@ export const infoBlocks = [
   },
 ];
 
-export const certificates = [
-  {
-    title: 'CCNA: Introduction to Networks',
-    issuer: 'SENATI / Cisco',
-    date: 'PDF',
-    url: '/certificate/CCNA-_Introduction_to_Networks_certificate_1574779-senati-pe_23435678-874d-4731-b436-835140233b8e.pdf',
-    tags: ['CCNA', 'Networking', 'Introduction'],
-  },
-  {
-    title: 'CCNA: Switching, Routing, and Wireless Essentials',
-    issuer: 'SENATI / Cisco',
-    date: 'PDF',
-    url: '/certificate/CCNA-_Switching-_Routing-_and_Wireless_Essentials_certificate_1574779-senati-pe_33b96eaf-5cf1-4c57-bb1a-3cfe6afd760a.pdf',
-    tags: ['CCNA', 'Switching', 'Wireless'],
-  },
-  {
-    title: 'Getting Started with Cisco Packet Tracer',
-    issuer: 'SENATI / Cisco',
-    date: 'PDF',
-    url: '/certificate/Getting_Started_with_Cisco_Packet_Tracer_certificate_1574779-senati-pe_d949d4c4-678e-417d-9f83-5615918ac9ec.pdf',
-    tags: ['Packet Tracer', 'Cisco', 'Labs'],
-  },
-  {
-    title: 'IT Essentials',
-    issuer: 'SENATI / Cisco',
-    date: 'PDF',
-    url: '/certificate/IT_Essentials_certificate_1574779-senati-pe_379a2f91-3da9-4485-b9a0-a9f0a9cf0613.pdf',
-    tags: ['Hardware', 'OS', 'Troubleshooting'],
-  },
-  {
-    title: 'PCAP: Programming Essentials in Python',
-    issuer: 'SENATI / Python Institute',
-    date: 'PDF',
-    url: '/certificate/Partner-_PCAP_-_Programming_Essentials_in_Python_certificate_1574779-senati-pe_608419be-0842-4219-aa4b-80ce2df31ad6.pdf',
-    tags: ['Python', 'PCAP', 'Programming'],
-  },
-  {
-    title: 'Certificado Adicional 01',
-    issuer: 'SENATI',
-    date: 'PDF',
-    url: '/certificate/_certificate_1574779-senati-pe_066ad1e0-1c9d-47e2-9b7d-83941bc60063.pdf',
-    tags: ['Certificado', 'Adicional'],
-  },
-  {
-    title: 'Certificado Adicional 02',
-    issuer: 'SENATI',
-    date: 'PDF',
-    url: '/certificate/_certificate_1574779-senati-pe_172a93ad-762b-4517-b17a-744efbad0210.pdf',
-    tags: ['Certificado', 'Adicional'],
-  },
-];
+export const comunidad = {
+  serverName: 'KoroSoft Community',
+  established: 'Est. abr 2026',
+  description: 'Korosoft Community es un ecosistema técnico especializado en el desarrollo de software avanzado y la orquestación de agentes de IA, diseñado para quienes buscan integrar inteligencia autónoma en sistemas de alto rendimiento.',
+  technologies: [
+    { name: 'Python', color: 'transparent', borderColor: '#4DA3FF', textColor: '#FFE66D' },
+    { name: 'OpenCode', color: 'transparent', borderColor: '#FFFFFF', textColor: '#FFFFFF' },
+    { name: 'Java', color: 'transparent', borderColor: '#FF9F43', textColor: '#FFD166' },
+    { name: 'CSS', color: 'transparent', borderColor: '#5B8CFF', textColor: '#7FDBFF' },
+    { name: 'Tailwind', color: 'transparent', borderColor: '#22D3EE', textColor: '#67E8F9' },
+    { name: 'HTML', color: 'transparent', borderColor: '#FF6B4A', textColor: '#FF9E7A' },
+    { name: 'Linux', color: 'transparent', borderColor: '#FFD93D', textColor: '#FFF27A' },
+    { name: 'Arch', color: 'transparent', borderColor: '#38BDF8', textColor: '#7DD3FC' },
+    { name: 'Ubuntu', color: 'transparent', borderColor: '#FF7A45', textColor: '#FFB26B' },
+    { name: 'Go', color: 'transparent', borderColor: '#2DD4FF', textColor: '#A5F3FC' },
+    { name: 'npm', color: 'transparent', borderColor: '#FF4D6D', textColor: '#FF8FA3' },
+    { name: 'Claude', color: 'transparent', borderColor: '#F4A261', textColor: '#FFD6A5' },
+    { name: 'ChatGPT', color: 'transparent', borderColor: '#34D399', textColor: '#6EE7B7' },
+    { name: 'DeepSeek', color: 'transparent', borderColor: '#8B5CF6', textColor: '#C084FC' },
+  ],
+  discordLink: 'https://discord.gg/8hzrg5UEsU',
+};
 
 export const contact = {
   heading: 'Contacto',

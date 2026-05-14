@@ -38,7 +38,7 @@ const linkConfig = {
 
 const borderStyles = {
   GitHub: { border: '1.5px solid #e0e0e0' },
-  Instagram: { border: '1.5px solid #E1306C' },
+  Instagram: { border: '1.5px solid transparent', borderImage: 'linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%) 1' },
   Discord: { border: '1.5px solid #5865F2' },
   Email: { border: '1.5px solid #60a5fa' },
 };
@@ -68,7 +68,9 @@ export default function Contact() {
                 {link.label}
               </span>
               <span className="text-[10px] text-terminal-dim mt-1 truncate max-w-full">
-                {link.url.replace('mailto:', '').replace('https://', '').replace('www.', '')}
+                {link.label === 'Discord'
+                  ? 'Yokonad'
+                  : link.url.replace('mailto:', '').replace('https://', '').replace('www.', '')}
               </span>
             </a>
           );
