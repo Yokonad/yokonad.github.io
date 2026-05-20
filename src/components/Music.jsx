@@ -46,6 +46,16 @@ export default function Music() {
     setCurrent(i);
   };
 
+  const getVisibleTracks = () => {
+    const limit = Math.min(10, TRACKS.length);
+    const visible = [];
+    for (let i = 0; i < limit; i++) {
+      const idx = (current + i) % TRACKS.length;
+      visible.push({ t: TRACKS[idx], i: idx });
+    }
+    return visible;
+  };
+
   return (
     <Section id="música" title="Música">
 
@@ -106,9 +116,9 @@ export default function Music() {
         <div className="border border-dashed border-terminal-border p-4">
           <p className="text-xs uppercase tracking-widest text-terminal-dim mb-2.5">Playlist</p>
           <ul className="space-y-2 text-xs">
-            {TRACKS.map((t, i) => (
+            {getVisibleTracks().map(({ t, i }) => (
               <li
-                key={t.id}
+                key={`${t.id}-${i}`}
                 onClick={() => selectTrack(i)}
                 className={`flex items-center gap-2 py-1 border-b border-terminal-border/50 cursor-pointer hover:text-terminal-accent transition-colors ${
                   i === current ? 'text-terminal-fg' : 'text-terminal-dim'
