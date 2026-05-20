@@ -11,6 +11,9 @@ const TRACKS = [
   { id: 'Ab1nJg4RKw0', title: "Don't Go Away", artist: 'Oasis', thumb: 'https://i.ytimg.com/vi/Ab1nJg4RKw0/hqdefault.jpg' },
   { id: 'xg_Y7Or_hWM', title: 'Last Night on Earth', artist: 'Green Day', thumb: 'https://i.ytimg.com/vi/xg_Y7Or_hWM/hqdefault.jpg' },
   { id: 'cmpRLQZkTb8', title: "Don't Look Back In Anger", artist: 'Oasis', thumb: 'https://i.ytimg.com/vi/cmpRLQZkTb8/hqdefault.jpg' },
+  { id: 'Qy7LcH7pWZo', title: 'Díganselo', artist: 'El Kuelgue', thumb: 'https://i.ytimg.com/vi/Qy7LcH7pWZo/hqdefault.jpg' },
+  { id: 'MVeiKDh4ffk', title: 'Cada Vez Que Digo Adiós', artist: 'Los Enanitos Verdes', thumb: 'https://i.ytimg.com/vi/MVeiKDh4ffk/hqdefault.jpg' },
+  { id: 'ZjZecW1BvZE', title: 'Mi Primer Día Sin Ti', artist: 'Los Enanitos Verdes', thumb: 'https://i.ytimg.com/vi/ZjZecW1BvZE/hqdefault.jpg' },
 ];
 
 const PLAY_DURATION = 64;
