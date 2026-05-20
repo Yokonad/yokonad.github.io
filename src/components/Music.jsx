@@ -49,11 +49,12 @@ export default function Music() {
   const track = playlist[current];
 
   const getVisibleTracks = () => {
-    const limit = Math.min(10, playlist.length);
+    const limit = 10;
     const visible = [];
-    for (let i = 0; i < limit; i++) {
+    // Renderizamos 11 elementos para tener el buffer visual de la animación
+    for (let i = 0; i <= limit; i++) {
       const idx = (current + i) % playlist.length;
-      visible.push({ t: playlist[idx], i: idx, displayPos: i + 1 });
+      visible.push({ t: playlist[idx], i: idx });
     }
     return visible;
   };
@@ -115,27 +116,48 @@ export default function Music() {
         </div>
 
         {/* Playlist */}
-        <div className="border border-dashed border-terminal-border p-4">
+        <div className="border border-dashed border-terminal-border p-4 overflow-hidden">
           <p className="text-xs uppercase tracking-widest text-terminal-dim mb-2.5">Playlist</p>
-          <ul className="space-y-2 text-xs">
-            {getVisibleTracks().map(({ t, i, displayPos }) => (
-              <li
-                key={`${t.id}-${i}`}
-                className={`flex items-center gap-2 py-1 border-b border-terminal-border/50 transition-colors ${
-                  i === current ? 'text-terminal-fg' : 'text-terminal-dim'
-                }`}
-              >
-                <span className="w-4 text-right opacity-50">
-                  {i === current ? '▶' : String(displayPos).padStart(2, '0')}
-                </span>
-                <span className="flex-1 truncate">
-                  {t.artist} — {t.title}
-                </span>
-                <span className="opacity-40">{PLAY_DURATION}s</span>
-              </li>
-            ))}
+          <ul className="text-xs">
+            {getVisibleTracks().map(({ t, i }, index) => {
+              const isFirst = index === 0;
+              const isLast = index === 10;
+              const isActive = i === current;
+
+              return (
+                <li
+                  key={`${t.id}-${i}`}
+                  style={{
+                    display: 'grid',
+                    gridTemplateRows: (isFading && isFirst) || (!isFading && isLast) ? '0fr' : '1fr',
+                    opacity: (isFading && isFirst) || (!isFading && isLast) ? 0 : 1,
+                    transition: isFading
+                      ? `grid-template-rows ${FADE_MS}ms ease-in-out, opacity ${FADE_MS}ms ease-in-out`
+                      : 'none',
+                  }}
+                >
+                  <div className="overflow-hidden">
+                    <div
+                      className={`flex items-center gap-2 py-1 border-b border-terminal-border/50 transition-colors ${
+                        isActive ? 'text-terminal-fg' : 'text-terminal-dim'
+                      }`}
+                    >
+                      <span className="w-4 text-right opacity-50">
+                        {isActive ? '▶' : String(index === 10 ? 10 : index + 1).padStart(2, '0')}
+                      </span>
+                      <span className="flex-1 truncate">
+                        {t.artist} — {t.title}
+                      </span>
+                      <span className="opacity-40">{PLAY_DURATION}s</span>
+                    </div>
+                    {/* Espaciado en lugar de space-y-2 para que se anime suavemente */}
+                    <div className="h-2" />
+                  </div>
+                </li>
+              );
+            })}
           </ul>
-          <p className="text-[10px] text-terminal-dim mt-2.5 opacity-50">
+          <p className="text-[10px] text-terminal-dim mt-0.5 opacity-50">
             Reproducción de audio deshabilitada.
           </p>
         </div>
