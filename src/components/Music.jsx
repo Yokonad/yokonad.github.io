@@ -21,6 +21,12 @@ const ROTATE_MS = 8000;
 const FADE_MS = 280;
 
 export default function Music() {
+  const [playlist] = useState(() => {
+    // Copiar la lista y mezclarla aleatoriamente para crear la "ruleta"
+    const shuffled = [...TRACKS].sort(() => Math.random() - 0.5);
+    return shuffled;
+  });
+
   const [current, setCurrent] = useState(0);
   const [isFading, setIsFading] = useState(false);
 
@@ -29,7 +35,7 @@ export default function Music() {
     const timer = setInterval(() => {
       setIsFading(true);
       timeoutId = window.setTimeout(() => {
-        setCurrent((value) => (value + 1) % TRACKS.length);
+        setCurrent((value) => (value + 1) % playlist.length);
         setIsFading(false);
       }, FADE_MS);
     }, ROTATE_MS);
@@ -38,20 +44,16 @@ export default function Music() {
       clearInterval(timer);
       clearTimeout(timeoutId);
     };
-  }, []);
+  }, [playlist.length]);
 
-  const track = TRACKS[current];
-
-  const selectTrack = (i) => {
-    setCurrent(i);
-  };
+  const track = playlist[current];
 
   const getVisibleTracks = () => {
-    const limit = Math.min(10, TRACKS.length);
+    const limit = Math.min(10, playlist.length);
     const visible = [];
     for (let i = 0; i < limit; i++) {
-      const idx = (current + i) % TRACKS.length;
-      visible.push({ t: TRACKS[idx], i: idx });
+      const idx = (current + i) % playlist.length;
+      visible.push({ t: playlist[idx], i: idx, displayPos: i + 1 });
     }
     return visible;
   };
@@ -116,16 +118,15 @@ export default function Music() {
         <div className="border border-dashed border-terminal-border p-4">
           <p className="text-xs uppercase tracking-widest text-terminal-dim mb-2.5">Playlist</p>
           <ul className="space-y-2 text-xs">
-            {getVisibleTracks().map(({ t, i }) => (
+            {getVisibleTracks().map(({ t, i, displayPos }) => (
               <li
                 key={`${t.id}-${i}`}
-                onClick={() => selectTrack(i)}
-                className={`flex items-center gap-2 py-1 border-b border-terminal-border/50 cursor-pointer hover:text-terminal-accent transition-colors ${
+                className={`flex items-center gap-2 py-1 border-b border-terminal-border/50 transition-colors ${
                   i === current ? 'text-terminal-fg' : 'text-terminal-dim'
                 }`}
               >
                 <span className="w-4 text-right opacity-50">
-                  {i === current ? '▶' : String(i + 1).padStart(2, '0')}
+                  {i === current ? '▶' : String(displayPos).padStart(2, '0')}
                 </span>
                 <span className="flex-1 truncate">
                   {t.artist} — {t.title}
