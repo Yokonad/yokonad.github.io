@@ -16,7 +16,7 @@ function DiscordIcon() {
 
 export default function Comunidad() {
   return (
-    <Section title="Comunidad">
+    <Section id="comunidad" title="Comunidad">
       <div className="max-w-7xl mx-auto grid gap-4 lg:grid-cols-[minmax(0,1.35fr)_minmax(240px,0.85fr)] items-stretch">
         <a
           href={comunidad.discordLink}

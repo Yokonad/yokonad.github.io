@@ -3,10 +3,14 @@ import { profile } from '../data/content';
 
 const navItems = [
   { label: 'Perfil', href: '#usuario' },
+  { label: 'Contacto', href: '#contacto' },
+  { label: 'GitHub', href: '#github' },
+  { label: 'Información', href: '#informacion' },
   { label: 'Proyectos', href: '#proyectos' },
   { label: 'Equipo', href: '#equipo' },
+  { label: 'Notas', href: '#info' },
+  { label: 'Comunidad', href: '#comunidad' },
   { label: 'Música', href: '#música' },
-  { label: 'Contacto', href: '#contacto' },
 ];
 
 export default function Sidebar() {

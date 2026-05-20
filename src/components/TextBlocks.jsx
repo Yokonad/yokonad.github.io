@@ -78,7 +78,7 @@ export default function TextBlocks() {
   }, []);
 
   return (
-    <section className="w-full py-5 md:py-7">
+    <section id="github" className="w-full py-5 md:py-7">
       <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
         {/* Calendario de contribuciones */}
         <div className="md:col-span-4 border border-terminal-border p-3 overflow-hidden flex flex-col">

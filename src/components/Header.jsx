@@ -65,13 +65,23 @@ export default function Header() {
 
         {/* Nav */}
         <nav className="pt-3 border-t border-terminal-border flex flex-wrap gap-3 sm:gap-4 text-[10px] sm:text-xs uppercase tracking-widest">
-          {['perfil', 'proyectos', 'equipo', 'música'].map((s, i) => (
+          {[
+            { id: 'usuario', label: 'perfil' },
+            { id: 'contacto', label: 'contacto' },
+            { id: 'github', label: 'github' },
+            { id: 'informacion', label: 'información' },
+            { id: 'proyectos', label: 'proyectos' },
+            { id: 'equipo', label: 'equipo' },
+            { id: 'info', label: 'notas' },
+            { id: 'comunidad', label: 'comunidad' },
+            { id: 'música', label: 'música' },
+          ].map((s, i) => (
             <a
-              key={`nav-${s}-${i}`}
-              href={`#${s === 'perfil' ? 'usuario' : s}`}
+              key={`nav-${s.id}-${i}`}
+              href={`#${s.id}`}
               className="hover:text-terminal-accent transition-colors duration-200"
             >
-              [{s}]
+              [{s.label}]
             </a>
           ))}
         </nav>
