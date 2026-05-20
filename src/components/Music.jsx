@@ -16,8 +16,8 @@ const TRACKS = [
   { id: 'ZjZecW1BvZE', title: 'Mi Primer Día Sin Ti', artist: 'Los Enanitos Verdes', thumb: 'https://i.ytimg.com/vi/ZjZecW1BvZE/hqdefault.jpg' },
 ];
 
-const PLAY_DURATION = 64;
-const ROTATE_MS = 8000;
+const PLAY_DURATION = 30;
+const ROTATE_MS = 30000;
 const FADE_MS = 280;
 
 export default function Music() {
