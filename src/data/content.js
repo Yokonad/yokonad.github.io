@@ -4,7 +4,7 @@
 export const profile = {
   name: 'Dan Ramos Reynaldo',
   role: 'Estudiante de Ciberseguridad — SENATI | 6to Ciclo',
-  avatar: '/picture/perfil.webp',
+  avatar: '/picture/yokonad.webp',
   bio: [
     '> Apodo: yokonad',
     '> Estudiante de Ciberseguridad en SENATI, cursando el sexto ciclo.',
@@ -83,7 +83,7 @@ export const team = [
     name: 'Yokonad',
     role: 'Owner de KoroSoft Code',
     bio: 'Experto en desarrollo web completo y arquitecturas escalables. Especialista en React y Node.js.',
-    avatar: '/picture/yokonad.webp',
+    avatar: '/picture/perfil_equipo.webp',
     tags: ['Cisco', 'HTML', 'JavaScript'],
   },
 ];
