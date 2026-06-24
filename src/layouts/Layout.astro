@@ -1,3 +1,18 @@
+---
+import '../styles/global.css';
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: 'Yokonad',
+  alternateName: 'Dan Ramos Reynaldo',
+  url: 'https://yokonad.github.io/',
+  image: 'https://yokonad.github.io/picture/yokonad.webp',
+  jobTitle: 'Estudiante de Ciberseguridad y Desarrollador Web',
+  sameAs: ['https://github.com/Yokonad', 'https://www.instagram.com/yk.nadrr/'],
+};
+---
+
 <!DOCTYPE html>
 <html lang="es">
   <head>
@@ -16,49 +31,31 @@
     <link rel="canonical" href="https://yokonad.github.io/" />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://yokonad.github.io/" />
-    <meta
-      property="og:title"
-      content="Yokonad | Portafolio"
-    />
+    <meta property="og:title" content="Yokonad | Portafolio" />
     <meta
       property="og:description"
       content="Portafolio de Yokonad: proyectos de ciberseguridad, redes, desarrollo web, Linux, React y Python."
     />
     <meta property="og:image" content="https://yokonad.github.io/picture/yokonad.webp" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta
-      name="twitter:title"
-      content="Yokonad | Portafolio"
-    />
+    <meta name="twitter:title" content="Yokonad | Portafolio" />
     <meta
       name="twitter:description"
       content="Portafolio de Yokonad: ciberseguridad, redes, desarrollo web, Linux, React y Python."
     />
     <meta name="twitter:image" content="https://yokonad.github.io/picture/yokonad.webp" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Rubik+Mono+One&display=swap"
       rel="stylesheet"
     />
+    <meta name="theme-color" content="#6b4fd6" />
     <link rel="icon" href="/picture/linux.ico" />
-    <title>Yokonad | Portafolio</title>
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Yokonad",
-        "alternateName": "Dan Ramos Reynaldo",
-        "url": "https://yokonad.github.io/",
-        "image": "https://yokonad.github.io/picture/yokonad.webp",
-        "jobTitle": "Estudiante de Ciberseguridad y Desarrollador Web",
-        "sameAs": [
-          "https://github.com/Yokonad",
-          "https://www.instagram.com/yk.nadrr/"
-        ]
-      }
-    </script>
+    <title>yokonad.dev</title>
+    <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.jsx"></script>
+    <slot />
   </body>
 </html>

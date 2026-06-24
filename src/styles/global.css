@@ -1,0 +1,517 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─────────────────────────────────────────────
+   YOKONAD CODEX — tema "papel" (zine retro)
+   ───────────────────────────────────────────── */
+:root {
+  --paper: #ffffff;
+  --paper-2: #efeee8;
+  --panel: #f5f4f0;
+  --ink: #17141f;
+  --ink-soft: #423c57;
+  --violet: #17141f;
+  --violet-deep: #17141f;
+  --violet-bright: #8b6cf6;
+  --violet-pale: #d6cbf2;
+  --cream: #f3eee0;
+  /* Morado exclusivo de KoroSoft Community */
+  --korosoft: #6b4fd6;
+
+  /* ── Barrera lateral: distancia entre el borde de la ventana y el contenido ── */
+  --edge: 13%;
+  /* ── Separación vertical entre bloques de la página ── */
+  --gap: 1.75rem;
+}
+
+/* Pila vertical con separación uniforme entre secciones */
+.codex-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+}
+
+/* Etiqueta de sección (cabecera de bloque) */
+.section-label {
+  background: var(--violet);
+  color: var(--cream);
+  border: 2px solid var(--ink);
+  padding: 0.45rem 0.8rem;
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+/* Margen lateral por porcentaje (solo en pantallas medianas+; en móvil queda compacto) */
+.codex-edges {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+@media (min-width: 768px) {
+  .codex-edges {
+    padding-left: var(--edge);
+    padding-right: var(--edge);
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: 'IBM Plex Mono', 'Courier New', Courier, monospace;
+  color: var(--ink);
+  background-color: var(--paper);
+  /* trama de puntos sutil tipo papel reciclado — cubre toda la página */
+  background-image: radial-gradient(rgba(23, 20, 31, 0.05) 0.5px, transparent 0.6px);
+  background-size: 3px 3px;
+  background-attachment: fixed;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+p {
+  margin: 0;
+}
+
+::selection {
+  background: var(--violet-bright);
+  color: var(--cream);
+}
+
+a {
+  color: var(--violet-deep);
+  text-decoration: none;
+}
+
+/* ── Tipografía display blocky ── */
+.display {
+  font-family: 'Rubik Mono One', 'IBM Plex Mono', monospace;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+}
+
+/* ── Ventanas con cromo retro ── */
+.win {
+  border: 2px solid var(--ink);
+  background: var(--panel);
+  box-shadow: 4px 4px 0 rgba(23, 20, 31, 0.22);
+  transition: transform 0.16s ease, box-shadow 0.16s ease;
+}
+
+.win:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 7px 7px 0 rgba(23, 20, 31, 0.28);
+}
+
+.win-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.35rem 0.6rem;
+  background: var(--violet);
+  color: var(--cream);
+  border-bottom: 2px solid var(--ink);
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  font-size: 0.64rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.win-bar.is-ink {
+  background: var(--ink);
+}
+
+.win-btns {
+  display: inline-flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.win-btns i {
+  width: 9px;
+  height: 9px;
+  display: inline-block;
+  border: 1.5px solid var(--cream);
+  background: transparent;
+}
+
+/* ── Barra de título de sección ── */
+.bar-title {
+  background: var(--korosoft);
+  color: var(--cream);
+  border: 2px solid var(--ink);
+  padding: 0.4rem 0.7rem;
+  font-weight: 700;
+  font-size: 0.74rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+/* ── Capitular (drop cap) ── */
+.dropcap::first-letter {
+  float: left;
+  font-family: 'Rubik Mono One', monospace;
+  font-size: 3.6rem;
+  line-height: 0.72;
+  padding: 0.05em 0.18em 0 0;
+  color: var(--violet-deep);
+}
+
+/* ── Resaltado morado en bloque ── */
+.hl {
+  background: var(--violet-bright);
+  color: #140f24;
+  padding: 0.02em 0.2em;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  font-weight: 700;
+}
+
+/* ── Divisor punteado ── */
+.dashrule {
+  border: none;
+  border-top: 2px dashed rgba(23, 20, 31, 0.45);
+  margin: 0;
+}
+
+/* ── Marca de cita gigante ── */
+.qmark {
+  font-family: 'Rubik Mono One', monospace;
+  color: var(--violet);
+  line-height: 0.6;
+}
+
+/* ── Item de lista con rombo ── */
+.diamond::before {
+  content: '✦';
+  color: var(--violet-deep);
+  margin-right: 0.55rem;
+}
+
+/* ── Checkbox marcado ── */
+.cbx {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  border: 1.5px solid var(--ink);
+  background: var(--violet-bright);
+  color: #140f24;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  margin-top: 2px;
+}
+
+/* ── Efecto scramble en títulos ── */
+/* Caracteres del scramble: mismo color del texto, atenuado (no desentona ni salta) */
+.scr-dim {
+  opacity: 0.5;
+}
+
+/* ── Animación de entrada ── */
+.rise {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.rise.in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rise {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ── Corner ticks decorativos ── */
+.ticks {
+  position: relative;
+}
+.ticks::before,
+.ticks::after {
+  content: '+';
+  position: absolute;
+  color: var(--ink);
+  font-size: 0.7rem;
+  opacity: 0.6;
+}
+.ticks::before {
+  top: -2px;
+  left: -2px;
+}
+.ticks::after {
+  bottom: -4px;
+  right: -2px;
+}
+
+/* ── Álbumes orbitando (offset-path, sin JS de animación) ── */
+.orbit-container {
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+  aspect-ratio: 760 / 240;
+  overflow: hidden;
+}
+.orbit-scale {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 760px;
+  height: 240px;
+  transform-origin: top left;
+}
+.orbit-rot {
+  position: absolute;
+  inset: 0;
+  transform: rotate(-8deg);
+}
+.orbit-item {
+  position: absolute;
+  width: 66px;
+  height: 66px;
+  offset-path: path('M 60 120 A 320 80 0 1 0 700 120 A 320 80 0 1 0 60 120');
+  offset-rotate: 0deg;
+  offset-anchor: center center;
+  offset-distance: 0%;
+  animation: orbit-spin 77s linear infinite;
+}
+.orbit-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 rgba(23, 20, 31, 0.25);
+  transform: rotate(8deg);
+  transition: opacity 0.28s ease;
+}
+@keyframes orbit-spin {
+  from {
+    offset-distance: 0%;
+  }
+  to {
+    offset-distance: 100%;
+  }
+}
+.orbit-container:hover .orbit-item {
+  animation-play-state: paused;
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-item {
+    animation: none;
+  }
+}
+
+/* ── Reproductor: playlist que rueda ── */
+.pl-viewport {
+  overflow: hidden;
+}
+.pl-row {
+  border-bottom: 1px solid rgba(23, 20, 31, 0.1);
+  transition: background 0.35s ease;
+}
+.pl-active {
+  background: rgba(23, 20, 31, 0.1);
+  font-weight: 600;
+}
+.pl-mark {
+  opacity: 0;
+  font-size: 9px;
+  transition: opacity 0.35s ease;
+}
+.pl-active .pl-mark {
+  opacity: 1;
+}
+.pl-eq {
+  opacity: 0;
+  color: var(--ink-soft);
+  transition: opacity 0.35s ease;
+}
+.pl-active .pl-eq {
+  opacity: 1;
+}
+
+/* Línea de la órbita */
+.orbit-path {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 760px;
+  height: 240px;
+  pointer-events: none;
+}
+
+/* ── Carrusel de logos (marquee CSS, sin JS) ── */
+.logoloop {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid var(--ink);
+  background: var(--panel);
+  box-shadow: 4px 4px 0 rgba(23, 20, 31, 0.22);
+  padding: 16px 0;
+}
+
+.logoloop::before,
+.logoloop::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 64px;
+  z-index: 2;
+  pointer-events: none;
+}
+.logoloop::before {
+  left: 0;
+  background: linear-gradient(to right, var(--panel), rgba(228, 223, 206, 0));
+}
+.logoloop::after {
+  right: 0;
+  background: linear-gradient(to left, var(--panel), rgba(228, 223, 206, 0));
+}
+
+.logoloop__track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  animation: logoloop-scroll 34s linear infinite;
+}
+
+.logoloop:hover .logoloop__track {
+  animation-play-state: paused;
+}
+
+.logoloop__item {
+  flex: 0 0 auto;
+  margin-right: 46px;
+  display: inline-flex;
+  align-items: center;
+}
+
+.logoloop__item img {
+  height: 38px;
+  width: auto;
+  display: block;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logoloop__chip {
+  display: inline-flex;
+  align-items: center;
+  height: 38px;
+  padding: 0 12px;
+  border: 2px solid var(--ink);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.03em;
+  white-space: nowrap;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.logoloop__item:hover img,
+.logoloop__item:hover .logoloop__chip {
+  transform: scale(1.2);
+}
+
+@keyframes logoloop-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .logoloop__track {
+    animation: none;
+  }
+}
+
+/* ── Calendario de contribuciones de GitHub ── */
+/* Escritorio: la rejilla ocupa todo el ancho del cuadro sin salirse */
+.gh-grid {
+  display: flex;
+  width: 100%;
+  gap: 2px;
+}
+
+.gh-week {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 0;
+  min-width: 0;
+}
+
+/* Celda base (la usa también la leyenda → tamaño fijo pequeño) */
+.gh-cell {
+  width: 11px;
+  height: 11px;
+  display: inline-block;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* Celdas dentro de la rejilla: se estiran para llenar el ancho (cuadradas) */
+.gh-week .gh-cell {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1 / 1;
+}
+
+/* Móvil (≤640px): transponer → semanas en filas, repartidas en 2 columnas */
+@media (max-width: 640px) {
+  .gh-grid {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-rows: repeat(27, auto);
+    grid-auto-columns: max-content;
+    justify-content: center;
+    gap: 2px 12px;
+    width: auto;
+  }
+  .gh-week {
+    flex-direction: row;
+    flex: 0 0 auto;
+  }
+  .gh-week .gh-cell {
+    width: 13px;
+    height: 13px;
+    aspect-ratio: auto;
+  }
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--paper-2);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--violet);
+  border: 2px solid var(--paper-2);
+}
