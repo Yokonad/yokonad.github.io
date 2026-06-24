@@ -91,7 +91,7 @@ const tagStyle = (t) => {
 <Layout>
   <PixelBlast
     variant="circle"
-    color="#3a3450"
+    color="#3a3a48"
     pixelSize={6}
     patternScale={3}
     patternDensity={1.45}
@@ -123,7 +123,7 @@ const tagStyle = (t) => {
       </p>
       <div class="flex flex-col lg:flex-row lg:items-end gap-5 lg:gap-8">
         <div class="lg:flex-1 min-w-0 lg:self-start">
-          <h1 class="display uppercase leading-[0.84]" style="text-shadow:4px 4px 0 #ffffff">
+          <h1 class="display uppercase leading-[0.84]" style="text-shadow:4px 4px 0 #52525b">
             <span class="scramble block text-[clamp(2.6rem,11vw,5.6rem)]">Desde</span>
             <span class="scramble block text-[clamp(2.6rem,11vw,5.6rem)]">Mi</span>
             <span id="hero-l3" class="scramble block text-[clamp(2.6rem,11vw,5.6rem)]">Terminal</span>
@@ -161,9 +161,9 @@ const tagStyle = (t) => {
               alt="Yokonad"
               loading="eager"
               class="w-44 h-52 sm:w-48 sm:h-60 object-cover border-2 border-[var(--ink)]"
-              style="box-shadow:6px 6px 0 rgba(23,20,31,0.28)"
+              style="box-shadow:6px 6px 0 rgba(244,244,245,0.28)"
             />
-            <span class="absolute -bottom-2.5 left-2 inline-flex items-center gap-1.5 bg-[var(--ink)] text-[var(--cream)] text-[9px] uppercase tracking-widest px-2 py-1">
+            <span class="absolute -bottom-2.5 left-2 inline-flex items-center gap-1.5 bg-[#0c0c0e] border border-[var(--ink)] text-[var(--cream)] text-[9px] uppercase tracking-widest px-2 py-1">
               <span class="w-1.5 h-1.5 rounded-full bg-[#3fb950]" style="box-shadow:0 0 6px #3fb950"></span>
               Disponible
             </span>
@@ -185,7 +185,7 @@ const tagStyle = (t) => {
             </p>
 
             <!-- Ficha de datos -->
-            <div class="mt-4 border-t-2 border-dashed border-[rgba(23,20,31,0.25)] pt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-1.5">
+            <div class="mt-4 border-t-2 border-dashed border-[rgba(244,244,245,0.25)] pt-3 grid grid-cols-1 sm:grid-cols-2 gap-x-5 gap-y-1.5">
               {
                 [
                   ['Apodo', 'yokonad'],
@@ -276,7 +276,7 @@ const tagStyle = (t) => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                class="group flex items-center gap-4 border-2 border-[var(--ink)] bg-[var(--panel)] p-3.5 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_rgba(23,20,31,0.3)]"
+                class="group flex items-center gap-4 border-2 border-[var(--ink)] bg-[var(--panel)] p-3.5 transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[5px_5px_0_rgba(244,244,245,0.3)]"
               >
                 <span
                   class="flex items-center justify-center w-12 h-12 shrink-0 border-2 border-[var(--ink)] text-[var(--cream)] transition-transform duration-150 group-hover:scale-105"
@@ -318,7 +318,7 @@ const tagStyle = (t) => {
             </div>
             <div class="flex items-center justify-end gap-1 mt-2 text-[9px] text-[var(--ink-soft)]">
               <span class="mr-1">Menos</span>
-              <span class="gh-cell" style="background:rgba(23,20,31,0.10)"></span>
+              <span class="gh-cell" style="background:rgba(244,244,245,0.10)"></span>
               <span class="gh-cell" style="background:#9be9a8"></span>
               <span class="gh-cell" style="background:#40c463"></span>
               <span class="gh-cell" style="background:#30a14e"></span>
@@ -450,7 +450,7 @@ const tagStyle = (t) => {
           <span class="tracking-widest">•••</span>
           <span>████████</span>
         </div>
-        <p class="mt-3 text-[13px] leading-relaxed max-w-2xl mx-auto border-2 border-[var(--ink)] bg-[var(--panel)] px-4 py-3 shadow-[3px_3px_0_rgba(23,20,31,0.2)]">{teamDescription}</p>
+        <p class="mt-3 text-[13px] leading-relaxed max-w-2xl mx-auto border-2 border-[var(--ink)] bg-[var(--panel)] px-4 py-3 shadow-[3px_3px_0_rgba(244,244,245,0.2)]">{teamDescription}</p>
       </div>
 
       <div class="grid gap-3 sm:grid-cols-3">
@@ -514,7 +514,7 @@ const tagStyle = (t) => {
         src="/picture/monito-pin.webp"
         alt="Yokonad pin"
         loading="lazy"
-        class="absolute -top-7 -left-7 sm:-top-8 sm:-left-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[-10deg] drop-shadow-[3px_3px_0_rgba(23,20,31,0.3)] pointer-events-none"
+        class="absolute -top-7 -left-7 sm:-top-8 sm:-left-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[-10deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
       />
       <div class="pt-6 h-[180px] flex items-center justify-center text-center overflow-hidden">
         <p id="cita-frase" class="display text-[16px] sm:text-[24px] uppercase leading-snug text-[var(--ink)] max-w-xl"></p>
@@ -529,19 +529,21 @@ const tagStyle = (t) => {
       <div class="orbit-container" aria-hidden="true">
         <div class="orbit-scale">
           <div class="orbit-rot">
-            <svg class="orbit-path" viewBox="0 0 760 240" width="760" height="240" aria-hidden="true">
+            <svg class="orbit-path" viewBox="0 0 760 270" width="760" height="270" aria-hidden="true">
               <path
-                d="M 60 120 A 320 80 0 1 0 700 120 A 320 80 0 1 0 60 120"
+                d="M 60 135 A 320 80 0 1 0 700 135 A 320 80 0 1 0 60 135"
                 fill="none"
-                stroke="rgba(23,20,31,0.4)"
-                stroke-width="2"
+                stroke="rgba(255,255,255,0.65)"
+                stroke-width="2.5"
                 stroke-dasharray="5 7"
               />
             </svg>
             {
               tracks.map((t, i) => (
                 <div class="orbit-item" style={`animation-delay:-${((i / tracks.length) * 77).toFixed(2)}s`}>
-                  <img src={`https://i.ytimg.com/vi/${t.id}/hqdefault.jpg`} alt="" loading="lazy" draggable="false" />
+                  <div class="orbit-frame">
+                    <img src={`https://i.ytimg.com/vi/${t.id}/hqdefault.jpg`} alt="" loading="lazy" draggable="false" />
+                  </div>
                 </div>
               ))
             }
@@ -647,7 +649,7 @@ const tagStyle = (t) => {
       var cal = document.getElementById('gh-cal');
       var totalEl = document.getElementById('gh-total');
       if (!cal) return;
-      var LEVELS = ['rgba(23,20,31,0.10)', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
+      var LEVELS = ['rgba(244,244,245,0.10)', '#9be9a8', '#40c463', '#30a14e', '#216e39'];
       fetch('https://github-contributions-api.jogruber.de/v4/Yokonad?y=last')
         .then(function (r) { return r.json(); })
         .then(function (data) {
@@ -697,8 +699,8 @@ const tagStyle = (t) => {
           else { for (var r2 = rows - 1; r2 >= 0; r2--) path.push([c, r2]); }
         }
         var BODY = 7;
-        var SNAKE = '#3a3450';
-        var HEAD = '#17141f';
+        var SNAKE = '#c8c8d2';
+        var HEAD = '#f4f4f5';
         var eaten = {};
         var i = 0;
 
@@ -870,20 +872,18 @@ const tagStyle = (t) => {
         // Las carátulas van cambiando mientras orbitan (intercambio con fundido)
         if (!reduceMotion) {
           setInterval(function () {
-            var a = Math.floor(Math.random() * orbitImgs.length);
-            var b = Math.floor(Math.random() * orbitImgs.length);
-            if (a === b) b = (b + 1) % orbitImgs.length;
-            var ia = orbitImgs[a], ib = orbitImgs[b];
-            ia.style.opacity = '0';
-            ib.style.opacity = '0';
-            setTimeout(function () {
-              var tmp = ia.getAttribute('src');
-              ia.setAttribute('src', ib.getAttribute('src'));
-              ib.setAttribute('src', tmp);
-              ia.style.opacity = '';
-              ib.style.opacity = '';
-            }, 280);
-          }, 4620);
+            // Rota todas las carátulas una posición (cada slot va pasando por todos los álbumes)
+            srcs.unshift(srcs.pop());
+            orbitImgs.forEach(function (im, i) {
+              setTimeout(function () {
+                im.style.opacity = '0';
+                setTimeout(function () {
+                  im.setAttribute('src', srcs[i]);
+                  im.style.opacity = '';
+                }, 200);
+              }, i * 70);
+            });
+          }, 7000);
         }
       }
 

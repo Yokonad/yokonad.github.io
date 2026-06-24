@@ -6,16 +6,16 @@
    YOKONAD CODEX — tema "papel" (zine retro)
    ───────────────────────────────────────────── */
 :root {
-  --paper: #ffffff;
-  --paper-2: #efeee8;
-  --panel: #f5f4f0;
-  --ink: #17141f;
-  --ink-soft: #423c57;
-  --violet: #17141f;
-  --violet-deep: #17141f;
+  --paper: #000000;
+  --paper-2: #161616;
+  --panel: #060606;
+  --ink: #f4f4f5;
+  --ink-soft: #9a9aa3;
+  --violet: #0e0e0e;
+  --violet-deep: #f4f4f5;
   --violet-bright: #8b6cf6;
   --violet-pale: #d6cbf2;
-  --cream: #f3eee0;
+  --cream: #f4f4f5;
   /* Morado exclusivo de KoroSoft Community */
   --korosoft: #6b4fd6;
 
@@ -73,7 +73,7 @@ body {
   color: var(--ink);
   background-color: var(--paper);
   /* trama de puntos sutil tipo papel reciclado — cubre toda la página */
-  background-image: radial-gradient(rgba(23, 20, 31, 0.05) 0.5px, transparent 0.6px);
+  background-image: radial-gradient(rgba(244, 244, 245, 0.05) 0.5px, transparent 0.6px);
   background-size: 3px 3px;
   background-attachment: fixed;
   line-height: 1.5;
@@ -106,13 +106,13 @@ a {
 .win {
   border: 2px solid var(--ink);
   background: var(--panel);
-  box-shadow: 4px 4px 0 rgba(23, 20, 31, 0.22);
+  box-shadow: 4px 4px 0 rgba(244, 244, 245, 0.22);
   transition: transform 0.16s ease, box-shadow 0.16s ease;
 }
 
 .win:hover {
   transform: translate(-2px, -2px);
-  box-shadow: 7px 7px 0 rgba(23, 20, 31, 0.28);
+  box-shadow: 7px 7px 0 rgba(244, 244, 245, 0.28);
 }
 
 .win-bar {
@@ -132,7 +132,7 @@ a {
 }
 
 .win-bar.is-ink {
-  background: var(--ink);
+  background: #050505;
 }
 
 .win-btns {
@@ -185,7 +185,7 @@ a {
 /* ── Divisor punteado ── */
 .dashrule {
   border: none;
-  border-top: 2px dashed rgba(23, 20, 31, 0.45);
+  border-top: 2px dashed rgba(244, 244, 245, 0.45);
   margin: 0;
 }
 
@@ -271,7 +271,7 @@ a {
   width: 100%;
   max-width: 900px;
   margin: 0 auto;
-  aspect-ratio: 760 / 240;
+  aspect-ratio: 760 / 270;
   overflow: hidden;
 }
 .orbit-scale {
@@ -279,7 +279,7 @@ a {
   top: 0;
   left: 0;
   width: 760px;
-  height: 240px;
+  height: 270px;
   transform-origin: top left;
 }
 .orbit-rot {
@@ -291,19 +291,26 @@ a {
   position: absolute;
   width: 66px;
   height: 66px;
-  offset-path: path('M 60 120 A 320 80 0 1 0 700 120 A 320 80 0 1 0 60 120');
+  offset-path: path('M 60 135 A 320 80 0 1 0 700 135 A 320 80 0 1 0 60 135');
   offset-rotate: 0deg;
   offset-anchor: center center;
   offset-distance: 0%;
   animation: orbit-spin 77s linear infinite;
 }
-.orbit-item img {
+.orbit-frame {
+  width: 100%;
+  height: 100%;
+  transform: rotate(8deg);
+  border: 2px solid var(--ink);
+  box-shadow: 2px 2px 0 rgba(244, 244, 245, 0.25);
+  overflow: hidden;
+}
+.orbit-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border: 2px solid var(--ink);
-  box-shadow: 2px 2px 0 rgba(23, 20, 31, 0.25);
-  transform: rotate(8deg);
+  /* Recorta las bandas negras del thumbnail de YouTube y llena el marco */
+  transform: scale(1.32);
   transition: opacity 0.28s ease;
 }
 @keyframes orbit-spin {
@@ -328,11 +335,11 @@ a {
   overflow: hidden;
 }
 .pl-row {
-  border-bottom: 1px solid rgba(23, 20, 31, 0.1);
+  border-bottom: 1px solid rgba(244, 244, 245, 0.1);
   transition: background 0.35s ease;
 }
 .pl-active {
-  background: rgba(23, 20, 31, 0.1);
+  background: rgba(244, 244, 245, 0.1);
   font-weight: 600;
 }
 .pl-mark {
@@ -358,7 +365,7 @@ a {
   top: 0;
   left: 0;
   width: 760px;
-  height: 240px;
+  height: 270px;
   pointer-events: none;
 }
 
@@ -368,7 +375,7 @@ a {
   overflow: hidden;
   border: 2px solid var(--ink);
   background: var(--panel);
-  box-shadow: 4px 4px 0 rgba(23, 20, 31, 0.22);
+  box-shadow: 4px 4px 0 rgba(244, 244, 245, 0.22);
   padding: 16px 0;
 }
 
@@ -512,6 +519,6 @@ a {
   background: var(--paper-2);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--violet);
+  background: var(--ink-soft);
   border: 2px solid var(--paper-2);
 }
