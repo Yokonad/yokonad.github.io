@@ -17,20 +17,23 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    env:
+      COREPACK_ENABLE_DOWNLOAD_PROMPT: '0'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
 
-      - uses: pnpm/action-setup@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - run: pnpm install --frozen-lockfile
-      - run: pnpm run build
+      # Usa corepack para respetar packageManager (pnpm@11.9.0), igual que en local
+      - run: corepack enable
+
+      - run: corepack pnpm install --frozen-lockfile
+      - run: corepack pnpm run build
 
       - uses: actions/configure-pages@v4
       - uses: actions/upload-pages-artifact@v3
