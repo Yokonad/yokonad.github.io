@@ -36,9 +36,12 @@ const {
 <style>
   #pixelblast {
     position: fixed;
-    inset: 0;
-    width: 100%;
-    height: 100%;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    /* lvh = "large viewport height": estable en móvil, no cambia al mostrarse/ocultarse la barra de URL */
+    height: 100lvh;
     z-index: 0;
     pointer-events: none;
     display: block;
@@ -267,14 +270,19 @@ void main(){
     gl.uniform1i(U('uShapeType'), SHAPES[d.variant] ?? 1);
 
     let dpr = Math.min(window.devicePixelRatio || 1, 2);
+    let lastW = 0, lastH = 0;
     function resize() {
+      const cw = canvas.clientWidth;
+      const ch = canvas.clientHeight;
+      // Ignorar cambios SOLO de altura pequeños (barra de URL en móvil) → evita el parpadeo
+      if (cw === lastW && Math.abs(ch - lastH) < 110) return;
+      lastW = cw;
+      lastH = ch;
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const w = Math.floor(canvas.clientWidth * dpr);
-      const h = Math.floor(canvas.clientHeight * dpr);
-      if (canvas.width !== w || canvas.height !== h) {
-        canvas.width = w;
-        canvas.height = h;
-      }
+      const w = Math.floor(cw * dpr);
+      const h = Math.floor(ch * dpr);
+      canvas.width = w;
+      canvas.height = h;
       gl.viewport(0, 0, w, h);
       gl.uniform2f(uResolution, w, h);
       gl.uniform1f(uPixelSize, pixelSize * dpr);
