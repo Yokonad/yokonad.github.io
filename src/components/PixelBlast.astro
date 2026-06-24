@@ -45,6 +45,8 @@ const {
     z-index: 0;
     pointer-events: none;
     display: block;
+    opacity: 0;
+    transition: opacity 0.45s ease;
   }
 </style>
 
@@ -309,6 +311,7 @@ void main(){
     let visible = true;
     document.addEventListener('visibilitychange', () => { visible = !document.hidden; });
 
+    let shown = false;
     function frame() {
       requestAnimationFrame(frame);
       if (!visible) return;
@@ -318,6 +321,11 @@ void main(){
       gl.uniform1fv(uClickTimes, clickTimes);
       gl.clear(gl.COLOR_BUFFER_BIT);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
+      if (!shown) {
+        shown = true;
+        // Espera 2 frames para asegurar que ya hay imagen, luego aparece con fundido
+        requestAnimationFrame(function () { canvas.style.opacity = '1'; });
+      }
     }
     frame();
   }
