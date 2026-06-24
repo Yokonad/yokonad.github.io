@@ -27,7 +27,7 @@ jobs:
 
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
 
       # Usa corepack para respetar packageManager (pnpm@11.9.0), igual que en local
       - run: corepack enable
