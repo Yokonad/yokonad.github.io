@@ -118,7 +118,7 @@ const tagStyle = (t) => {
 
     <!-- ═══════════ 1 · TÍTULO ═══════════ -->
     <section>
-      <p class="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-[var(--ink-soft)] mb-3">
+      <p class="text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.3em] text-[var(--ink)] mb-3">
         ◆ Editorial · Carta del autor
       </p>
       <div class="flex flex-col lg:flex-row lg:items-end gap-5 lg:gap-8">
@@ -390,12 +390,10 @@ const tagStyle = (t) => {
         <!-- KoroSoft Community -->
         <div class="win rise overflow-hidden flex flex-col">
           <div class="win-bar" style="background:var(--korosoft)"><span class="scramble">KoroSoft Community</span><span class="win-btns"><i></i><i></i><i></i></span></div>
-          <img
-            src="/picture/perfil-comunity.webp"
-            alt="KoroSoft Community"
-            loading="lazy"
-            class="w-full h-40 object-cover border-b-2 border-[var(--ink)]"
-          />
+          <div class="w-full h-40 flex items-center justify-center gap-3 sm:gap-4 border-b-2 border-[var(--ink)] p-4" style="background:linear-gradient(135deg,#2a1a6b,#6b4fd6)">
+            <img src="/picture/linux-svgrepo-com.webp" alt="Tux" loading="lazy" class="w-16 h-16 sm:w-20 sm:h-20 shrink-0 object-contain" />
+            <span class="display text-3xl sm:text-4xl uppercase tracking-wider text-white" style="text-shadow:2px 2px 0 rgba(0,0,0,0.4)">KoroSoft</span>
+          </div>
           <div class="p-4 text-[12.5px] leading-relaxed flex flex-col flex-1">
             <p class="mb-2"><span class="hl">{comunidad.serverName}</span> — un ecosistema técnico de software y agentes de IA.</p>
             <p class="mb-3 text-[var(--ink-soft)] flex-1">{comunidad.description}</p>

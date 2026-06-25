@@ -6,8 +6,8 @@
    YOKONAD CODEX — tema "papel" (zine retro)
    ───────────────────────────────────────────── */
 :root {
-  --paper: #000000;
-  --paper-2: #161616;
+  --paper: #6b6b74;
+  --paper-2: #2a2a30;
   --panel: #060606;
   --ink: #f4f4f5;
   --ink-soft: #9a9aa3;
@@ -374,8 +374,8 @@ a {
   position: relative;
   overflow: hidden;
   border: 2px solid var(--ink);
-  background: var(--panel);
-  box-shadow: 4px 4px 0 rgba(244, 244, 245, 0.22);
+  background: #ffffff;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.35);
   padding: 16px 0;
 }
 
@@ -391,11 +391,11 @@ a {
 }
 .logoloop::before {
   left: 0;
-  background: linear-gradient(to right, var(--panel), rgba(228, 223, 206, 0));
+  background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0));
 }
 .logoloop::after {
   right: 0;
-  background: linear-gradient(to left, var(--panel), rgba(228, 223, 206, 0));
+  background: linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0));
 }
 
 .logoloop__track {
