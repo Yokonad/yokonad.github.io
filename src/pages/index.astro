@@ -1,6 +1,5 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import PixelBlast from '../components/PixelBlast.astro';
 import { profile, projects, team, teamName, teamDescription, comunidad } from '../data/content.js';
 
 const stack = [
@@ -89,21 +88,7 @@ const tagStyle = (t) => {
 ---
 
 <Layout>
-  <PixelBlast
-    variant="circle"
-    color="#3a3a48"
-    pixelSize={6}
-    patternScale={3}
-    patternDensity={1.45}
-    pixelSizeJitter={0.5}
-    rippleSpeed={0.4}
-    rippleThickness={0.12}
-    rippleIntensityScale={1.5}
-    speed={0.6}
-    edgeFade={0.25}
-  />
-
-  <div id="top" class="codex-edges codex-stack w-full py-4 sm:py-6 relative z-10">
+  <div id="top" class="codex-edges codex-stack w-full py-4 sm:py-6">
     <!-- ═══════════ MASTHEAD ═══════════ -->
     <header class="flex items-center justify-between border-2 border-[var(--ink)] bg-[var(--violet)] px-3 py-2 text-[var(--cream)]">
       <span class="text-[9px] sm:text-[12px] font-bold tracking-[0.14em] uppercase">

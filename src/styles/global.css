@@ -6,9 +6,9 @@
    YOKONAD CODEX — tema "papel" (zine retro)
    ───────────────────────────────────────────── */
 :root {
-  --paper: #6b6b74;
-  --paper-2: #2a2a30;
-  --panel: #060606;
+  --paper: #000000;
+  --paper-2: #1a1a1a;
+  --panel: #0a0a0a;
   --ink: #f4f4f5;
   --ink-soft: #9a9aa3;
   --violet: #0e0e0e;
@@ -72,10 +72,6 @@ body {
   font-family: 'IBM Plex Mono', 'Courier New', Courier, monospace;
   color: var(--ink);
   background-color: var(--paper);
-  /* trama de puntos sutil tipo papel reciclado — cubre toda la página */
-  background-image: radial-gradient(rgba(244, 244, 245, 0.05) 0.5px, transparent 0.6px);
-  background-size: 3px 3px;
-  background-attachment: fixed;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   overflow-x: hidden;
