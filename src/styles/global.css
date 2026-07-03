@@ -222,22 +222,9 @@ a {
   opacity: 0.5;
 }
 
-/* ── Animación de entrada ── */
+/* ── (Sin animación de entrada: los elementos siempre visibles) ── */
 .rise {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.5s ease, transform 0.5s ease;
-}
-.rise.in {
   opacity: 1;
-  transform: none;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .rise {
-    opacity: 1;
-    transform: none;
-  }
 }
 
 /* ── Corner ticks decorativos ── */
