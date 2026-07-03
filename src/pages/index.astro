@@ -165,8 +165,8 @@ const tagStyle = (t) => {
               <span>◈ Redes · Linux · Web</span>
             </div>
             <p class="mt-3 text-[12.5px] leading-relaxed">
-              Apasionado por las redes, Linux y el código. Lo que empezó como curiosidad por entender cómo
-              funcionan las máquinas se convirtió en proyectos y una comunidad.
+              Lo que empezó como curiosidad por entender cómo funcionan las máquinas hoy son
+              proyectos, retos y una comunidad.
             </p>
 
             <!-- Ficha de datos -->
@@ -177,7 +177,7 @@ const tagStyle = (t) => {
                   ['Ubicación', 'Perú'],
                   ['Estudios', 'Ciberseguridad · SENATI'],
                   ['Ciclo', '6.º — en curso'],
-                  ['Enfoque', 'Redes & Linux'],
+                  ['Enfoque', 'Seguridad defensiva'],
                   ['Intereses', 'Anime · Música'],
                   ['Combustible', 'Código & café'],
                   ['Estado', 'Disponible'],
@@ -204,7 +204,7 @@ const tagStyle = (t) => {
               <li class="diamond">Redes, Linux y desarrollo web</li>
               <li class="diamond">La música como combustible diario</li>
             </ul>
-            <p class="mt-2.5 text-[var(--ink-soft)] italic">Hecho con código y café.</p>
+            <p class="mt-2.5 text-[var(--ink-soft)] italic">Aprendiendo algo nuevo cada día.</p>
           </div>
         </div>
 
@@ -380,7 +380,7 @@ const tagStyle = (t) => {
             <span class="display text-3xl sm:text-4xl uppercase tracking-wider text-white" style="text-shadow:2px 2px 0 rgba(0,0,0,0.4)">KoroSoft</span>
           </div>
           <div class="p-4 text-[12.5px] leading-relaxed flex flex-col flex-1">
-            <p class="mb-2"><span class="hl">{comunidad.serverName}</span> — un ecosistema técnico de software y agentes de IA.</p>
+            <p class="mb-2">Un espacio para <span class="hl">construir software</span> y experimentar con agentes de IA.</p>
             <p class="mb-3 text-[var(--ink-soft)] flex-1">{comunidad.description}</p>
             <a
               href={comunidad.discordLink}
@@ -402,11 +402,8 @@ const tagStyle = (t) => {
           <div class="p-4 text-[12.5px] leading-relaxed flex flex-col flex-1">
             <p class="mb-2"><span style="background:#d62828;color:#fff5f5;padding:0.02em 0.2em;font-weight:700">Hacking ético · CTF</span></p>
             <p class="mb-3 text-[var(--ink-soft)] flex-1">
-              Agrupación académica en crecimiento dedicada a la ciberseguridad y el hacking ético. Una
-              comunidad de aprendices curiosos que cree en el conocimiento compartido y la experiencia
-              práctica: desde competencias CTF hasta talleres, eventos del sector e investigación
-              colaborativa. Aquí no hay expertos absolutos, solo gente comprometida con aprender,
-              equivocarse, iterar y crecer juntos.
+              Grupo académico dedicado al hacking ético: CTF, talleres e investigación colaborativa.
+              Aquí nadie es experto absoluto, solo gente comprometida con aprender, equivocarse e iterar.
             </p>
             <a
               href="https://cybersen.org/"
@@ -585,7 +582,7 @@ const tagStyle = (t) => {
       <span class="hidden md:flex gap-1 text-[#9c978b]">
         {Array.from({ length: 14 }).map(() => <span>●</span>)}
       </span>
-      <a href="https://yokonad.github.io" class="text-[9px] sm:text-[12px] font-bold tracking-[0.12em] text-[var(--cream)]">https://yokonad.github.io</a>
+      <a href="/" class="text-[9px] sm:text-[12px] font-bold tracking-[0.12em] text-[var(--cream)]">yokonad.dev</a>
     </footer>
   </div>
 
@@ -631,24 +628,20 @@ const tagStyle = (t) => {
 
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var titles = document.querySelectorAll('.scramble');
-      var rises = document.querySelectorAll('.rise');
 
-      if (reduce || !('IntersectionObserver' in window)) {
-        rises.forEach(function (el) { el.classList.add('in'); });
-        return;
-      }
+      // Sin animaciones de scroll: los bloques (.rise) ya están siempre visibles vía CSS.
+      // El observer solo dispara el scramble de los títulos cuando entran en pantalla.
+      if (reduce || !('IntersectionObserver' in window)) { return; }
 
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (e) {
           if (!e.isIntersecting) return;
-          if (e.target.classList.contains('scramble')) scramble(e.target);
-          if (e.target.classList.contains('rise')) e.target.classList.add('in');
+          scramble(e.target);
           io.unobserve(e.target);
         });
       }, { threshold: 0.25 });
 
       titles.forEach(function (el) { io.observe(el); });
-      rises.forEach(function (el) { io.observe(el); });
     })();
 
     // ── Calendario de contribuciones de GitHub ──

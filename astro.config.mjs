@@ -3,7 +3,7 @@ import tailwind from '@astrojs/tailwind';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://yokonad.github.io',
+  site: 'https://yokonad.online',
   base: '/',
   // Oculta la barra de herramientas de desarrollo de Astro (solo aparecía en dev)
   devToolbar: { enabled: false },

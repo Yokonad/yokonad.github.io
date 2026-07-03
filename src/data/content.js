@@ -59,7 +59,7 @@ export const team = [
   },
   {
     name: 'Yokonad',
-    role: 'Owner de KoroSoft Code',
+    role: 'Owner & Fullstack Dev',
     bio: 'Experto en desarrollo web completo y arquitecturas escalables. Especialista en React y Node.js.',
     avatar: '/picture/perfil_equipo.webp',
     tags: ['Cisco', 'HTML', 'JavaScript'],
@@ -70,6 +70,6 @@ export const team = [
 export const comunidad = {
   serverName: 'KoroSoft Community',
   description:
-    'Korosoft Community es un ecosistema técnico especializado en el desarrollo de software avanzado y la orquestación de agentes de IA, diseñado para quienes buscan integrar inteligencia autónoma en sistemas de alto rendimiento.',
+    'Un ecosistema técnico especializado en el desarrollo de software avanzado y la orquestación de agentes de IA, diseñado para quienes buscan integrar inteligencia autónoma en sistemas de alto rendimiento.',
   discordLink: 'https://discord.gg/8hzrg5UEsU',
 };
