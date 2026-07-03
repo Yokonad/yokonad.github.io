@@ -683,18 +683,32 @@ const tagStyle = (t) => {
           if (totalEl) totalEl.textContent = ((data.total && data.total.lastYear) || c.length) + ' contribuciones';
 
           var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-          var desktop = window.matchMedia && window.matchMedia('(min-width: 641px)').matches;
-          if (!reduce && desktop) startSnake(grid, LEVELS);
+          if (!reduce) startSnake(grid, LEVELS);
         })
         .catch(function () { cal.innerHTML = '<div class="text-[11px] py-6 text-center text-[var(--ink-soft)]">No se pudieron cargar</div>'; });
 
       // ── Snake que recorre y "come" las contribuciones (auto, en bucle) ──
       function startSnake(grid, LEVELS) {
         var cols = grid.length, rows = 7;
+        var mobile = window.matchMedia && window.matchMedia('(max-width: 640px)').matches;
         var path = [];
-        for (var c = 0; c < cols; c++) {
-          if (c % 2 === 0) { for (var r = 0; r < rows; r++) path.push([c, r]); }
-          else { for (var r2 = rows - 1; r2 >= 0; r2--) path.push([c, r2]); }
+        if (mobile) {
+          // Móvil: la cuadrícula está transpuesta en 2 super-columnas (ver CSS).
+          // El snake baja por cada super-columna, semana a semana, en zigzag por días.
+          var PER_COL = 27;
+          for (var b = 0; b < 2; b++) {
+            var s = b * PER_COL, e = Math.min(s + PER_COL, cols);
+            for (var w = s; w < e; w++) {
+              var lr = w - s;
+              if (lr % 2 === 0) { for (var d = 0; d < rows; d++) path.push([w, d]); }
+              else { for (var d2 = rows - 1; d2 >= 0; d2--) path.push([w, d2]); }
+            }
+          }
+        } else {
+          for (var c = 0; c < cols; c++) {
+            if (c % 2 === 0) { for (var r = 0; r < rows; r++) path.push([c, r]); }
+            else { for (var r2 = rows - 1; r2 >= 0; r2--) path.push([c, r2]); }
+          }
         }
         var BODY = 7;
         var SNAKE = '#c8c8d2';
