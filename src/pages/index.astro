@@ -133,7 +133,7 @@ const tagStyle = (t) => {
       <div class="section-label">// Perfil</div>
 
       <!-- Presentación con avatar -->
-      <div class="win rise">
+      <div class="win">
         <div class="win-bar is-ink">
           <span class="scramble">YOKONAD_PROFILE</span>
           <span class="win-btns"><i></i><i></i><i></i></span>
@@ -156,7 +156,7 @@ const tagStyle = (t) => {
 
           <!-- Info -->
           <div class="min-w-0">
-            <p class="display text-3xl sm:text-4xl text-[var(--ink)] lowercase leading-none">yokonad<span class="cursor-blink"></span></p>
+            <p class="display text-3xl sm:text-4xl text-[var(--ink)] lowercase leading-none">yokonad</p>
             <p class="text-[11px] uppercase tracking-[0.2em] text-[var(--ink-soft)] mt-2.5">Dan Ramos Reynaldo</p>
             <p class="text-[12px] mt-0.5">Estudiante de Ciberseguridad</p>
             <div class="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[10px] text-[var(--ink-soft)]">
@@ -195,7 +195,7 @@ const tagStyle = (t) => {
 
       <!-- Sobre mí + Stack -->
       <div class="grid gap-4 md:grid-cols-2">
-        <div class="win rise">
+        <div class="win">
           <div class="win-bar"><span class="scramble">Sobre mí</span></div>
           <div class="p-3 text-[12px] leading-relaxed">
             <p class="mb-2.5">Este portafolio existe como un espacio para aprender, construir y compartir.</p>
@@ -208,7 +208,7 @@ const tagStyle = (t) => {
           </div>
         </div>
 
-        <div class="win rise">
+        <div class="win">
           <div class="win-bar is-ink">
             <span class="scramble">STACK.LOG</span>
             <span class="win-btns"><i></i><i></i><i></i></span>
@@ -284,11 +284,54 @@ const tagStyle = (t) => {
       </div>
     </section>
 
+    <!-- ═══════════ HACK THE BOX ═══════════ -->
+    <section class="space-y-4">
+      <div class="section-label">// Hack The Box</div>
+      <div class="grid gap-3 md:grid-cols-2">
+        <!-- Perfil HTB (toda la tarjeta es enlace) -->
+        <a
+          href="https://app.hackthebox.com/users/2072316"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="win overflow-hidden flex flex-col"
+        >
+          <div class="win-bar" style="background:#131c2b;color:var(--cream)">
+            <span class="scramble">HACK THE BOX</span>
+            <span class="win-btns"><i></i><i></i><i></i></span>
+          </div>
+          <div class="w-full h-40 flex items-center justify-center border-b-2 border-[var(--ink)] p-4" style="background:#131c2b">
+            <img src="/picture/logo_htb.webp" alt="Hack The Box" loading="lazy" class="max-h-28 w-auto object-contain" />
+          </div>
+          <div class="p-4 text-[12.5px] leading-relaxed flex flex-col flex-1">
+            <p class="mb-3 text-[var(--ink-soft)] flex-1">Mi perfil en <span class="hl" style="background:#9fef00;color:#0a0e15">Hack The Box</span>: máquinas comprometidas, retos y progreso en hacking ético.</p>
+            <span class="bar-title" style="background:#9fef00;color:#0a0e15">▸ Ver mi perfil</span>
+          </div>
+        </a>
+
+        <!-- Write-ups (2 botones) -->
+        <div class="win overflow-hidden flex flex-col">
+          <div class="win-bar" style="background:#131c2b;color:var(--cream)">
+            <span class="scramble">WRITE-UPS</span>
+            <span class="win-btns"><i></i><i></i><i></i></span>
+          </div>
+          <div class="p-4 text-[12.5px] leading-relaxed flex flex-col flex-1">
+            <p class="mb-2">Mis <span class="hl" style="background:#9fef00;color:#0a0e15">write-ups</span> de máquinas y retos resueltos.</p>
+            <p class="mb-3 text-[var(--ink-soft)] flex-1">Soluciones paso a paso: reconocimiento, explotación y escalada de privilegios.</p>
+            <a
+              href="/writeups"
+              class="bar-title hover:brightness-110 transition-all text-center"
+              style="background:#9fef00;color:#0a0e15"
+            >▸ Ver write-ups</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ═══════════ 4 · ACTIVIDAD · GITHUB ═══════════ -->
     <section class="space-y-4">
       <div class="section-label">// Actividad · GitHub</div>
       <div class="grid gap-3 md:grid-cols-[4fr_1fr]">
-        <div class="win rise">
+        <div class="win">
           <div class="win-bar is-ink">
             <span class="scramble">GITHUB.ACTIVITY</span>
             <span class="win-btns"><i></i><i></i><i></i></span>
@@ -313,7 +356,7 @@ const tagStyle = (t) => {
           </div>
         </div>
 
-        <div class="win rise overflow-hidden hidden md:block relative">
+        <div class="win overflow-hidden hidden md:block relative">
           <img
             src="https://media.tenor.com/P3SQJ4JbHOsAAAAd/tying-the-knot-with-an-amagami-sister-%E7%94%98%E7%A5%9E%E3%81%95%E3%82%93%E3%81%A1%E3%81%AE%E7%B8%81%E7%B5%90%E3%81%B3.gif"
             alt="Amagami-san Chi no Enmusubi"
@@ -329,7 +372,7 @@ const tagStyle = (t) => {
       <div class="section-label">// Información</div>
       <div class="grid gap-3 md:grid-cols-3">
         <!-- Ciberataques -->
-        <div class="win rise flex flex-col">
+        <div class="win flex flex-col">
           <div class="win-bar" style="background:#c0392b">
             <span class="scramble">THREAT.LIVE</span>
             <span class="win-btns"><i></i><i></i><i></i></span>
@@ -342,7 +385,7 @@ const tagStyle = (t) => {
         </div>
 
         <!-- Go-Tōbun -->
-        <div class="win rise flex flex-col">
+        <div class="win flex flex-col">
           <div class="win-bar" style="background:linear-gradient(135deg,#E8845C,#EB7B94,#5DBAE0,#F3C553,#59C196)">
             <span class="scramble">MANGA.HIATUS</span>
             <span class="win-btns"><i></i><i></i><i></i></span>
@@ -356,7 +399,7 @@ const tagStyle = (t) => {
         </div>
 
         <!-- Barça -->
-        <div class="win rise flex flex-col">
+        <div class="win flex flex-col">
           <div class="win-bar" style="background:#4d6bf2">
             <span class="scramble">FUTBOL.LOG</span>
             <span class="win-btns"><i></i><i></i><i></i></span>
@@ -373,7 +416,7 @@ const tagStyle = (t) => {
       <div class="section-label">// Comunidades</div>
       <div class="grid gap-3 md:grid-cols-2">
         <!-- KoroSoft Community -->
-        <div class="win rise overflow-hidden flex flex-col">
+        <div class="win overflow-hidden flex flex-col">
           <div class="win-bar" style="background:var(--korosoft)"><span class="scramble">KoroSoft Community</span><span class="win-btns"><i></i><i></i><i></i></span></div>
           <div class="w-full h-40 flex items-center justify-center gap-3 sm:gap-4 border-b-2 border-[var(--ink)] p-4" style="background:linear-gradient(135deg,#2a1a6b,#6b4fd6)">
             <img src="/picture/linux-svgrepo-com.webp" alt="Tux" loading="lazy" class="w-16 h-16 sm:w-20 sm:h-20 shrink-0 object-contain" />
@@ -394,7 +437,7 @@ const tagStyle = (t) => {
         </div>
 
         <!-- CyberSen -->
-        <div class="win rise overflow-hidden flex flex-col">
+        <div class="win overflow-hidden flex flex-col">
           <div class="win-bar" style="background:#c1121f"><span class="scramble">CyberSen</span><span class="win-btns"><i></i><i></i><i></i></span></div>
           <div class="w-full h-40 flex items-center justify-center border-b-2 border-[var(--ink)] p-4" style="background:linear-gradient(135deg,#6a040f,#d62828)">
             <img src="/picture/cybersen-logo-blanco.webp" alt="CyberSen" loading="lazy" class="max-h-24 w-auto object-contain" />
@@ -436,7 +479,7 @@ const tagStyle = (t) => {
       <div class="grid gap-3 sm:grid-cols-3">
         {
           team.map((m) => (
-            <div class="win rise p-4 flex flex-col items-center text-center">
+            <div class="win p-4 flex flex-col items-center text-center">
               <div class="w-28 h-28 sm:w-32 sm:h-32 overflow-hidden border-2 border-[var(--ink)] mb-3 shrink-0">
                 <img src={m.avatar} alt={m.name} loading="lazy" class="w-full h-full object-cover" />
               </div>
@@ -466,7 +509,7 @@ const tagStyle = (t) => {
       <div class="grid gap-3 sm:grid-cols-3">
         {
           projects.map((p) => (
-            <a href={p.url} target="_blank" rel="noopener noreferrer" class="win rise flex flex-col">
+            <a href={p.url} target="_blank" rel="noopener noreferrer" class="win flex flex-col">
               <div class="win-bar is-ink">
                 <span class="scramble">{p.title}</span>
                 <span class="win-btns"><i></i><i></i><i></i></span>
@@ -494,25 +537,25 @@ const tagStyle = (t) => {
         src="/picture/monito-pin.webp"
         alt="Yokonad pin"
         loading="lazy"
-        class="absolute -top-7 -left-7 sm:-top-8 sm:-left-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[-10deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
+        class="absolute -top-7 -left-4 sm:-top-8 sm:-left-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[-10deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
       />
       <img
         src="/picture/claude-pin.webp"
         alt="Claude pin"
         loading="lazy"
-        class="absolute -top-7 -right-7 sm:-top-8 sm:-right-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[10deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
+        class="absolute -top-7 -right-4 sm:-top-8 sm:-right-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[10deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
       />
       <img
         src="/picture/ninja-pin.webp"
         alt="Ninja pin"
         loading="lazy"
-        class="absolute -bottom-7 -right-7 sm:-bottom-8 sm:-right-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[-8deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
+        class="absolute -bottom-7 -right-4 sm:-bottom-8 sm:-right-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[-8deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
       />
       <img
         src="/picture/badusb-pin.webp"
         alt="BadUSB pin"
         loading="lazy"
-        class="absolute -bottom-7 -left-7 sm:-bottom-8 sm:-left-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[8deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
+        class="absolute -bottom-7 -left-4 sm:-bottom-8 sm:-left-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[8deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
       />
       <img
         src="/picture/infected-pin.webp"
@@ -529,7 +572,7 @@ const tagStyle = (t) => {
     <section class="space-y-4">
       <div class="section-label">// Música</div>
 
-      <!-- Álbumes orbitando (CSS offset-path, sin librerías) -->
+      <!-- Álbumes orbitando (CSS offset-path, sin dependencias externas) -->
       <div class="orbit-container" aria-hidden="true">
         <div class="orbit-scale">
           <div class="orbit-rot">
@@ -556,7 +599,7 @@ const tagStyle = (t) => {
       </div>
 
       <!-- Playlist a todo el ancho (auto-alterna la canción) -->
-      <div class="win rise">
+      <div class="win">
         <div class="win-bar">
           <span class="scramble">Playlist</span>
           <span class="win-btns"><i></i><i></i><i></i></span>
@@ -587,6 +630,19 @@ const tagStyle = (t) => {
   </div>
 
   <script is:inline>
+    // Pausa temporizadores/animaciones cuando su sección NO está en pantalla.
+    // Evita que ~9 bucles corran a la vez todo el tiempo (fluidez, sobre todo en móvil).
+    function onVisible(el, onIn, onOut) {
+      if (!el) return;
+      if (!('IntersectionObserver' in window)) { if (onIn) onIn(); return; }
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (e.isIntersecting) { if (onIn) onIn(); } else { if (onOut) onOut(); }
+        });
+      }, { threshold: 0, rootMargin: '150px' });
+      io.observe(el);
+    }
+
     (function () {
       var clock = document.getElementById('codex-clock');
       if (clock) {
@@ -629,7 +685,6 @@ const tagStyle = (t) => {
       var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       var titles = document.querySelectorAll('.scramble');
 
-      // Sin animaciones de scroll: los bloques (.rise) ya están siempre visibles vía CSS.
       // El observer solo dispara el scramble de los títulos cuando entran en pantalla.
       if (reduce || !('IntersectionObserver' in window)) { return; }
 
@@ -716,7 +771,16 @@ const tagStyle = (t) => {
         var SNAKE = '#c8c8d2';
         var HEAD = '#f4f4f5';
         var eaten = {};
-        var i = 0;
+
+        // Bucle infinito sin cortes: se concatena la IDA (come las verdes) con la
+        // VUELTA (las devuelve en reversa). Como el final de la ida y el inicio de
+        // la vuelta son la misma celda, la cabeza nunca salta y el ciclo se repite solo.
+        var seq = [];
+        for (var f = 0; f < path.length; f++) seq.push({ p: path[f], eat: true });
+        for (var g = path.length - 1; g >= 0; g--) seq.push({ p: path[g], eat: false });
+        var LEN = seq.length;
+        var s = 0;
+        var visible = false, running = false;
 
         function origBg(p) {
           return eaten[p[0] * 100 + p[1]] ? LEVELS[0] : LEVELS[grid[p[0]][p[1]].level];
@@ -726,26 +790,31 @@ const tagStyle = (t) => {
           if (cell) cell.el.style.background = bg;
         }
         function step() {
-          if (i < path.length) {
-            var p = path[i];
-            if (grid[p[0]][p[1]].level > 0) eaten[p[0] * 100 + p[1]] = true;
-            color(p, HEAD);
-            if (i - 1 >= 0) color(path[i - 1], SNAKE);
-            var tail = i - BODY;
-            if (tail >= 0) color(path[tail], origBg(path[tail]));
-            i++;
-            setTimeout(step, 45);
-          } else {
-            for (var b = 1; b <= BODY; b++) { var t = i - b; if (t >= 0) color(path[t], origBg(path[t])); }
-            setTimeout(function () {
-              eaten = {};
-              for (var cc = 0; cc < cols; cc++) for (var rr = 0; rr < rows; rr++) color([cc, rr], LEVELS[grid[cc][rr].level]);
-              i = 0;
-              step();
-            }, 2200);
+          if (!visible) { running = false; return; }
+          var head = seq[s];
+          var p = head.p;
+          // La cabeza COME en la ida y DEVUELVE en la vuelta (solo las celdas con verde)
+          if (grid[p[0]][p[1]].level > 0) {
+            if (head.eat) eaten[p[0] * 100 + p[1]] = true;
+            else delete eaten[p[0] * 100 + p[1]];
           }
+          // Cola: la celda que deja el cuerpo recupera su fondo real (gris si comida, verde si devuelta)
+          var tp = seq[(s - BODY + LEN) % LEN].p;
+          color(tp, origBg(tp));
+          // Cuerpo
+          for (var b = BODY - 1; b >= 1; b--) color(seq[(s - b + LEN) % LEN].p, SNAKE);
+          // Cabeza al final, para que gane en los pliegues de los extremos
+          color(p, HEAD);
+
+          s = (s + 1) % LEN;
+          // Pausa breve al llegar a cada extremo (todo comido / todo devuelto)
+          var turn = (s === 0 || s === path.length);
+          setTimeout(step, turn ? 650 : 45);
         }
-        step();
+        // Solo anima mientras la sección de GitHub está en pantalla
+        onVisible(cal,
+          function () { visible = true; if (!running) { running = true; step(); } },
+          function () { visible = false; });
       }
     })();
 
@@ -757,7 +826,10 @@ const tagStyle = (t) => {
       var RATE = 2200;
       function up() { el.textContent = Math.floor((Date.now() / 1000 - BASE) * RATE).toLocaleString('en-US'); }
       up();
-      setInterval(up, 80);
+      var timer = null;
+      onVisible(el,
+        function () { if (!timer) { up(); timer = setInterval(up, 80); } },
+        function () { if (timer) { clearInterval(timer); timer = null; } });
     })();
 
     // ── Tiempo sin nuevo capítulo (Go-Tōbun no Hanayome) ──
@@ -789,7 +861,10 @@ const tagStyle = (t) => {
         el.innerHTML = html;
       }
       up();
-      setInterval(up, 1000);
+      var qt = null;
+      onVisible(el,
+        function () { if (!qt) { up(); qt = setInterval(up, 1000); } },
+        function () { if (qt) { clearInterval(qt); qt = null; } });
     })();
 
     // ── Último partido del FC Barcelona ──
@@ -878,6 +953,14 @@ const tagStyle = (t) => {
       // Randomizar qué álbum aparece en cada posición de la órbita
       var orbitImgs = [].slice.call(document.querySelectorAll('.orbit-item img'));
       var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      // Pausa la órbita (animación CSS) cuando no está en pantalla → ahorra repintados
+      var orbitBox = document.querySelector('.orbit-container');
+      var orbitVisible = true;
+      onVisible(orbitBox,
+        function () { orbitVisible = true; if (orbitBox) orbitBox.classList.remove('is-paused'); },
+        function () { orbitVisible = false; if (orbitBox) orbitBox.classList.add('is-paused'); });
+
       if (orbitImgs.length > 1) {
         var srcs = orbitImgs.map(function (im) { return im.getAttribute('src'); });
         shuffle(srcs);
@@ -886,6 +969,7 @@ const tagStyle = (t) => {
         // Las carátulas van cambiando mientras orbitan (intercambio con fundido)
         if (!reduceMotion) {
           setInterval(function () {
+            if (!orbitVisible) return;
             // Rota todas las carátulas una posición (cada slot va pasando por todos los álbumes)
             srcs.unshift(srcs.pop());
             orbitImgs.forEach(function (im, i) {

@@ -1,6 +1,13 @@
 ---
 import '../styles/global.css';
 
+const {
+  title = 'yokonad',
+  description = 'Yokonad (Dan Ramos Reynaldo) — portafolio de un estudiante de ciberseguridad y desarrollador web de Perú: proyectos de redes, Linux, Python y desarrollo web.',
+  path = '/',
+} = Astro.props;
+const canonical = 'https://yokonad.online' + path;
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
@@ -18,19 +25,16 @@ const schema = {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta
-      name="description"
-      content="Yokonad (Dan Ramos Reynaldo) — portafolio de un estudiante de ciberseguridad y desarrollador web de Perú: proyectos de redes, Linux, Python y desarrollo web."
-    />
+    <meta name="description" content={description} />
     <meta
       name="keywords"
       content="Yokonad, portafolio Yokonad, ciberseguridad, desarrollo web, React, Python, Linux, redes, SENATI"
     />
     <meta name="author" content="Yokonad" />
     <meta name="robots" content="index, follow" />
-    <link rel="canonical" href="https://yokonad.online/" />
+    <link rel="canonical" href={canonical} />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://yokonad.online/" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content="Yokonad | Portafolio" />
     <meta
       property="og:description"
@@ -52,7 +56,7 @@ const schema = {
     />
     <meta name="theme-color" content="#6b4fd6" />
     <link rel="icon" href="/picture/linux.ico" />
-    <title>yokonad</title>
+    <title>{title}</title>
     <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
   </head>
   <body>

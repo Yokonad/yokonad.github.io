@@ -1,0 +1,92 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('writeups');
+  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+
+const diffColor = {
+  Easy: { c: '#9fef00', bg: 'rgba(159,239,0,0.14)' },
+  Medium: { c: '#ffb83e', bg: 'rgba(255,184,62,0.14)' },
+  Hard: { c: '#ff3e3e', bg: 'rgba(255,62,62,0.14)' },
+  Insane: { c: '#ff54c7', bg: 'rgba(255,84,199,0.14)' },
+};
+const osColor = { Linux: '#f5b400', Windows: '#4d9fff', Otro: '#9a9aa3' };
+const NAVY = '#131c2b';
+const d = diffColor[entry.data.difficulty] || diffColor.Easy;
+---
+
+<Layout
+  title={`${entry.data.title} · write-ups`}
+  description={entry.data.summary || `Write-up de ${entry.data.title} en Hack The Box.`}
+  path={`/writeups/${entry.id}/`}
+>
+  <div class="codex-edges codex-stack w-full py-4 sm:py-6">
+    <!-- ═══════════ MASTHEAD ═══════════ -->
+    <header class="flex items-center justify-between border-2 border-[var(--ink)] px-3 py-2" style={`background:${NAVY};color:var(--cream)`}>
+      <a href="/writeups" class="inline-flex items-center gap-1.5 text-[9px] sm:text-[12px] font-bold tracking-[0.14em] uppercase hover:brightness-125" style="color:var(--cream)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
+        Volver
+      </a>
+      <span class="text-[9px] sm:text-[12px] font-bold tracking-[0.14em] uppercase flex items-center gap-2 sm:gap-3">
+        <span>WRITE-UPS // <span style="color:#9fef00">HTB</span></span>
+        <span class="win-btns"><i></i><i></i><i></i></span>
+      </span>
+    </header>
+
+    <!-- ═══════════ WRITE-UP ═══════════ -->
+    <article class="border-2 border-[var(--ink)] bg-[var(--panel)]">
+      <div class="win-bar" style={`background:${NAVY};color:var(--cream)`}>
+        <span class="truncate">{entry.data.title}</span>
+        <span class="win-btns"><i></i><i></i><i></i></span>
+      </div>
+      <div class="p-4 sm:p-6">
+        <!-- Cabecera: imagen grande a un lado + título y datos al costado -->
+        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
+          {entry.data.icon && (
+            <img
+              src={entry.data.icon}
+              alt={entry.data.title}
+              loading="eager"
+              class="w-28 h-28 sm:w-44 sm:h-44 object-contain shrink-0 self-start"
+            />
+          )}
+          <div class="min-w-0 flex-1">
+            <h1 class="display text-2xl sm:text-3xl uppercase leading-none" style="color:#9fef00">{entry.data.title}</h1>
+            <div class="flex items-center gap-2 flex-wrap mt-3">
+              <span class="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide border" style={`border-color:${d.c};color:${d.c};background:${d.bg}`}>{entry.data.difficulty}</span>
+              <span class="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide border" style={`border-color:${osColor[entry.data.os] || '#9a9aa3'};color:${osColor[entry.data.os] || '#9a9aa3'}`}>{entry.data.os}</span>
+              <span class="text-[9px] uppercase tracking-widest text-[var(--ink-soft)]">{entry.data.platform}</span>
+              <span class="text-[9px] uppercase tracking-widest text-[var(--ink-soft)]">{entry.data.date}</span>
+            </div>
+            {entry.data.tags && entry.data.tags.length > 0 && (
+              <div class="flex flex-wrap gap-1.5 mt-2.5">
+                {entry.data.tags.map((t) => (
+                  <span class="px-1.5 py-0.5 text-[8.5px] uppercase tracking-wide border border-[rgba(255,255,255,0.22)] text-[var(--ink-soft)]">{t}</span>
+                ))}
+              </div>
+            )}
+            {entry.data.summary && (
+              <p class="mt-3 text-[12.5px] leading-relaxed text-[var(--ink-soft)]">{entry.data.summary}</p>
+            )}
+          </div>
+        </div>
+        <div class="wu-prose mt-6"><Content /></div>
+      </div>
+    </article>
+
+    <!-- ═══════════ BARRA INFERIOR ═══════════ -->
+    <footer class="flex items-center justify-between border-2 border-[var(--ink)] px-3 py-2.5" style={`background:${NAVY};color:var(--cream)`}>
+      <span class="text-[9px] sm:text-[12px] font-bold tracking-[0.12em] uppercase">HACK THE BOX · WRITE-UPS</span>
+      <a href="/writeups" class="inline-flex items-center gap-1.5 text-[9px] sm:text-[12px] font-bold tracking-[0.12em] uppercase hover:brightness-125" style="color:var(--cream)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
+        Volver
+      </a>
+    </footer>
+  </div>
+</Layout>

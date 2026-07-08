@@ -65,6 +65,10 @@
 
 html {
   scroll-behavior: smooth;
+  /* Evita el scroll horizontal en móvil: el elemento que scrollea es <html>,
+     así que el overflow-x debe estar aquí (además de en <body>). Recorta el
+     pequeño sobresalir de los pines decorativos sin afectar el diseño. */
+  overflow-x: hidden;
 }
 
 body {
@@ -222,11 +226,6 @@ a {
   opacity: 0.5;
 }
 
-/* ── (Sin animación de entrada: los elementos siempre visibles) ── */
-.rise {
-  opacity: 1;
-}
-
 /* ── Corner ticks decorativos ── */
 .ticks {
   position: relative;
@@ -304,7 +303,8 @@ a {
     offset-distance: 100%;
   }
 }
-.orbit-container:hover .orbit-item {
+.orbit-container:hover .orbit-item,
+.orbit-container.is-paused .orbit-item {
   animation-play-state: paused;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -362,30 +362,12 @@ a {
   padding: 16px 0;
 }
 
-.logoloop::before,
-.logoloop::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 64px;
-  z-index: 2;
-  pointer-events: none;
-}
-.logoloop::before {
-  left: 0;
-  background: linear-gradient(to right, #ffffff, rgba(255, 255, 255, 0));
-}
-.logoloop::after {
-  right: 0;
-  background: linear-gradient(to left, #ffffff, rgba(255, 255, 255, 0));
-}
-
 .logoloop__track {
   display: flex;
   align-items: center;
   width: max-content;
   animation: logoloop-scroll 34s linear infinite;
+  will-change: transform;
 }
 
 .logoloop:hover .logoloop__track {
@@ -492,6 +474,139 @@ a {
     height: 13px;
     aspect-ratio: auto;
   }
+}
+
+/* ── Write-ups (cuadros + página de detalle) ── */
+/* Icono/imagen de la máquina en los cuadros (sin recuadro) */
+.wu-mach {
+  width: 46px;
+  height: 46px;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.wu-mach img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* Contenido markdown renderizado (tema Hack The Box) */
+.wu-prose {
+  font-size: 13px;
+  line-height: 1.7;
+  color: var(--ink);
+}
+.wu-prose > :first-child {
+  margin-top: 0;
+}
+.wu-prose h2 {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 700;
+  color: #9fef00;
+  font-size: 0.92rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  margin: 1.6em 0 0.5em;
+}
+.wu-prose h3 {
+  color: #9fef00;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin: 1.2em 0 0.4em;
+}
+.wu-prose p {
+  margin: 0.7em 0;
+}
+.wu-prose a {
+  color: #9fef00;
+  text-decoration: underline;
+}
+.wu-prose ul,
+.wu-prose ol {
+  margin: 0.6em 0;
+  padding-left: 1.4em;
+}
+.wu-prose li {
+  margin: 0.25em 0;
+}
+.wu-prose li::marker {
+  color: #9fef00;
+}
+.wu-prose code {
+  background: #131c2b;
+  color: #9fef00;
+  padding: 0.1em 0.35em;
+  border: 1px solid rgba(159, 239, 0, 0.25);
+  border-radius: 2px;
+  font-size: 0.9em;
+}
+.wu-prose pre {
+  border: 2px solid var(--ink);
+  padding: 0.9em 1em;
+  overflow-x: auto;
+  margin: 1em 0;
+  box-shadow: 3px 3px 0 rgba(244, 244, 245, 0.15);
+}
+.wu-prose pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font-size: 0.88em;
+}
+.wu-prose blockquote {
+  border-left: 3px solid #9fef00;
+  padding-left: 1em;
+  margin: 1em 0;
+  color: var(--ink-soft);
+}
+.wu-prose img {
+  max-width: 100%;
+  height: auto;
+  border: 2px solid var(--ink);
+  margin: 1em 0;
+}
+.wu-prose hr {
+  border: none;
+  border-top: 2px dashed rgba(244, 244, 245, 0.35);
+  margin: 1.3em 0;
+}
+.wu-prose table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  font-size: 12px;
+  display: block;
+  overflow-x: auto;
+}
+.wu-prose th,
+.wu-prose td {
+  border: 1px solid var(--ink-soft);
+  padding: 0.4em 0.6em;
+  text-align: left;
+}
+.wu-prose th {
+  background: #131c2b;
+  color: #9fef00;
+}
+
+/* Terminal (cursor parpadeante) */
+@keyframes term-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.term-cursor {
+  display: inline-block;
+  width: 9px;
+  height: 1.05em;
+  background: #f4f4f5;
+  vertical-align: text-bottom;
+  animation: term-blink 1s steps(1) infinite;
 }
 
 /* ── Scrollbar ── */

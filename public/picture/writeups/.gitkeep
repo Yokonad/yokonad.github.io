@@ -1,0 +1,4 @@
+# Imágenes de los write-ups: iconos de máquinas y capturas.
+# Úsalas así:
+#   - Icono en el frontmatter:  icon: "/picture/writeups/nombre.webp"
+#   - Captura dentro del .md:    ![alt](/picture/writeups/captura.png)
