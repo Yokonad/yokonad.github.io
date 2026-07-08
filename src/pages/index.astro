@@ -287,7 +287,7 @@ const tagStyle = (t) => {
     <!-- ═══════════ HACK THE BOX ═══════════ -->
     <section class="space-y-4">
       <div class="section-label">// Hack The Box</div>
-      <div class="grid gap-3 md:grid-cols-2">
+      <div class="grid gap-3">
         <!-- Perfil HTB (toda la tarjeta es enlace) -->
         <a
           href="https://app.hackthebox.com/users/2072316"
@@ -308,7 +308,7 @@ const tagStyle = (t) => {
           </div>
         </a>
 
-        <!-- Write-ups (2 botones) -->
+        {/* Write-ups OCULTO temporalmente. Para mostrarlo de nuevo: quita las marcas de comentario que lo rodean y vuelve a poner "md:grid-cols-2" en el grid de arriba.
         <div class="win overflow-hidden flex flex-col">
           <div class="win-bar" style="background:#131c2b;color:var(--cream)">
             <span class="scramble">WRITE-UPS</span>
@@ -324,6 +324,7 @@ const tagStyle = (t) => {
             >▸ Ver write-ups</a>
           </div>
         </div>
+        */}
       </div>
     </section>
 
