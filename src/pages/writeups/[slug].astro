@@ -3,8 +3,13 @@ import Layout from '../../layouts/Layout.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
+  // Write-ups con página propia (estructura hecha a mano); se excluyen del
+  // renderizado automático de esta ruta dinámica.
+  const CUSTOM_PAGES = ['htb-makesense'];
   const entries = await getCollection('writeups');
-  return entries.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+  return entries
+    .filter((entry) => !CUSTOM_PAGES.includes(entry.id))
+    .map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
 }
 
 const { entry } = Astro.props;
@@ -25,6 +30,8 @@ const d = diffColor[entry.data.difficulty] || diffColor.Easy;
   title={`${entry.data.title} · write-ups`}
   description={entry.data.summary || `Write-up de ${entry.data.title} en Hack The Box.`}
   path={`/writeups/${entry.id}/`}
+  image={entry.data.icon || '/picture/avatars/yokonad.webp'}
+  type="article"
 >
   <div class="codex-edges codex-stack w-full py-4 sm:py-6">
     <!-- ═══════════ MASTHEAD ═══════════ -->
@@ -45,19 +52,34 @@ const d = diffColor[entry.data.difficulty] || diffColor.Easy;
         <span class="truncate">{entry.data.title}</span>
         <span class="win-btns"><i></i><i></i><i></i></span>
       </div>
+
+      <!-- Banner de portada con la cara pixel-art (igual que makesense) -->
+      <div
+        class="relative h-24 sm:h-36 border-b-2 border-[var(--ink)] overflow-hidden"
+        style={`background: radial-gradient(circle at 18% 25%, rgba(255,255,255,0.06), transparent 55%), repeating-linear-gradient(135deg, ${NAVY} 0px, ${NAVY} 18px, #0a0e15 18px, #0a0e15 36px);`}
+      >
+        <img
+          src="/picture/writeups/makesense-face.png"
+          alt=""
+          aria-hidden="true"
+          class="absolute right-3 sm:right-8 top-1/2 -translate-y-1/2 h-[128%] sm:h-[150%] w-auto pointer-events-none select-none"
+          style="image-rendering:pixelated;opacity:0.55;"
+        />
+      </div>
+
       <div class="p-4 sm:p-6">
-        <!-- Cabecera: imagen grande a un lado + título y datos al costado -->
-        <div class="flex flex-col sm:flex-row gap-4 sm:gap-6 items-start">
+        <!-- Cabecera: icono redondo al costado del título (ya bajo el banner) -->
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 items-start">
           {entry.data.icon && (
             <img
               src={entry.data.icon}
               alt={entry.data.title}
               loading="eager"
-              class="w-28 h-28 sm:w-44 sm:h-44 object-contain shrink-0 self-start"
+              class="w-32 h-32 sm:w-44 sm:h-44 object-contain shrink-0 drop-shadow-[0_6px_16px_rgba(0,0,0,0.65)]"
             />
           )}
           <div class="min-w-0 flex-1">
-            <h1 class="display text-2xl sm:text-3xl uppercase leading-none" style="color:#9fef00">{entry.data.title}</h1>
+            <h1 class="display text-2xl sm:text-3xl uppercase leading-none" style="color:var(--cream)">{entry.data.title}</h1>
             <div class="flex items-center gap-2 flex-wrap mt-3">
               <span class="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide border" style={`border-color:${d.c};color:${d.c};background:${d.bg}`}>{entry.data.difficulty}</span>
               <span class="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide border" style={`border-color:${osColor[entry.data.os] || '#9a9aa3'};color:${osColor[entry.data.os] || '#9a9aa3'}`}>{entry.data.os}</span>
@@ -90,3 +112,93 @@ const d = diffColor[entry.data.difficulty] || diffColor.Easy;
     </footer>
   </div>
 </Layout>
+
+<script is:inline>
+  // Convierte los blockquotes marcados [FLAG:USER]/[FLAG:ROOT] en una caja de
+  // bandera capturada, con su banderita pixel-art ondeante (verde/rojo).
+  (() => {
+    const build = (kind, color, innerHTML) => {
+      const box = document.createElement('div');
+      box.className = 'wu-flag';
+      box.style.setProperty('--cc', color);
+
+      const tag = document.createElement('span');
+      tag.className = 'wu-flag-tag';
+      tag.textContent = kind;
+      if (kind === 'ROOT') { tag.style.background = color; tag.style.color = '#0a0e15'; }
+
+      const txt = document.createElement('span');
+      txt.className = 'wu-flag-txt';
+      txt.innerHTML = innerHTML;
+
+      const flag = document.createElement('span');
+      flag.className = 'pxflag';
+      flag.style.setProperty('--fc', color);
+      flag.setAttribute('aria-hidden', 'true');
+      const pole = document.createElement('span'); pole.className = 'pxflag-pole';
+      const cloth = document.createElement('span'); cloth.className = 'pxflag-cloth';
+      for (let i = 0; i < 7; i++) cloth.appendChild(document.createElement('i'));
+      flag.appendChild(pole); flag.appendChild(cloth);
+
+      box.appendChild(tag); box.appendChild(txt); box.appendChild(flag);
+      return box;
+    };
+
+    document.querySelectorAll('.wu-prose blockquote').forEach((bq) => {
+      const m = bq.textContent.match(/^\s*\[FLAG:(USER|ROOT)\]/);
+      if (!m) return;
+      const kind = m[1];
+      const color = kind === 'USER' ? '#9fef00' : '#ff3e3e';
+      const src = bq.querySelector('p') || bq;
+      const html = src.innerHTML.replace(/^\s*\[FLAG:(USER|ROOT)\]\s*/, '');
+      bq.replaceWith(build(kind, color, html));
+    });
+  })();
+
+  // Convierte los títulos "N. Título" en un badge con el número + título, y hace
+  // que los números hagan scramble periódico (mismo efecto que makesense).
+  (() => {
+    const heads = Array.from(document.querySelectorAll('.wu-prose h2'));
+    const badges = [];
+    heads.forEach((h) => {
+      const m = h.textContent.match(/^\s*(\d+)\.\s*(.+)$/s);
+      if (!m) return;
+      h.textContent = '';
+      const badge = document.createElement('span');
+      badge.className = 'wu-badge';
+      badge.textContent = m[1];
+      const title = document.createElement('span');
+      title.textContent = m[2];
+      h.appendChild(badge);
+      h.appendChild(title);
+      badges.push(badge);
+    });
+
+    if (!badges.length) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const GLYPHS = 'ABCDEFGHKMNPQRSTUVWXYZ0123456789#%$&';
+    const rnd = () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+    badges.forEach((b) => (b.dataset.final = b.textContent.trim()));
+
+    function scramble(el) {
+      const final = el.dataset.final;
+      let frame = 0;
+      clearInterval(el._sid);
+      el._sid = setInterval(() => {
+        frame++;
+        if (frame >= 12) {
+          clearInterval(el._sid);
+          el.textContent = final;
+          return;
+        }
+        el.textContent = final.split('').map(rnd).join('');
+      }, 55);
+    }
+
+    setInterval(() => {
+      if (document.hidden) return;
+      badges.forEach((b, i) => setTimeout(() => scramble(b), i * 130));
+    }, 5000);
+  })();
+</script>
