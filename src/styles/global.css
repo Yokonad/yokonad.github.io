@@ -493,34 +493,76 @@ a {
   object-fit: contain;
 }
 
-/* Contenido markdown renderizado (tema Hack The Box) */
+/* ─────────────────────────────────────────────
+   Contenido markdown de los write-ups (mismo estilo que makesense):
+   terminales negras, títulos de paso con badge, poco color.
+   ───────────────────────────────────────────── */
 .wu-prose {
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 13.5px;
+  line-height: 1.75;
   color: var(--ink);
+
+  /* paleta de código: negro, texto blanco, comandos en verde */
+  --astro-code-foreground: #f4f4f5;
+  --astro-code-background: #000000;
+  --astro-code-token-keyword: #9fef00;
+  --astro-code-token-function: #9fef00;
+  --astro-code-token-link: #9fef00;
+  --astro-code-token-string: #f4f4f5;
+  --astro-code-token-string-expression: #f4f4f5;
+  --astro-code-token-constant: #f4f4f5;
+  --astro-code-token-parameter: #f4f4f5;
+  --astro-code-token-punctuation: #9a9aa3;
+  --astro-code-token-comment: #6a6a72;
+  --astro-code-token-inserted: #9fef00;
+  --astro-code-token-deleted: #ff6b6b;
+  --astro-code-token-changed: #f4f4f5;
 }
 .wu-prose > :first-child {
   margin-top: 0;
 }
+
+/* Títulos de paso (## N. Título) — el número se convierte en badge vía JS */
 .wu-prose h2 {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
   font-family: 'IBM Plex Mono', monospace;
   font-weight: 700;
-  color: #9fef00;
-  font-size: 0.92rem;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
-  margin: 1.6em 0 0.5em;
+  color: var(--cream);
+  font-size: 15px;
+  line-height: 1.25;
+  padding-bottom: 0.45rem;
+  margin: 1.7em 0 0.8em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+.wu-prose h2 .wu-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  font-family: 'Rubik Mono One', monospace;
+  font-size: 12px;
+  color: var(--cream);
+  border: 1.5px solid rgba(255, 255, 255, 0.4);
+  background: transparent;
 }
 .wu-prose h3 {
-  color: #9fef00;
+  color: var(--cream);
   font-weight: 700;
-  font-size: 0.82rem;
+  font-size: 0.86rem;
   text-transform: uppercase;
   letter-spacing: 0.04em;
   margin: 1.2em 0 0.4em;
 }
 .wu-prose p {
-  margin: 0.7em 0;
+  margin: 0.8em 0;
+}
+.wu-prose strong {
+  color: var(--cream);
+  font-weight: 700;
 }
 .wu-prose a {
   color: #9fef00;
@@ -532,32 +574,62 @@ a {
   padding-left: 1.4em;
 }
 .wu-prose li {
-  margin: 0.25em 0;
+  margin: 0.3em 0;
 }
 .wu-prose li::marker {
-  color: #9fef00;
+  color: var(--ink-soft);
 }
 .wu-prose code {
   background: #131c2b;
   color: #9fef00;
-  padding: 0.1em 0.35em;
-  border: 1px solid rgba(159, 239, 0, 0.25);
+  padding: 0.08em 0.35em;
+  border: 1px solid rgba(159, 239, 0, 0.22);
   border-radius: 2px;
-  font-size: 0.9em;
+  font-size: 0.88em;
+  word-break: break-word;
 }
+
+/* Ficha del objetivo: la PRIMERA lista del markdown (Sistema/IP/banderas) */
+.wu-prose > ul:first-of-type {
+  list-style: none;
+  margin: 0 0 1.6em;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+}
+.wu-prose > ul:first-of-type li {
+  margin: 0;
+  padding: 0.5rem 0.9rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.wu-prose > ul:first-of-type li:last-child {
+  border-bottom: none;
+}
+.wu-prose > ul:first-of-type li strong {
+  display: inline-block;
+  min-width: 150px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  font-weight: 700;
+}
+
+/* Terminales (bloques de código): caja negra sobria, sin barra ni etiqueta */
 .wu-prose pre {
-  border: 2px solid var(--ink);
-  padding: 0.9em 1em;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  padding: 0.85em 1em;
   overflow-x: auto;
-  margin: 1em 0;
-  box-shadow: 3px 3px 0 rgba(244, 244, 245, 0.15);
+  margin: 0.85em 0;
+  background: #000000;
 }
 .wu-prose pre code {
   background: none;
   border: none;
   padding: 0;
   color: inherit;
-  font-size: 0.88em;
+  font-size: 0.82rem;
+  line-height: 1.6;
 }
 .wu-prose blockquote {
   border-left: 3px solid #9fef00;
@@ -573,7 +645,7 @@ a {
 }
 .wu-prose hr {
   border: none;
-  border-top: 2px dashed rgba(244, 244, 245, 0.35);
+  border-top: 1px dashed rgba(244, 244, 245, 0.28);
   margin: 1.3em 0;
 }
 .wu-prose table {
@@ -593,6 +665,222 @@ a {
 .wu-prose th {
   background: #131c2b;
   color: #9fef00;
+}
+
+/* Caja de bandera capturada (generada vía JS a partir de un blockquote
+   marcado con [FLAG:USER]/[FLAG:ROOT]). Mismo estilo que makesense. */
+.wu-flag {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  border: 1px solid var(--cc);
+  background: color-mix(in srgb, var(--cc) 8%, transparent);
+  padding: 0.8rem 1rem;
+  margin: 1.2em 0;
+  font-size: 13px;
+}
+.wu-flag-tag {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  background: #9fef00;
+  color: #0a0e15;
+  padding: 0.15em 0.5em;
+  flex-shrink: 0;
+  align-self: flex-start;
+  margin-top: 2px;
+}
+.wu-flag-txt {
+  flex: 1 1 220px;
+  min-width: 0;
+}
+.wu-flag > .pxflag {
+  flex-shrink: 0;
+  margin-left: auto;
+  height: 22px;
+}
+
+/* ─────────────────────────────────────────────
+   Sprite pixel-art multi-frame (<PixelSprite>) — "gif" 8-bit
+   ───────────────────────────────────────────── */
+.pxsprite {
+  position: relative;
+  display: inline-block;
+  image-rendering: pixelated;
+  flex-shrink: 0;
+  vertical-align: middle;
+}
+.pxsprite svg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .pxsprite svg { animation: none !important; }
+  .pxsprite svg:first-child { opacity: 1; }
+}
+
+/* ─────────────────────────────────────────────
+   Ventana modal "La ruta que sigo" (<dialog>)
+   ───────────────────────────────────────────── */
+.ruta-dialog {
+  width: min(680px, 94vw);
+  max-height: 88vh;
+  padding: 0;
+  border: 2px solid var(--ink);
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: 6px 6px 0 rgba(244, 244, 245, 0.18);
+  overflow: hidden;
+}
+.ruta-dialog::backdrop {
+  background: rgba(0, 0, 0, 0.72);
+  backdrop-filter: blur(2px);
+}
+.ruta-dialog .win-bar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+.ruta-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  font-size: 12px;
+  line-height: 1;
+  color: #9fef00;
+  border: 1px solid rgba(159, 239, 0, 0.5);
+  background: transparent;
+  cursor: pointer;
+}
+.ruta-close:hover { background: rgba(159, 239, 0, 0.15); }
+.ruta-body {
+  max-height: calc(88vh - 40px);
+  overflow-y: auto;
+}
+
+/* ─────────────────────────────────────────────
+   Ojo pixel-art (<PixelEye>) — la pupila escanea de lado a lado
+   ───────────────────────────────────────────── */
+.pxeye {
+  image-rendering: pixelated;
+  flex-shrink: 0;
+}
+.pxeye-pupil {
+  animation: pxeye-scan 2.6s steps(2, end) infinite;
+}
+@keyframes pxeye-scan {
+  0%, 100% { transform: translateX(0); }
+  25%      { transform: translateX(4px); }
+  50%      { transform: translateX(0); }
+  75%      { transform: translateX(-4px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pxeye-pupil { animation: none; }
+}
+
+/* ─────────────────────────────────────────────
+   Banderita pixel-art ondeante (<PixelFlag>)
+   ───────────────────────────────────────────── */
+.pxflag {
+  display: inline-flex;
+  align-items: stretch;
+  height: 26px;
+  flex-shrink: 0;
+  image-rendering: pixelated;
+}
+.pxflag-pole {
+  position: relative;
+  width: 3px;
+  background: linear-gradient(#e6e6ea, #7a7a82);
+}
+/* remate del mástil (pequeño cuadro claro) */
+.pxflag-pole::before {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: -1px;
+  width: 5px;
+  height: 4px;
+  background: #d6cbf2;
+}
+.pxflag-cloth {
+  display: flex;
+  align-self: flex-start;
+  height: 62%;
+  margin-top: 2px;
+}
+/* cada franja vertical = columna de píxeles; el desfase entre columnas crea la
+   onda que recorre la tela, y steps() da el look "gif" pixelado */
+.pxflag-cloth i {
+  width: 4px;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      var(--fc) 0 4px,
+      color-mix(in srgb, var(--fc) 62%, #000) 4px 8px
+    );
+  animation: pxwave 0.9s steps(3, end) infinite;
+}
+.pxflag-cloth i:nth-child(1) { animation-delay: 0s; }
+.pxflag-cloth i:nth-child(2) { animation-delay: 0.1s; }
+.pxflag-cloth i:nth-child(3) { animation-delay: 0.2s; }
+.pxflag-cloth i:nth-child(4) { animation-delay: 0.3s; }
+.pxflag-cloth i:nth-child(5) { animation-delay: 0.4s; }
+.pxflag-cloth i:nth-child(6) { animation-delay: 0.5s; }
+.pxflag-cloth i:nth-child(7) { animation-delay: 0.6s; }
+@keyframes pxwave {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-4px); }
+  100% { transform: translateY(0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .pxflag-cloth i { animation: none; }
+}
+
+/* ─────────────────────────────────────────────
+   Componente <Terminal>: caja negra sobria, texto blanco, comandos en verde.
+   Sin barra de título ni etiqueta de lenguaje.
+   ───────────────────────────────────────────── */
+.term {
+  --astro-code-foreground: #f4f4f5;
+  --astro-code-background: #000000;
+  --astro-code-token-keyword: #9fef00;
+  --astro-code-token-function: #9fef00;
+  --astro-code-token-link: #9fef00;
+  --astro-code-token-string: #f4f4f5;
+  --astro-code-token-string-expression: #f4f4f5;
+  --astro-code-token-constant: #f4f4f5;
+  --astro-code-token-parameter: #f4f4f5;
+  --astro-code-token-punctuation: #9a9aa3;
+  --astro-code-token-comment: #6a6a72;
+  --astro-code-token-inserted: #9fef00;
+  --astro-code-token-deleted: #ff6b6b;
+  --astro-code-token-changed: #f4f4f5;
+
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  border-radius: 6px;
+  overflow: hidden;
+  margin: 0.85em 0;
+  background: #000000;
+}
+.term-body {
+  padding: 0.85em 1em;
+  overflow-x: auto;
+}
+.term-body pre {
+  background: transparent !important;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+.term-body code {
+  font-size: 0.82rem;
+  line-height: 1.6;
 }
 
 /* Terminal (cursor parpadeante) */
