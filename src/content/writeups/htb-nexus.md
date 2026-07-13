@@ -119,6 +119,8 @@ ssh jones@10.129.49.184
 
 Se entra como jones (con `y27xb3ha!!74GbR`) y se lee la **bandera de usuario** en `/home/jones/user.txt`.
 
+> [FLAG:USER] Bandera de usuario capturada en `/home/jones/user.txt`.
+
 ## 7. Escalada a root: path traversal en un servicio de root
 
 jones no tiene sudo ni SUID o capabilities aprovechables, así que se buscan tareas programadas, incluyendo los temporizadores de systemd además del cron clásico.
@@ -151,6 +153,8 @@ ssh -i root_key root@10.129.49.184
 ```
 
 Devuelve `uid=0(root)` y se lee la **bandera de root** en `/root/root.txt`.
+
+> [FLAG:ROOT] Bandera de root capturada en `/root/root.txt`.
 
 ## Resumen de la cadena
 
