@@ -1,0 +1,19 @@
+---
+// Terminal reutilizable para los write-ups: caja negra con el código resaltado
+// por Shiki heredando la paleta definida para `.term` en global.css
+// (fondo negro, texto blanco, comandos en verde).
+import { Code } from 'astro:components';
+
+interface Props {
+  code: string;
+  lang?: string;
+}
+
+const { code, lang = 'bash' } = Astro.props;
+---
+
+<div class="term">
+  <div class="term-body">
+    <Code code={code.trim()} lang={lang} theme="css-variables" />
+  </div>
+</div>
