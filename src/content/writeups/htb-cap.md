@@ -85,6 +85,8 @@ cat ~/user.txt
 
 La contraseña de FTP funciona tal cual en SSH: entro como nathan y leo la bandera de usuario en /home/nathan/user.txt. Ya tengo un punto de apoyo en el sistema; ahora toca escalar.
 
+> [FLAG:USER] Bandera de usuario capturada en `/home/nathan/user.txt`.
+
 ## 6. Escalada a root por capability cap_setuid
 
 Con una shell de usuario, antes de buscar exploits reviso las vías rápidas de escalada. Las capabilities son de las más directas cuando están mal puestas, así que enumero qué binarios las tienen:
@@ -101,6 +103,8 @@ cat /root/root.txt
 ```
 
 `os.setuid(0)` me convierte en root gracias a la capability, la shell resultante corre como uid 0 y con ella leo la bandera final en /root/root.txt.
+
+> [FLAG:ROOT] Bandera de root capturada en `/root/root.txt`.
 
 ## Resumen de la cadena
 
