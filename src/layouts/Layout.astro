@@ -5,8 +5,13 @@ const {
   title = 'yokonad',
   description = 'Yokonad (Dan Ramos Reynaldo) — portafolio de un estudiante de ciberseguridad y desarrollador web de Perú: proyectos de redes, Linux, Python y desarrollo web.',
   path = '/',
+  image = '/picture/avatars/yokonad.webp',
+  type = 'website',
 } = Astro.props;
-const canonical = 'https://yokonad.online' + path;
+const SITE = 'https://yokonad.online';
+const canonical = SITE + path;
+// URL absoluta de la imagen social (acepta ruta relativa o URL completa)
+const ogImage = image.startsWith('http') ? image : SITE + image;
 
 const schema = {
   '@context': 'https://schema.org',
@@ -14,7 +19,7 @@ const schema = {
   name: 'Yokonad',
   alternateName: 'Dan Ramos Reynaldo',
   url: 'https://yokonad.online/',
-  image: 'https://yokonad.online/picture/yokonad.webp',
+  image: 'https://yokonad.online/picture/avatars/yokonad.webp',
   jobTitle: 'Estudiante de Ciberseguridad y Desarrollador Web',
   sameAs: ['https://github.com/Yokonad', 'https://www.instagram.com/yk.nadrr/'],
 };
@@ -33,21 +38,15 @@ const schema = {
     <meta name="author" content="Yokonad" />
     <meta name="robots" content="index, follow" />
     <link rel="canonical" href={canonical} />
-    <meta property="og:type" content="website" />
+    <meta property="og:type" content={type} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:title" content="Yokonad | Portafolio" />
-    <meta
-      property="og:description"
-      content="Portafolio de Yokonad: proyectos de ciberseguridad, redes, desarrollo web, Linux, React y Python."
-    />
-    <meta property="og:image" content="https://yokonad.online/picture/yokonad.webp" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content="Yokonad | Portafolio" />
-    <meta
-      name="twitter:description"
-      content="Portafolio de Yokonad: ciberseguridad, redes, desarrollo web, Linux, React y Python."
-    />
-    <meta name="twitter:image" content="https://yokonad.online/picture/yokonad.webp" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -55,7 +54,7 @@ const schema = {
       rel="stylesheet"
     />
     <meta name="theme-color" content="#6b4fd6" />
-    <link rel="icon" href="/picture/linux.ico" />
+    <link rel="icon" href="/picture/logos/linux.ico" />
     <title>{title}</title>
     <script type="application/ld+json" is:inline set:html={JSON.stringify(schema)} />
   </head>
