@@ -1,0 +1,50 @@
+---
+// Ojo pixel-art (para la fase de reconocimiento: "ojos sobre el objetivo").
+// La pupila escanea de lado a lado con animación en steps (look retro).
+// Estilos/animación en global.css (.pxeye).
+const P = 4; // tamaño de cada píxel
+
+// '#' = píxel encendido
+const outline = [
+  '...#####...',
+  '.##.....##.',
+  '#.........#',
+  '#.........#',
+  '#.........#',
+  '.##.....##.',
+  '...#####...',
+];
+const pupil = [
+  '...........',
+  '...........',
+  '....###....',
+  '....###....',
+  '....###....',
+  '...........',
+  '...........',
+];
+
+const W = outline[0].length;
+const H = outline.length;
+const cells = (grid) => {
+  const out = [];
+  grid.forEach((row, y) => [...row].forEach((c, x) => c === '#' && out.push([x, y])));
+  return out;
+};
+const oc = cells(outline);
+const pc = cells(pupil);
+---
+
+<svg
+  class="pxeye"
+  width={W * P}
+  height={H * P}
+  viewBox={`0 0 ${W * P} ${H * P}`}
+  shape-rendering="crispEdges"
+  aria-hidden="true"
+>
+  {oc.map(([x, y]) => <rect x={x * P} y={y * P} width={P} height={P} fill="#9fef00" />)}
+  <g class="pxeye-pupil">
+    {pc.map(([x, y]) => <rect x={x * P} y={y * P} width={P} height={P} fill="#eaffb0" />)}
+  </g>
+</svg>
