@@ -2,6 +2,38 @@
 import Layout from '../layouts/Layout.astro';
 import { getCollection } from 'astro:content';
 import HtbTerminal from '../components/HtbTerminal.jsx';
+import Terminal from '../components/Terminal.astro';
+import PixelEye from '../components/PixelEye.astro';
+import PixelSprite from '../components/PixelSprite.astro';
+
+const nmapCode = `# 1) ¿está viva? el TTL delata el SO (64 Linux · 128 Windows)
+ping -c 1 $IP
+# 2) todos los puertos, rápido
+sudo nmap -p- --min-rate 2000 -T4 -Pn -n $IP
+# 3) versiones + scripts solo sobre los abiertos
+sudo nmap -p 22,80,443 -sC -sV -Pn -n $IP`;
+
+// ── Sprites 8-bit para cada paso de la ruta ──────────────────────────────────
+// Enumeración: lupa con destello que se mueve
+const enumFrames = [
+  ['.gggg.....', 'g....g....', 'g.l..g....', 'g....g....', 'g....g....', '.gggg.....', '......g...', '.......g..', '........g.'],
+  ['.gggg.....', 'g....g....', 'g...lg....', 'g....g....', 'g....g....', '.gggg.....', '......g...', '.......g..', '........g.'],
+];
+// Explotación: calavera que parpadea los ojos
+const skullFrames = [
+  ['.ggggg...', 'g.....g..', 'g.w.w.g..', 'g..g..g..', 'g.ggg.g..', '.g.g.g...'],
+  ['.ggggg...', 'g.....g..', 'g.....g..', 'g..g..g..', 'g.ggg.g..', '.g.g.g...'],
+];
+// Loot: llave con destello que brilla
+const keyFrames = [
+  ['.ggg.......', 'g...g......', 'g.l.g.gggg.', 'g...g....g.', '.ggg....g..'],
+  ['.ggg.......', 'g...g......', 'g...g.gggg.', 'g...g....g.', '.ggg....g..'],
+];
+// Root: corona con gemas que titilan
+const crownFrames = [
+  ['g...g...g..', 'g.y.g.y.g..', 'g.g.g.g.g..', 'ggggggggg..', 'ggggggggg..'],
+  ['g...g...g..', 'g.l.g.l.g..', 'g.g.g.g.g..', 'ggggggggg..', 'ggggggggg..'],
+];
 
 const diffColor = {
   Easy: { c: '#9fef00', bg: 'rgba(159,239,0,0.14)' },
@@ -58,6 +90,25 @@ const total = entries.length;
         <p class="text-[13px] text-[var(--ink-soft)]">Aún no hay write-ups. Añade archivos <code>.md</code> en <code>src/content/writeups/</code>.</p>
       ) : (
         <div class="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+          <!-- Tarjeta compacta: abre la ventana de metodología -->
+          <button type="button" class="win flex flex-col text-left" onclick="document.getElementById('ruta-modal').showModal()">
+            <div class="win-bar" style="background:#000;color:#9fef00">
+              <span class="scramble">LA-RUTA-QUE-SIGO</span>
+              <span class="win-btns"><i></i><i></i><i></i></span>
+            </div>
+            <div class="p-3 flex-1 flex flex-col gap-2.5" style="background:#000">
+              <div class="flex items-center gap-2.5">
+                <PixelEye />
+                <span class="text-[10px] uppercase tracking-[0.18em] text-[var(--ink-soft)]">Metodología</span>
+              </div>
+              <p class="text-[11.5px] leading-snug text-[var(--ink-soft)] flex-1">Reconocer, enumerar, entrar y escalar: el mapa que sigo en cada máquina, paso a paso.</p>
+              <div class="flex items-center justify-between mt-1 pt-2 border-t border-dashed border-[rgba(159,239,0,0.25)]">
+                <span class="text-[10px] text-[var(--ink-soft)]">5 pasos</span>
+                <span class="text-[11px] font-bold" style="color:#9fef00">Abrir ▸</span>
+              </div>
+            </div>
+          </button>
+
           {entries.map((e) => {
             const d = diffColor[e.data.difficulty] || diffColor.Easy;
             return (
@@ -105,4 +156,133 @@ const total = entries.length;
       <span class="text-[9px] sm:text-[12px] font-bold tracking-[0.12em] uppercase">HACK THE BOX · WRITE-UPS</span>
     </footer>
   </div>
+
+  <!-- ═══════════ MODAL: LA RUTA QUE SIGO ═══════════ -->
+  <dialog id="ruta-modal" class="ruta-dialog">
+    <div class="win-bar" style="background:#000;color:#9fef00">
+      <span class="scramble">LA-RUTA-QUE-SIGO</span>
+      <button type="button" class="ruta-close" aria-label="Cerrar" onclick="document.getElementById('ruta-modal').close()">✕</button>
+    </div>
+    <div class="ruta-body p-4 sm:p-6">
+      <p class="text-[12.5px] leading-relaxed text-[var(--ink-soft)]">
+        El mismo mapa en (casi) toda máquina: <span class="hl" style="background:#9fef00;color:#0a0e15">reconocer</span>,
+        enumerar, entrar y escalar. Así arranco siempre.
+      </p>
+
+      <!-- Paso 1: Reconocimiento -->
+      <div class="route-step mt-5">
+        <div class="route-head">
+          <span class="route-badge">1</span>
+          <PixelEye />
+          <h3 class="route-title">Reconocimiento</h3>
+        </div>
+        <p class="route-desc">
+          Ojos sobre el objetivo: confirmo que la máquina vive y escaneo <strong>todos</strong> los puertos con
+          <code>nmap</code>; después lanzo versiones y scripts solo sobre los abiertos.
+        </p>
+        <Terminal code={nmapCode} lang="bash" />
+      </div>
+
+      <!-- Paso 2: Enumeración -->
+      <div class="route-step">
+        <div class="route-head">
+          <span class="route-badge">2</span>
+          <PixelSprite name="enum" frames={enumFrames} fps={2.5} />
+          <h3 class="route-title">Enumeración</h3>
+        </div>
+        <p class="route-desc">Analizo cada servicio, sobre todo la web: rutas, scripts del cliente y componentes hechos a medida, que es donde suele esconderse el fallo.</p>
+      </div>
+
+      <!-- Paso 3: Explotación -->
+      <div class="route-step">
+        <div class="route-head">
+          <span class="route-badge">3</span>
+          <PixelSprite name="skull" frames={skullFrames} fps={1.6} />
+          <h3 class="route-title">Explotación → foothold</h3>
+        </div>
+        <p class="route-desc">Exploto la vulnerabilidad que encuentro (IDOR, clave filtrada en JS, XSS ciego, subida de archivos, mass assignment…) hasta conseguir la primera shell.</p>
+      </div>
+
+      <!-- Paso 4: Loot -->
+      <div class="route-step">
+        <div class="route-head">
+          <span class="route-badge">4</span>
+          <PixelSprite name="key" frames={keyFrames} fps={2.5} />
+          <h3 class="route-title">Loot & pivote</h3>
+        </div>
+        <p class="route-desc">Saqueo credenciales —casi siempre reutilizadas: wp-config, .env, un PCAP, la base de datos— para saltar a un usuario con sesión y leer user.txt.</p>
+      </div>
+
+      <!-- Paso 5: Escalada a root -->
+      <div class="route-step">
+        <div class="route-head">
+          <span class="route-badge">5</span>
+          <PixelSprite name="crown" frames={crownFrames} fps={2.5} />
+          <h3 class="route-title">Escalada a root</h3>
+        </div>
+        <p class="route-desc">Busco el vector: capabilities, binarios SUID, servicios o cron corriendo como root, o un CVE del kernel. Con root, la bandera final.</p>
+      </div>
+    </div>
+  </dialog>
+
+  <script is:inline>
+    // Cerrar el modal al hacer clic fuera (sobre el backdrop)
+    (() => {
+      const dlg = document.getElementById('ruta-modal');
+      if (!dlg) return;
+      dlg.addEventListener('click', (e) => {
+        if (e.target === dlg) dlg.close();
+      });
+    })();
+  </script>
 </Layout>
+
+<style>
+  .route-step {
+    padding-left: 1rem;
+    margin-top: 1.3rem;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .route-head {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    margin-left: -1rem;
+  }
+  .route-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    flex-shrink: 0;
+    font-family: 'Rubik Mono One', monospace;
+    font-size: 12px;
+    color: var(--cream);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    background: #000;
+  }
+  .route-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--cream);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .route-desc {
+    margin: 0.5rem 0 0;
+    font-size: 12.5px;
+    line-height: 1.7;
+    color: var(--ink-soft);
+  }
+  .route-desc strong { color: var(--cream); }
+  .route-desc code {
+    background: #131c2b;
+    color: #9fef00;
+    padding: 0.05em 0.35em;
+    border: 1px solid rgba(159, 239, 0, 0.22);
+    border-radius: 2px;
+    font-size: 0.9em;
+  }
+</style>
