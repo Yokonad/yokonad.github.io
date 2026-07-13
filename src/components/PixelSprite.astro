@@ -1,0 +1,47 @@
+---
+// Sprite pixel-art multi-frame (efecto "gif 8-bit"). Cada frame es una grilla de
+// caracteres; se apilan y se cicla la visibilidad con una animación por instancia.
+// Estilos base en global.css (.pxsprite).
+const { frames, palette = {}, px = 4, fps = 3, name } = Astro.props;
+
+const N = frames.length;
+const H = frames[0].length;
+const W = frames[0][0].length;
+const dur = Number((N / fps).toFixed(3));
+const slot = Number((100 / N).toFixed(3));
+const anim = `pxs-${name}`;
+
+const DEFAULT = {
+  g: '#9fef00', // verde
+  l: '#eaffb0', // verde claro
+  w: '#f4f4f5', // blanco
+  d: '#6a6a72', // gris
+  r: '#ff6b6b', // rojo
+  y: '#ffb83e', // ámbar
+  b: '#4d9fff', // azul
+};
+const pal = { ...DEFAULT, ...palette };
+---
+
+<span class="pxsprite" style={`width:${W * px}px;height:${H * px}px`}>
+  {frames.map((frame, fi) => (
+    <svg
+      width={W * px}
+      height={H * px}
+      viewBox={`0 0 ${W * px} ${H * px}`}
+      shape-rendering="crispEdges"
+      aria-hidden="true"
+      style={`animation:${anim} ${dur}s linear infinite;animation-delay:${(-fi * dur / N).toFixed(3)}s`}
+    >
+      {frame.flatMap((row, y) =>
+        [...row].map((c, x) =>
+          c !== '.' && pal[c] ? (
+            <rect x={x * px} y={y * px} width={px} height={px} fill={pal[c]} />
+          ) : null
+        )
+      )}
+    </svg>
+  ))}
+</span>
+
+<style set:html={`@keyframes ${anim}{0%{opacity:1}${slot}%{opacity:1}${(slot + 0.01).toFixed(3)}%{opacity:0}100%{opacity:0}}`}></style>
