@@ -134,6 +134,8 @@ john --format=bcrypt --wordlist=rockyou.txt haris.hash
 
 El resultado es **haris : bestfriends**. El SSH de la máquina solo admite clave pública, así que no se puede entrar con la contraseña; en su lugar se cambia de usuario desde la reverse shell. Como `su` necesita una terminal real, antes se estabiliza la shell con una pseudo-terminal (`python3 -c 'import pty;pty.spawn("/bin/bash")'`) y luego se hace `su - haris`. Ya como haris se lee la **bandera de usuario** en `/home/haris/user.txt`.
 
+> [FLAG:USER] Bandera de usuario capturada en `/home/haris/user.txt`.
+
 ## 6. Escalada a root: OliveTin
 
 Enumerando qué corre en la máquina se ve un proceso **OliveTin ejecutándose como root** y escuchando solo en local, en `127.0.0.1:1337`. OliveTin es un panel web que lanza comandos predefinidos; si permite ejecutarlos sin autenticación y alguno mete datos del usuario en un comando de shell, es root directo.
@@ -156,6 +158,8 @@ La acción se ejecuta como root, así que `/tmp/rootbash` queda con el bit SUID 
 ```bash
 /tmp/rootbash -p -c 'id; cat /root/root.txt'
 ```
+
+> [FLAG:ROOT] Bandera de root capturada en `/root/root.txt`.
 
 ## Resumen de la cadena
 
