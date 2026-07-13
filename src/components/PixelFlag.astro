@@ -1,0 +1,16 @@
+---
+// Banderita pixel-art ondeante (animada con CSS puro, sin assets externos).
+// El ondeo usa steps() para dar el look "gif retro" a saltos.
+// Estilos en global.css (.pxflag).
+interface Props {
+  color?: string;
+}
+const { color = '#9fef00' } = Astro.props;
+---
+
+<span class="pxflag" style={`--fc:${color}`} aria-hidden="true">
+  <span class="pxflag-pole"></span>
+  <span class="pxflag-cloth">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+  </span>
+</span>
