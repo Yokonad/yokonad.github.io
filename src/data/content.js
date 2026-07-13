@@ -2,7 +2,7 @@
 // Edita este archivo para personalizar el contenido que se renderiza.
 
 export const profile = {
-  avatar: '/picture/yokonad.webp',
+  avatar: '/picture/avatars/yokonad.webp',
   location: 'Perú',
   links: [
     { label: 'GitHub', url: 'https://github.com/Yokonad' },
@@ -47,21 +47,21 @@ export const team = [
     name: 'LoonBac21',
     role: 'Co-Owner & Lead Dev',
     bio: 'Especializado en programación Python y fan de la ciberseguridad, planificador y organizador.',
-    avatar: '/picture/loonbac.webp',
+    avatar: '/picture/avatars/loonbac.webp',
     tags: ['Python', 'Android', 'Streaming'],
   },
   {
     name: 'Insent1208',
     role: 'Frontend Engineer',
     bio: 'Especialista en UI/UX FrontEnd y Diseño Gráfico enfocado en mejorar la experiencia de usuario. Creativo y detallista.',
-    avatar: '/picture/insent.webp',
+    avatar: '/picture/avatars/insent.webp',
     tags: ['Frontend', 'Python', 'UI/UX'],
   },
   {
     name: 'Yokonad',
     role: 'Owner & Fullstack Dev',
     bio: 'Experto en desarrollo web completo y arquitecturas escalables. Especialista en React y Node.js.',
-    avatar: '/picture/perfil_equipo.webp',
+    avatar: '/picture/avatars/perfil_equipo.webp',
     tags: ['Cisco', 'HTML', 'JavaScript'],
   },
 ];
