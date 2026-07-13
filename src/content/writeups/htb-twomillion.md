@@ -6,7 +6,7 @@ date: "2026-07-07"
 tags: ["api", "mass-assignment", "command-injection", "cve", "privesc"]
 summary: "La API del sistema de invitaciones permite registrarse; un mass assignment promueve la cuenta a admin, un endpoint con inyección de comandos da shell, y la escalada a root usa el CVE-2023-0386 de OverlayFS."
 platform: "HackTheBox"
-icon: "/picture/writeups/twomilion-htb.webp"
+icon: "/picture/writeups/twomillion-htb.webp"
 ---
 
 - **Sistema operativo:** Linux — Ubuntu 22.04 (kernel 5.15.70)
@@ -145,6 +145,8 @@ cat ~/user.txt
 
 Funciona: entro como admin y leo la bandera de usuario en /home/admin/user.txt. Ahora busco el camino a root.
 
+> [FLAG:USER] Bandera de usuario capturada en `/home/admin/user.txt`.
+
 ## 10. Escalada a root con CVE-2023-0386 (OverlayFS)
 
 Antes de buscar exploits a ciegas, reviso las pistas que deja el sistema. El correo local del usuario suele indicar el camino previsto:
@@ -173,6 +175,8 @@ cat /root/root.txt
 ```
 
 `exp` entrega una shell con `uid=0(root)`, con la que se lee la bandera final en /root/root.txt.
+
+> [FLAG:ROOT] Bandera de root capturada en `/root/root.txt`.
 
 ## Resumen de la cadena
 
