@@ -1,6 +1,12 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 import { profile, projects, team, teamName, teamDescription, comunidad } from '../data/content.js';
+
+// Nombres de los write-ups para la mini-terminal (se actualiza solo)
+const writeupNames = (await getCollection('writeups'))
+  .map((w) => w.id.replace(/^htb-/, ''))
+  .sort();
 
 const stack = [
   'Redes y subneteo — Cisco Packet Tracer',
@@ -120,7 +126,7 @@ const tagStyle = (t) => {
           </p>
         </div>
         <img
-          src="/picture/slash-titulo.webp"
+          src="/picture/logos/slash-titulo.webp"
           alt="Yokonad"
           loading="eager"
           class="w-full max-w-[420px] sm:max-w-lg lg:max-w-none lg:w-[48%] object-contain self-center lg:self-end shrink-0"
@@ -287,7 +293,7 @@ const tagStyle = (t) => {
     <!-- ═══════════ HACK THE BOX ═══════════ -->
     <section class="space-y-4">
       <div class="section-label">// Hack The Box</div>
-      <div class="grid gap-3">
+      <div class="grid gap-3 md:grid-cols-2">
         <!-- Perfil HTB (toda la tarjeta es enlace) -->
         <a
           href="https://app.hackthebox.com/users/2072316"
@@ -300,7 +306,7 @@ const tagStyle = (t) => {
             <span class="win-btns"><i></i><i></i><i></i></span>
           </div>
           <div class="w-full h-40 flex items-center justify-center border-b-2 border-[var(--ink)] p-4" style="background:#131c2b">
-            <img src="/picture/logo_htb.webp" alt="Hack The Box" loading="lazy" class="max-h-28 w-auto object-contain" />
+            <img src="/picture/logos/logo_htb.webp" alt="Hack The Box" loading="lazy" class="max-h-28 w-auto object-contain" />
           </div>
           <div class="p-4 text-[12.5px] leading-relaxed flex flex-col flex-1">
             <p class="mb-3 text-[var(--ink-soft)] flex-1">Mi perfil en <span class="hl" style="background:#9fef00;color:#0a0e15">Hack The Box</span>: máquinas comprometidas, retos y progreso en hacking ético.</p>
@@ -308,23 +314,27 @@ const tagStyle = (t) => {
           </div>
         </a>
 
-        {/* Write-ups OCULTO temporalmente. Para mostrarlo de nuevo: quita las marcas de comentario que lo rodean y vuelve a poner "md:grid-cols-2" en el grid de arriba.
-        <div class="win overflow-hidden flex flex-col">
-          <div class="win-bar" style="background:#131c2b;color:var(--cream)">
+        <!-- Write-ups (toda la tarjeta es enlace) -->
+        <a
+          href="/writeups"
+          class="win overflow-hidden flex flex-col"
+        >
+          <div class="win-bar" style="background:#000;color:#9fef00">
             <span class="scramble">WRITE-UPS</span>
             <span class="win-btns"><i></i><i></i><i></i></span>
           </div>
-          <div class="p-4 text-[12.5px] leading-relaxed flex flex-col flex-1">
-            <p class="mb-2">Mis <span class="hl" style="background:#9fef00;color:#0a0e15">write-ups</span> de máquinas y retos resueltos.</p>
-            <p class="mb-3 text-[var(--ink-soft)] flex-1">Soluciones paso a paso: reconocimiento, explotación y escalada de privilegios.</p>
-            <a
-              href="/writeups"
-              class="bar-title hover:brightness-110 transition-all text-center"
-              style="background:#9fef00;color:#0a0e15"
-            >▸ Ver write-ups</a>
+          <div class="w-full h-40 border-b-2 border-[var(--ink)] p-4 font-mono text-[12px] leading-[1.55] overflow-hidden" style="background:#000">
+            <div><span style="color:#6a6a72">yokonad@htb</span>:<span style="color:#4d9fff">~</span>$ <span style="color:#9fef00">whoami</span></div>
+            <div style="color:var(--cream)">yokonad</div>
+            <div><span style="color:#6a6a72">yokonad@htb</span>:<span style="color:#4d9fff">~</span>$ <span style="color:#9fef00">ls</span> ~/writeups</div>
+            <div style="color:var(--cream)">{writeupNames.join('  ')}</div>
+            <div><span style="color:#6a6a72">yokonad@htb</span>:<span style="color:#4d9fff">~</span>$ <span class="term-cursor"></span></div>
           </div>
-        </div>
-        */}
+          <div class="p-4 text-[12.5px] leading-relaxed flex flex-col flex-1">
+            <p class="mb-3 text-[var(--ink-soft)] flex-1">Mis <span class="hl" style="background:#9fef00;color:#0a0e15">write-ups</span> de máquinas y retos: reconocimiento, explotación y escalada de privilegios.</p>
+            <span class="bar-title" style="background:#9fef00;color:#0a0e15">▸ Ver write-ups</span>
+          </div>
+        </a>
       </div>
     </section>
 
@@ -420,7 +430,7 @@ const tagStyle = (t) => {
         <div class="win overflow-hidden flex flex-col">
           <div class="win-bar" style="background:var(--korosoft)"><span class="scramble">KoroSoft Community</span><span class="win-btns"><i></i><i></i><i></i></span></div>
           <div class="w-full h-40 flex items-center justify-center gap-3 sm:gap-4 border-b-2 border-[var(--ink)] p-4" style="background:linear-gradient(135deg,#2a1a6b,#6b4fd6)">
-            <img src="/picture/linux-svgrepo-com.webp" alt="Tux" loading="lazy" class="w-16 h-16 sm:w-20 sm:h-20 shrink-0 object-contain" />
+            <img src="/picture/logos/linux-svgrepo-com.webp" alt="Tux" loading="lazy" class="w-16 h-16 sm:w-20 sm:h-20 shrink-0 object-contain" />
             <span class="display text-3xl sm:text-4xl uppercase tracking-wider text-white" style="text-shadow:2px 2px 0 rgba(0,0,0,0.4)">KoroSoft</span>
           </div>
           <div class="p-4 text-[12.5px] leading-relaxed flex flex-col flex-1">
@@ -441,7 +451,7 @@ const tagStyle = (t) => {
         <div class="win overflow-hidden flex flex-col">
           <div class="win-bar" style="background:#c1121f"><span class="scramble">CyberSen</span><span class="win-btns"><i></i><i></i><i></i></span></div>
           <div class="w-full h-40 flex items-center justify-center border-b-2 border-[var(--ink)] p-4" style="background:linear-gradient(135deg,#6a040f,#d62828)">
-            <img src="/picture/cybersen-logo-blanco.webp" alt="CyberSen" loading="lazy" class="max-h-24 w-auto object-contain" />
+            <img src="/picture/logos/cybersen-logo-blanco.webp" alt="CyberSen" loading="lazy" class="max-h-24 w-auto object-contain" />
           </div>
           <div class="p-4 text-[12.5px] leading-relaxed flex flex-col flex-1">
             <p class="mb-2"><span style="background:#d62828;color:#fff5f5;padding:0.02em 0.2em;font-weight:700">Hacking ético · CTF</span></p>
@@ -535,31 +545,31 @@ const tagStyle = (t) => {
     <!-- ═══════════ 9 · CITA (cierre) ═══════════ -->
     <section class="relative mt-3 sm:mt-4 border-2 border-[var(--ink)] bg-[var(--panel)] p-5 sm:p-7">
       <img
-        src="/picture/monito-pin.webp"
+        src="/picture/pins/monito-pin.webp"
         alt="Yokonad pin"
         loading="lazy"
         class="absolute -top-7 -left-4 sm:-top-8 sm:-left-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[-10deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
       />
       <img
-        src="/picture/claude-pin.webp"
+        src="/picture/pins/claude-pin.webp"
         alt="Claude pin"
         loading="lazy"
         class="absolute -top-7 -right-4 sm:-top-8 sm:-right-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[10deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
       />
       <img
-        src="/picture/ninja-pin.webp"
+        src="/picture/pins/ninja-pin.webp"
         alt="Ninja pin"
         loading="lazy"
         class="absolute -bottom-7 -right-4 sm:-bottom-8 sm:-right-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[-8deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
       />
       <img
-        src="/picture/badusb-pin.webp"
+        src="/picture/pins/badusb-pin.webp"
         alt="BadUSB pin"
         loading="lazy"
         class="absolute -bottom-7 -left-4 sm:-bottom-8 sm:-left-8 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[8deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
       />
       <img
-        src="/picture/infected-pin.webp"
+        src="/picture/pins/infected-pin.webp"
         alt="Infected pin"
         loading="lazy"
         class="absolute -top-8 sm:-top-9 left-1/2 -translate-x-1/2 z-20 w-[59px] h-[59px] sm:w-[68px] sm:h-[68px] object-contain rotate-[4deg] drop-shadow-[3px_3px_0_rgba(244,244,245,0.3)] pointer-events-none"
