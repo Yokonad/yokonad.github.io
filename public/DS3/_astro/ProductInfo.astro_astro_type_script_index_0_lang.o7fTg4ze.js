@@ -1,0 +1,1 @@
+import{t as e}from"./gallery-modal.vLN3Hfj9.js";document.addEventListener(`DOMContentLoaded`,()=>{e()});
